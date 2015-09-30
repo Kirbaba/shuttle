@@ -1,0 +1,92 @@
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin background-clip($clip) {
+    -o-background-clip: $clip;
+       background-clip: $clip;
+}
+
+@mixin box-shadow($top, $left, $blur, $color) {
+      -webkit-box-shadow:$top $left $blur $color;
+      -moz-box-shadow:$top $left $blur $color;
+      box-shadow:$top $left $blur $color;
+    }
+	
+
+@mixin transition($t) {
+	-webkit-transition: all $t linear;
+	   -moz-transition: all $t linear;
+	    -ms-transition: all $t linear;
+	     -o-transition: all $t linear;
+	        transition: all $t linear;
+}	
+
+@mixin bgs($size) {
+	-webkit-background-size: $size;
+	     -o-background-size: $size;
+	        background-size: $size;
+}
+	
+@mixin text-shadow ($shadow) {
+	text-shadow: $shadow;
+}
+
+@mixin after_left() {
+	&:after {
+		content: "";
+		position: absolute;
+		width: 55%;
+		height: 0;
+		left: 0;
+		bottom: 0;
+		margin-left: -54px;
+		border: 20px solid transparent;
+		border-bottom-color: #fff;
+		border-left: 0;
+		z-index: 1;
+	} 
+}
+
+
+@mixin after_right() {
+	&:after {
+		content: "";
+		position: absolute;
+		width: 55%;
+		height: 0;
+		right: 0;
+		bottom: -40px;
+		margin-left: -54px;
+		border: 20px solid transparent;
+		border-top-color: #fff;
+		border-right: 0;
+		z-index: 1;
+	} 
+}
+
+@mixin HeaderBord() {
+	border-style: solid;
+	-webkit-border-image: 
+	-webkit-gradient(linear, 0 0, 100% 0, from(black), to(rgba(0, 0, 0, 0.5))) 1 100%;
+	-webkit-border-image: 
+	-webkit-linear-gradient(left, black, rgba(0, 0, 0, 0.5)) 1 100%;
+	-moz-border-image:
+	-moz-linear-gradient(left, black, rgba(0, 0, 0, 0.5)) 1 100%; 
+	-o-border-image:
+	-o-linear-gradient(left, black, rgba(0, 0, 0, 0.5)) 1 100%;
+	border-image:
+	linear-gradient(to left, black, rgba(0, 0, 0, 0.5)) 1 100%;   
+}
+
+@mixin grayscale($n) {
+	-webkit-filter: grayscale($n);
+	-moz-filter: grayscale($n);
+	-ms-filter: grayscale($n);
+	-o-filter: grayscale($n);
+	filter: grayscale($n);
+	filter: gray; /* IE 6-9 */
+}

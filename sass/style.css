@@ -1,0 +1,39 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #fff;
+  min-width: 1020px;
+  background-image: url(../img/Space-background.jpg); }
+
+.contain {
+  width: 990px;
+  padding: 0 15px;
+  display: block;
+  margin: 0 auto;
+  position: relative; }
+  .contain:before, .contain:after {
+    display: table;
+    content: " "; }
+  .contain:after {
+    clear: both; }
+
+a {
+  text-decoration: none; }
+  a:hover, a:focus, a:active {
+    outline: none;
+    text-decoration: none; }
+
+ul {
+  list-style-type: none; }
+
+.white {
+  color: #FFF; }
+
+.enter {
+  height: 100%;
+  padding-top: 11.90476%;
+  background-color: #fff; }
+
+/*# sourceMappingURL=style.css.map */

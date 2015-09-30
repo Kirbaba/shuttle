@@ -1,0 +1,45 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background-color: #fff;
+	min-width: 1020px;
+	background-image: url(../img/Space-background.jpg);
+}
+
+.contain {
+	width: 1020px - 30px;
+	padding: 0 15px;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	&:before,
+	&:after{		
+		display: table;
+  		content: " ";
+	}
+	&:after{
+		clear: both;
+	}
+}
+
+a {
+	text-decoration: none;
+	&:hover, &:focus, &:active{
+		outline: none;
+		text-decoration: none;
+	}
+}
+
+ul {
+	list-style-type: none;
+}
+
+.blockTitle {
+
+}
+
+.white {
+	color: #FFF;
+}
