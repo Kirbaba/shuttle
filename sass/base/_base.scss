@@ -6,6 +6,7 @@ body {
 	background-color: #fff;
 	min-width: 1020px;
 	background-image: url(../img/Space-background.jpg);
+	font-family: $PT;
 }
 
 .contain {
@@ -42,4 +43,8 @@ ul {
 
 .white {
 	color: #FFF;
+}
+
+.active {
+	color: $yellow!important;
 }

@@ -13,7 +13,7 @@
 		display: block;
 		position: relative;
 		margin: 0 auto;
-		width: 165px;
+		width: 165px;		
 		img {
 			width: 100%;
 		}
@@ -221,8 +221,8 @@
 			     -o-background-size: 100%;
 			        background-size: 100%;
 			&:hover {
-				// @include text-shadow(0 2px 2px rgba(2,3,3,.55));
-				// @include text-shadow(0 0 9px rgba(255,255,255,.35));
+				@include text-shadow(0 2px 2px rgba(2,3,3,.55));
+				@include text-shadow(0 0 9px rgba(255,255,255,.35));
 				background-image: url('../img/Shape-13 copy.png');
 			}
 		}
