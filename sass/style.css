@@ -47,6 +47,7 @@ ul {
 .header {
   display: block;
   position: relative;
+  float: left;
   width: 100%;
   margin-top: 6%; }
   .header .logo {
@@ -111,6 +112,64 @@ ul {
         text-shadow: 0 1px 0 rgba(2, 3, 3, 0.6); }
         .navigation ul li a:hover {
           color: #f7bb00; }
+
+.footer {
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  margin-bottom: 6%;
+  margin-top: 20px; }
+  .footer .fotorama {
+    display: block;
+    float: left;
+    position: relative;
+    width: 160px;
+    padding-right: 15px;
+    border-right: 1px solid #8e9196; }
+  .footer__partners {
+    display: block;
+    float: left;
+    width: 25%;
+    position: relative; }
+    .footer__partners p {
+      margin-left: 15px;
+      opacity: 0.5;
+      color: #fff;
+      font-family: "Myriad Pro";
+      font-size: 14px; }
+  .footer__button {
+    display: block;
+    position: relative;
+    float: left;
+    width: 50%; }
+    .footer__button a {
+      display: block;
+      margin: 0 auto; }
+  .footer__soc {
+    display: block;
+    position: relative;
+    float: left;
+    width: 25%;
+    text-align: right;
+    color: #FFF; }
+    .footer__soc--box {
+      float: right; }
+      .footer__soc--box a {
+        color: #FFF;
+        border: 1px solid #fff;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        display: block;
+        float: left;
+        font-size: 20px;
+        line-height: 38px;
+        text-align: center;
+        margin: 0 10px; }
 
 .enter {
   height: 100%;
@@ -337,5 +396,20 @@ ul {
         text-shadow: 0 2px 2px rgba(2, 3, 3, 0.55);
         text-shadow: 0 0 9px rgba(255, 255, 255, 0.35);
         background-image: url("../img/Shape-13 copy.png"); }
+
+.home {
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%; }
+  .home__calendar {
+    width: 100%;
+    display: block;
+    float: left;
+    position: relative;
+    margin: 20px; }
+    .home__calendar img {
+      display: block;
+      margin: 0 auto; }
 
 /*# sourceMappingURL=style.css.map */
