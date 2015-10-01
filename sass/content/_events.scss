@@ -1,0 +1,24 @@
+.events {
+	display: block;
+	float: left;
+	width: 940px;
+	margin: 20px 25px;
+	position: relative;
+	@include border-radius(6px);
+	@include background-clip(padding-box);
+	background-color: #3d4d65;
+	@include box-shadow(0, 3px, 6px, rgba(2,3,3,.8));
+	.clearfix {
+		margin: 0 -10px;
+		li {
+			width: 200px;
+			margin: 0 10px;
+			border-bottom: 2px solid #374355;
+		}
+	}
+	&__wrap {
+		display: block;
+		width: 940px -80px;
+		margin: 0 auto;
+	}
+}
