@@ -1,0 +1,32 @@
+.type-img {
+    width: 100%;
+}
+
+.pink {
+    color: #cc0066;
+}
+
+.fiolet {
+    color: #6b4188;
+}
+
+.whitegray {
+    color: #e5e5e5;
+}
+
+.aqua {
+    color: #4d9ca9;
+}
+
+section {
+    border: 1px solid black;
+}
+
+.container {
+    background-color: white;
+    border: 1px solid gray;
+}
+
+.media {
+    width: 200px;
+}
