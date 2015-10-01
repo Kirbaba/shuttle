@@ -46,6 +46,15 @@ ul {
 .index_paddingtop {
   padding-top: 6%; }
 
+.row {
+  display: block;
+  width: 100%; }
+  .row:before, .row:after {
+    display: table;
+    content: " "; }
+  .row:after {
+    clear: both; }
+
 .bg_masck {
   background-image: url("../img/bg_masc.png");
   background-position: 50% 50%;
@@ -585,17 +594,79 @@ ul {
     .store__item--img {
       height: 270px;
       width: 100%;
-      position: relative; }
+      position: relative;
+      display: block; }
       .store__item--img img {
         margin: 20px;
         width: 100%;
         max-width: 230px;
         max-height: 230px; }
     .store__item--desc {
-      position: relative; }
+      position: relative;
+      border-top: 1px solid #54657e;
+      padding: 20px 0; }
+      .store__item--desc p {
+        text-align: center;
+        margin: 10px 0 0;
+        color: #fff;
+        font-family: "Roboto", sans-serif;
+        font-size: 17px; }
+      .store__item--desc h5 {
+        text-align: center;
+        text-transform: uppercase;
+        margin: 10px 0 0;
+        color: #f7bb00;
+        color: #f7bb00;
+        font-family: "Roboto", sans-serif;
+        font-size: 17px;
+        font-weight: bold; }
       .store__item--desc--buy {
-        display: none; }
-      .store__item--desc:hover .store__item--desc--buy {
-        display: block; }
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        -webkit-border-radius: 0 0 5px 5px;
+        -moz-border-radius: 0 0 5px 5px;
+        -ms-border-radius: 0 0 5px 5px;
+        border-radius: 0 0 5px 5px;
+        -o-background-clip: padding-box;
+        background-clip: padding-box;
+        background-color: #4c607f;
+        -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
+        -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35); }
+        .store__item--desc--buy a {
+          display: block;
+          margin: 10% auto;
+          width: 168px;
+          height: 38px;
+          border: 1px solid #c99437;
+          -webkit-border-radius: 20px;
+          -moz-border-radius: 20px;
+          -ms-border-radius: 20px;
+          border-radius: 20px;
+          -o-background-clip: padding-box;
+          background-clip: padding-box;
+          background-color: #8393a7;
+          -moz-box-shadow: 0 3px 6px rgba(51, 32, 0, 0.5), inset 0 0 6px rgba(255, 200, 30, 0.5);
+          -webkit-box-shadow: 0 3px 6px rgba(51, 32, 0, 0.5), inset 0 0 6px rgba(255, 200, 30, 0.5);
+          box-shadow: 0 3px 6px rgba(51, 32, 0, 0.5), inset 0 0 6px rgba(255, 200, 30, 0.5);
+          background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDE3MCA0MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGxpbmVhckdyYWRpZW50IGlkPSJoYXQwIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjUwJSIgeTE9IjEwMCUiIHgyPSI1MCUiIHkyPSItMS40MjEwODU0NzE1MjAyZS0xNCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZTE4OTAwIiBzdG9wLW9wYWNpdHk9IjEiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjJjNDBkIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgPC9saW5lYXJHcmFkaWVudD4KCjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxNzAiIGhlaWdodD0iNDAiIGZpbGw9InVybCgjaGF0MCkiIC8+Cjwvc3ZnPg==);
+          background-image: -moz-linear-gradient(bottom, #e18900 0%, #f2c40d 100%);
+          background-image: -o-linear-gradient(bottom, #e18900 0%, #f2c40d 100%);
+          background-image: -webkit-linear-gradient(bottom, #e18900 0%, #f2c40d 100%);
+          background-image: linear-gradient(bottom, #e18900 0%, #f2c40d 100%);
+          color: #374355;
+          font-family: "Roboto", sans-serif;
+          font-size: 14px;
+          text-shadow: 0 1px 0 rgba(255, 215, 67, 0.8);
+          line-height: 38px;
+          font-weight: 600;
+          text-align: center; }
+    .store__item:hover .store__item--desc--buy {
+      display: block; }
 
 /*# sourceMappingURL=style.css.map */

@@ -55,3 +55,15 @@ ul {
 .index_paddingtop  {
 	padding-top: 6%;
 }
+
+.row {
+	display: block;
+	width: 100%;
+	&:before, &:after {		
+		display: table;
+		content: " ";
+	}	
+	&:after {
+		clear: both;
+	}	
+}
