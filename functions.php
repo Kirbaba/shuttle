@@ -47,11 +47,12 @@ add_action('admin_enqueue_scripts', 'add_admin_style');
 function admin_menu()
 {
     add_menu_page('Настройка главного блока', 'Главный блок', 'manage_options', 'mainpage', 'mainpage');
+    add_menu_page('Настройка партнеров', 'Наши партнеры', 'manage_options', 'partners', 'partners');
 }
 
 add_action('admin_menu', 'admin_menu');
 
-//ЗАГРУЗИТЬ УЖЕ ПОЛУЧЕННЫЕ БАННЕРА
+//админка страницы входа
 function mainpage()
 {
     global $wpdb;
@@ -189,6 +190,51 @@ function mainpage()
     ), true);
 }
 
+//админка наших партнеров
+function partners(){
+
+    if (function_exists('wp_enqueue_media')) {
+        wp_enqueue_media();
+    } else {
+        wp_enqueue_style('thickbox');
+        wp_enqueue_script('media-upload');
+        wp_enqueue_script('thickbox');
+    }
+
+    $partners = getDataFromDb('partners');
+
+    $html = "";
+    foreach ($partners as $item) {
+
+        $html .= '<li class="list-group-item" data-num="'.$item['id'].'">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <img src="'.$item['img'].'" alt="" class="partner-img media">
+                        <button class="btn btn-info media-upload"><span class="glyphicon glyphicon-picture"> Выбрать изображение</span></button>
+                        <input type="hidden" class="media-img" name="partner-img" value="'.$item['img'].'">
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Ссылка на партнера" name="partner-link" value="'.$item['link'].'">
+                    </div>
+                    <div class="col-lg-1">
+                        <button class="btn btn-success save-partner"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    </div>
+                    <div class="col-lg-1">';
+        if($item['id'] != 1){
+            $html .= '<button class="btn btn-danger del-partner" data-num="'.$item['id'].'"><span class="glyphicon glyphicon-trash"></span></button>';
+        }
+
+        $html .= ' </div>
+                </div>
+            </li>';
+    }
+
+    $parser = new Parser();
+    $parser->parse(TM_DIR . "/views/partners.php", array('template_url' => get_template_directory_uri(),
+        'partners' => $html,
+    ), true);
+}
+
 function prn($content)
 {
     echo '<pre style="background: lightgray; border: 1px solid black; padding: 2px">';
@@ -231,6 +277,9 @@ add_action('wp_ajax_save_bot_banner', 'save_bot_banner');
 add_action('wp_ajax_save_left_banner', 'save_left_banner');
 add_action('wp_ajax_save_right_banner', 'save_right_banner');
 add_action('wp_ajax_save_big_banner', 'save_big_banner');
+add_action('wp_ajax_save_partner', 'save_partner');
+add_action('wp_ajax_update_partner', 'update_partner');
+add_action('wp_ajax_delete_partner', 'delete_partner');
 
 function choose_main()
 {
@@ -407,3 +456,48 @@ function getEnterBox()
 
     echo $html;
 }
+
+//сохранение нового партнера
+function save_partner()
+{
+    global $wpdb;
+
+    if (!empty($_POST['link']) && !empty($_POST['img'])) {
+        $wpdb->insert('partners', array('link' => $_POST['link'], 'img' => $_POST['img']));
+    }
+    die();
+}
+
+//обновление партнера
+function update_partner()
+{
+    global $wpdb;
+    //prn($_POST);
+    if (!empty($_POST['link']) && !empty($_POST['img'])) {
+        $wpdb->update('partners', array('link' => $_POST['link'], 'img' => $_POST['img']), array('id' => $_POST['num']));
+    }
+    die();
+}
+
+//Удаление партнера
+function delete_partner()
+{
+    global $wpdb;
+    //prn($_POST);
+    $wpdb->delete('partners', array('id' => $_POST['num']));
+    die();
+}
+
+function partners_sc(){
+    $partners = getDataFromDb('partners');
+
+    $html = "";
+
+    foreach($partners as $partner){
+        $html .= '<div><a href="'.$partner['link'].'"><img src="'.$partner['img'].'" alt="" ></a></div>';
+    }
+
+    return $html;
+}
+
+add_shortcode('partners', 'partners_sc');

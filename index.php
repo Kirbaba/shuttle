@@ -30,7 +30,7 @@
             </nav>
             <article class="logo">
                 <a href="#nowhere">
-                    <img src="img/logo.png">
+                    <img src="<?php bloginfo('template_directory'); ?>/img/logo.png">
                 </a>
             </article>
             <div class="header__rightside">
@@ -46,14 +46,13 @@
         <section class="home">
             <?php echo getEnterBox(); ?>
             <div class="home__calendar">
-                <img src="img/calendar.png">
+                <img src="<?php bloginfo('template_directory'); ?>/img/calendar.png">
             </div>
         </section>
         <footer class="footer">
             <div class="footer__partners">
                 <div class="fotorama" data-width="160" data-height="60" data-nav="false" data-arrows="false" data-loop="true">
-                    <img src="img/Layer-44.png" alt="">
-                    <img src="img/logo.png" alt="">
+                    <?= do_shortcode('[partners]');?>
                 </div>
                 <p>Наши<br>партнеры</p>
             </div>
@@ -69,8 +68,7 @@
             </div>
         </footer>
     </div>
-</div>}
-?>
+</div>
 <?php wp_footer(); ?>
 </body>
 </html>
