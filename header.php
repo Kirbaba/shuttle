@@ -8,24 +8,13 @@
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/sass/style.css">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <?php wp_head();?>
 </head>
 <body>
-
-
+<div class="bg_masck index_margintop">
 <div class="contain">
     <header class="header">
-        <nav class="navigation">
-            <ul>
-                <li><a href="#nowhere">Главная</a></li>
-                <li><a href="#nowhere">события</a></li>
-                <li><a href="#nowhere">Фото и видео</a></li>
-                <li><a href="#nowhere">СТОЛ НАХОДОК</a></li>
-                <li><a href="#nowhere">О клубе</a></li>
-                <li><a href="#nowhere" class="active">Магазин</a></li>
-                <li><a href="#nowhere">Контакты</a></li>
-                <li><a href="#nowhere">ДОСКА ПОЧЕТА</a></li>
-            </ul>
-        </nav>
+        <?php wp_nav_menu( array( 'theme_location' => 'header_menu','container' => 'nav', 'container_class' => 'navigation') );?>
         <article class="logo">
             <a href="#nowhere">
                 <img src="<?php echo get_template_directory_uri(); ?>/img/logo.png">

@@ -1,0 +1,124 @@
+.events {
+	display: block;
+	float: left;
+	width: 940px;
+	margin: 20px 25px;
+	padding: 15px 0;
+	position: relative;
+	@include border-radius(6px);
+	@include background-clip(padding-box);
+	background-color: #3d4d65;
+	@include box-shadow(0, 3px, 6px, rgba(2,3,3,.8));	
+	&__wrap {
+		display: block;
+		width: 940px - 80px;
+		margin: 0 auto;
+		&--slider {
+			overflow: hidden;
+			.clearfix {
+				margin: 0 -10px;
+				padding: 0;
+				li {
+					display: block;
+					float: left;
+					width: 200px;
+					margin: 0 10px;					
+					.events__poster {
+						h3 {
+							font-family: $PT;
+							font-size: 14px;
+							color: #FFF;
+							text-align: center;
+							text-transform: uppercase;
+							span {
+								font-size: 36px;
+								display: block;
+								font-weight: bold;
+							}
+						}
+						display: block;
+						border-bottom: 2px solid #374355;
+						&--imagebox {
+							display: block;
+							height: 285px;
+							position: relative;
+							overflow: hidden;							
+							background-color: #374355;
+							@include box-shadow(0, 4px, 8px, rgba(16,27,43,.8));
+							background-image: linear-gradient(to bottom, rgba(2,3,3,.15) 0%, rgba(255,255,255,.15) 100%);
+							border: 2px solid rgba(235, 235, 235, 0);
+							text-align: center;
+							word-spacing: nowrap;
+							vertical-align: middle;
+							&:after {
+								content: "";
+								display: inline-block;
+								height: 100%;
+								vertical-align: middle;
+							}
+							img {
+								max-width: 200px;
+								min-height: 100%;
+								vertical-align: middle;
+							}
+
+							h2 {
+								position: absolute;
+								display: none;
+								width: 100%;
+								top: 130px;
+								text-align: center;
+								color: #fff;
+								font-size: 18px;
+								text-transform: uppercase;
+								font-weight: bold;
+								@include text-shadow(0 0 6px rgba(255,255,255,.25));
+								z-index: 9;
+							}
+							&--mask {
+								display: none;
+								position: absolute;
+								width: 100%;
+								height: 100%;
+								top: 0;
+								left: 0;
+								bottom: 0;
+								right: 0;
+								background-color: #374355;
+								z-index: 3;
+							    opacity: 0.9;
+							}
+						}
+						p {
+							color: #fff;
+							font-size: 16px;
+							text-align: center;
+							text-decoration: underline;
+						}
+						&:hover {
+							background: rgba(81, 95, 117, 0.75);
+							border-bottom: 2px solid #fff;
+							.events__poster--imagebox {
+								border: 2px solid rgba(235, 235, 235, 1);
+								
+								h2 {
+									display: block;
+								}
+								&--mask {
+									display: block;
+								}
+							}
+							p {
+								text-decoration: none;
+							}
+							h3 {
+								color: #8393a7;
+							}
+
+						}
+					}
+				}
+			}
+		}
+	}
+}

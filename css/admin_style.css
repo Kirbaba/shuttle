@@ -24,9 +24,8 @@ section {
 
 .container {
     background-color: white;
-    border: 1px solid gray;
 }
 
 .media {
-    width: 200px;
+    width: 50px;
 }

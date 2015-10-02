@@ -1,3 +1,4 @@
+</div>
 <footer class="footer">
     <div class="footer__partners">
         <div class="fotorama" data-width="160" data-height="60" data-nav="false" data-arrows="false" data-loop="true">
@@ -20,7 +21,6 @@
 </footer>
 
 </div>
-
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>

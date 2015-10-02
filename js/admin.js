@@ -200,4 +200,82 @@ $(document).ready(function ($) {
             }
         });
     });
+
+    //добавить партнера
+    $(document).on('click', '.add-partner', function(){
+        $('.partners-list').append('<li class="list-group-item"> ' +
+            '<div class="row"> ' +
+            '<div class="col-lg-5"> ' +
+            '<img src="" alt="" class="partner-img media"> ' +
+            '<button class="btn btn-info media-upload"><span class="glyphicon glyphicon-picture"> Выбрать изображение</span></button> ' +
+            '<input type="hidden" class="media-img" name="partner-img"> ' +
+            '</div> ' +
+            '<div class="col-lg-5"> ' +
+            '<input type="text" placeholder="Ссылка на партнера" name="partner-link"> ' +
+            '</div> ' +
+            '<div class="col-lg-1"> ' +
+            '<button class="btn btn-success save-partner"><span class="glyphicon glyphicon-floppy-disk"></span></button> ' +
+            '</div> ' +
+            '<div class="col-lg-1"> ' +
+            '</div> ' +
+            '</div> ' +
+            '</li>');
+    });
+
+    //сохранениа партнера
+    $(document).on('click', '.save-partner', function(){
+        var block = $(this).parent().parent();
+
+        console.log(block);
+
+        var num = block.parent().attr('data-num');
+
+        var link = block.children().children('[name="partner-link"]').val();
+        var img = block.children().children('[name="partner-img"]').val();
+
+        console.log(link);
+        console.log(img);
+        console.log(num);
+
+        if(num == null){
+            $.ajax({
+                type:'POST',
+                url:ajaxurl,
+                data:'action=save_partner&link='+link+'&img='+img,
+                success:function(data){
+                    console.log(data);
+                    alert("Партнер добавлен и сохранен!");
+                    location.reload();
+                }
+            });
+        }else{
+            $.ajax({
+                type:'POST',
+                url:ajaxurl,
+                data:'action=update_partner&link='+link+'&img='+img+'&num='+num,
+                success:function(data){
+                    console.log(data);
+                    alert("Партнер обновлен!");
+                }
+            });
+        }
+    });
+    //удаление слайда
+    $(document).on('click', '.del-partner', function(){
+        var num = $(this).attr('data-num');
+        if(num != undefined){
+            var block = $(this).parent().parent().parent();
+            $.ajax({
+                type:'POST',
+                url:ajaxurl,
+                data:'action=delete_partner&num='+num,
+                success:function(data){
+                    console.log(data);
+                    alert("Партнер удален!");
+                }
+            });
+            block.remove();
+        }
+
+    });
 });
