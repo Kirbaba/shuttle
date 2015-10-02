@@ -1,29 +1,32 @@
-</div>
+
 <footer class="footer">
     <div class="footer__partners">
         <div class="fotorama" data-width="160" data-height="60" data-nav="false" data-arrows="false" data-loop="true">
-            <img src="<?php echo get_template_directory_uri(); ?>/img/Layer-44.png" alt="">
-            <img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="">
+            <?= do_shortcode('[partners]');?>
         </div>
         <p>Наши<br>партнеры</p>
     </div>
-    <div class="footer__button--contacts">
-        <p>+7 (3532) 24-20-20, 24-55-44</p>
-        <a href="mailto:Shuttleclub@yandex.ru">Shuttleclub@yandex.ru</a>
+    <div class="footer__button">
+        <a id="go" >ОБРАТНАЯ СВЯЗЬ</a>
     </div>
     <div class="footer__soc">
         <div class="footer__soc--box">
-            <a href="#"><i class="fa fa-circle fa-vk"></i></a>
-            <a href="#"><i class="fa fa-circle fa-instagram"></i></a>
-            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="<?php echo get_theme_mod('vk_textbox'); ?>"><i class="fa fa-circle fa-vk"></i></a>
+            <a href="<?php echo get_theme_mod('insta_textbox'); ?>"><i class="fa fa-circle fa-instagram"></i></a>
+            <a href="<?php echo get_theme_mod('fb_textbox'); ?>"><i class="fa fa-facebook"></i></a>
         </div>
     </div>
 </footer>
-
 </div>
+</div>
+<div id="modal_form"><!-- Сaмo oкнo -->
+    <span id="modal_close"><i class="fa fa-times"></i></span> <!-- Кнoпкa зaкрыть -->
+    <h4>ОБРАТНАЯ СВЯЗЬ</h4>
+    <p>Если вы хотите забронировать столик, у вас есть вопросы или предлождения, то укажите свое имя, e-mail или номер телефона. Наш сотрудник обязательно свяжется с вами в ближайшее время.  Вы также можете оставить заявку по телефону: <span class="modal_phone"> 24-20-20</span></p>
+    <!-- Тут любoе сoдержимoе -->
+</div>
+<div id="overlay"></div><!-- Пoдлoжкa -->
 
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
-<script src='<?php echo get_template_directory_uri(); ?>/js/script.js'></script>
+<?php wp_footer(); ?>
 </body>
 </html>

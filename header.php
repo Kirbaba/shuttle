@@ -16,19 +16,28 @@
     <header class="header">
         <?php wp_nav_menu( array( 'theme_location' => 'header_menu','container' => 'nav', 'container_class' => 'navigation') );?>
         <article class="logo">
-            <a href="#nowhere">
-                <img src="<?php echo get_template_directory_uri(); ?>/img/logo.png">
+            <a href="/main">
+                <img src="<?php bloginfo('template_directory'); ?>/img/logo.png">
             </a>
         </article>
         <div class="header__rightside">
-            <div class="header__rightside--enter">
-                <a href="#nowhere">Войдите</a>
-
-                <p>или</p><a href="#" class="reg">ЗАРЕГИСТРИРУЙТЕСЬ</a>
+            <div class="header__rightside--enter" onclick="VK.Auth.login(onSignon)">
+                <a>АВТОРИЗИРУЙТЕСЬ ЧЕРЕЗ <i class="fa fa-vk"></i></a>
             </div>
             <div class="header__rightside--contacts">
-                <p>+7 (3532) 24-20-20, 24-55-44</p>
-                <a href="mailto:Shuttleclub@yandex.ru">Shuttleclub@yandex.ru</a>
+                <p><?php echo get_theme_mod('phone_textbox'); ?></p>
+                <a href="mailto:<?php echo get_theme_mod('mail_textbox'); ?>"><?php echo get_theme_mod('mail_textbox'); ?></a>
             </div>
         </div>
+<!--        <div class="header__rightside">-->
+<!--            <div class="header__rightside--enter">-->
+<!--                <a href="#nowhere">Войдите</a>-->
+<!---->
+<!--                <p>или</p><a href="#" class="reg">ЗАРЕГИСТРИРУЙТЕСЬ</a>-->
+<!--            </div>-->
+<!--            <div class="header__rightside--contacts">-->
+<!--                <p>+7 (3532) 24-20-20, 24-55-44</p>-->
+<!--                <a href="mailto:Shuttleclub@yandex.ru">Shuttleclub@yandex.ru</a>-->
+<!--            </div>-->
+<!--        </div>-->
     </header>
