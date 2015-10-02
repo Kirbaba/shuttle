@@ -16,30 +16,31 @@
 <div class="bg_masck index_margintop">
     <div class="contain">
         <header class="header">
-            <nav class="navigation">
-                <ul>
-                    <li><a href="#nowhere" class="active">Главная</a></li>
-                    <li><a href="#nowhere">события</a></li>
-                    <li><a href="#nowhere">Фото и видео</a></li>
-                    <li><a href="#nowhere">СТОЛ НАХОДОК</a></li>
-                    <li><a href="#nowhere">О клубе</a></li>
-                    <li><a href="#nowhere">Магазин</a></li>
-                    <li><a href="#nowhere">Контакты</a></li>
-                    <li><a href="#nowhere">ДОСКА ПОЧЕТА</a></li>
-                </ul>
-            </nav>
+            <?php wp_nav_menu( array( 'theme_location' => 'header_menu','container' => 'nav', 'container_class' => 'navigation') );?>
+<!--            <nav class="navigation">-->
+<!--                <ul>-->
+<!--                    <li><a href="#nowhere" class="active">Главная</a></li>-->
+<!--                    <li><a href="#nowhere">события</a></li>-->
+<!--                    <li><a href="#nowhere">Фото и видео</a></li>-->
+<!--                    <li><a href="#nowhere">СТОЛ НАХОДОК</a></li>-->
+<!--                    <li><a href="#nowhere">О клубе</a></li>-->
+<!--                    <li><a href="#nowhere">Магазин</a></li>-->
+<!--                    <li><a href="#nowhere">Контакты</a></li>-->
+<!--                    <li><a href="#nowhere">ДОСКА ПОЧЕТА</a></li>-->
+<!--                </ul>-->
+<!--            </nav>-->
             <article class="logo">
                 <a href="#nowhere">
                     <img src="<?php bloginfo('template_directory'); ?>/img/logo.png">
                 </a>
             </article>
             <div class="header__rightside">
-                <div class="header__rightside--enter">
-                    <a href="#nowhere">АВТОРИЗИРУЙТЕСЬ ЧЕРЕЗ <i class="fa fa-vk"></i></a>
+                <div class="header__rightside--enter" onclick="VK.Auth.login(onSignon)">
+                    <a>АВТОРИЗИРУЙТЕСЬ ЧЕРЕЗ <i class="fa fa-vk"></i></a>
                 </div>
                 <div class="header__rightside--contacts">
-                    <p>+7 (3532) 24-20-20, 24-55-44</p>
-                    <a href="mailto:Shuttleclub@yandex.ru">Shuttleclub@yandex.ru</a>
+                    <p><?php echo get_theme_mod('phone_textbox'); ?></p>
+                    <a href="mailto:<?php echo get_theme_mod('mail_textbox'); ?>"><?php echo get_theme_mod('mail_textbox'); ?></a>
                 </div>
             </div>
         </header>
@@ -57,18 +58,25 @@
                 <p>Наши<br>партнеры</p>
             </div>
             <div class="footer__button">
-                <a href="#nowhere">ОБРАТНАЯ СВЯЗЬ</a>
+                <a id="go" >ОБРАТНАЯ СВЯЗЬ</a>
             </div>
             <div class="footer__soc">
                 <div class="footer__soc--box">
-                    <a href="#"><i class="fa fa-circle fa-vk"></i></a>
-                    <a href="#"><i class="fa fa-circle fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="<?php echo get_theme_mod('vk_textbox'); ?>"><i class="fa fa-circle fa-vk"></i></a>
+                    <a href="<?php echo get_theme_mod('insta_textbox'); ?>"><i class="fa fa-circle fa-instagram"></i></a>
+                    <a href="<?php echo get_theme_mod('fb_textbox'); ?>"><i class="fa fa-facebook"></i></a>
                 </div>
             </div>
         </footer>
     </div>
 </div>
+<div id="modal_form"><!-- Сaмo oкнo -->
+    <span id="modal_close"><i class="fa fa-times"></i></span> <!-- Кнoпкa зaкрыть -->
+    <h4>ОБРАТНАЯ СВЯЗЬ</h4>
+    <p>Если вы хотите забронировать столик, у вас есть вопросы или предлождения, то укажите свое имя, e-mail или номер телефона. Наш сотрудник обязательно свяжется с вами в ближайшее время.  Вы также можете оставить заявку по телефону: <span class="modal_phone"> 24-20-20</span></p>
+    <!-- Тут любoе сoдержимoе -->
+</div>
+<div id="overlay"></div><!-- Пoдлoжкa -->
 <?php wp_footer(); ?>
 </body>
 </html>

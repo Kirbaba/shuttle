@@ -11,15 +11,15 @@ function add_style()
     wp_enqueue_style('fotorama-css', 'http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css', array(), '1');
     wp_enqueue_style('my-style', get_template_directory_uri() . '/css/style.css', array(), '1');
     wp_enqueue_style('my-sass-style', get_template_directory_uri() . '/sass/style.css', array(), '1');
- //   wp_enqueue_style('my-bootstrap-style', get_template_directory_uri() . '/css/bootstrap.css', array(), '1');
+  //  wp_enqueue_style('my-bootstrap-style', get_template_directory_uri() . '/css/bootstrap.css', array(), '1');
 }
 
 function add_script()
 {
     wp_enqueue_script('jq', get_template_directory_uri() . '/js/jquery-2.1.4.min.js', array(), '1');
-  //  wp_enqueue_script('my-bootstrap-script', get_template_directory_uri() . '/js/bootstrap.js', array(), '1');
+    wp_enqueue_script('my-bootstrap-script', get_template_directory_uri() . '/js/bootstrap.js', array(), '1');
     wp_enqueue_script('my-script', get_template_directory_uri() . '/js/script.js', array(), '1');
-    wp_enqueue_script('fotorama-script', 'http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js', array(), '1');
+  //  wp_enqueue_script('fotorama-script', 'http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js', array(), '1');
 
 }
 
@@ -266,6 +266,96 @@ function excerpt_readmore($more)
 add_filter('excerpt_more', 'excerpt_readmore');
 if (function_exists('add_theme_support'))
     add_theme_support('post-thumbnails');
+
+//nav menus wordpress
+register_nav_menus( array(
+    'header_menu' => 'Меню в шапке',
+) );
+
+/**
+ * Добавляет секции, параметры и элементы управления (контролы) на страницу настройки темы
+ */
+add_action('customize_register', function($customizer){
+    /*Меню настройки контактов*/
+    $customizer->add_section(
+        'contacts_section',
+        array(
+            'title' => 'Настройки контактов',
+            'description' => 'Контакты',
+            'priority' => 35,
+        )
+    );
+    $customizer->add_setting(
+        'phone_textbox',
+        array('default' => '+7 (3532) 24-20-20, 24-55-44')
+    );
+    $customizer->add_setting(
+        'mail_textbox',
+        array('default' => 'Shuttleclub@yandex.ru')
+    );
+    $customizer->add_control(
+        'phone_textbox',
+        array(
+            'label' => 'Телефон',
+            'section' => 'contacts_section',
+            'type' => 'text',
+        )
+    );
+    $customizer->add_control(
+        'mail_textbox',
+        array(
+            'label' => 'Email',
+            'section' => 'contacts_section',
+            'type' => 'text',
+        )
+    );
+    /*меню настройки соц сетей*/
+    $customizer->add_section(
+        'social_section',
+        array(
+            'title' => 'Соц. сети',
+            'description' => 'Ссылки на соц. сети',
+            'priority' => 35,
+        )
+    );
+    $customizer->add_setting(
+        'vk_textbox',
+        array('default' => 'http://vk.com/')
+    );
+    $customizer->add_setting(
+        'fb_textbox',
+        array('default' => 'http://facebook.com/')
+    );
+    $customizer->add_setting(
+        'insta_textbox',
+        array('default' => 'http://instagram.com/')
+    );
+    $customizer->add_control(
+        'vk_textbox',
+        array(
+            'label' => 'VKontakte',
+            'section' => 'social_section',
+            'type' => 'text',
+        )
+    );
+    $customizer->add_control(
+        'fb_textbox',
+        array(
+            'label' => 'Facebook',
+            'section' => 'social_section',
+            'type' => 'text',
+        )
+    );
+    $customizer->add_control(
+        'insta_textbox',
+        array(
+            'label' => 'Instagram',
+            'section' => 'social_section',
+            'type' => 'text',
+        )
+    );
+});
+
 
 add_action('wp_ajax_choose_main', 'choose_main');
 add_action('wp_ajax_load_main', 'load_main');
