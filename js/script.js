@@ -18,4 +18,40 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
             }
         );
     });
+
+    $('.leave_order').click(function(){
+        var nameproduct = $(this).attr('name-tovar');
+        $('#orderProduct').attr('nameProduct',nameproduct);
+    });
+
+    $('#buttomOrder').click(function(){
+        var nameproduct = $('#orderProduct').attr('nameproduct');
+        var name = $('#nameOrder').val();
+        var telephone = $('#telephoneOrder').val();
+        var email = $('#emailOrder').val();
+        $.ajax({
+            url: ajaxurl, //url, к которому обращаемся
+            type: "POST",
+            data: "action=order&nameproduct=" + nameproduct + "&name=" + name + "&tel=" + telephone + "&email=" + email, //данные, которые передаем. Обязательно для action указываем имя нашего хука
+            success: function(data){
+                alert('Ваш заказ сделан. В ближайшее время с вами свяжутся. Спасибо.')
+                /*console.log(data);
+                alert(data);*/
+            }
+        });
+        $('#nameOrder').val('');
+        $('#telephoneOrder').val('');
+        $('#emailOrder').val('');
+        $('#modal_form')
+            .animate({opacity: 0, top: '45%'}, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
+            function(){ // пoсле aнимaции
+                $(this).css('display', 'none'); // делaем ему display: none;
+                $('#overlay').fadeOut(400); // скрывaем пoдлoжку
+            }
+        );
+
+
+
+    });
+
 });

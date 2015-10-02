@@ -36,3 +36,24 @@
     cursor: pointer;
     display: none; /* в oбычнoм сoстoянии её нет) */
 }
+
+.titleorder{
+    color:#3e454f;
+    font-weight: bold;
+    text-align: center;
+}
+
+#modal_form p{
+    text-align: center;
+    color: #3e454f;
+}
+
+#buttomOrder{
+    background: none;
+    border: none;
+    border-bottom: 1px dotted #559ec9;
+    color: #559ec9;
+    font-size: 23px;
+    display: block;
+    margin: 0 auto;
+}

@@ -6,9 +6,22 @@
         </div>
         <p>Наши<br>партнеры</p>
     </div>
+    <?php
+        if(is_page('magazin')){
+    ?>
+            <div class="footer__button--contacts">
+                <p><?php echo get_theme_mod('phone_textbox'); ?></p>
+                <a href="mailto:<?php echo get_theme_mod('mail_textbox'); ?>"><?php echo get_theme_mod('mail_textbox'); ?></a>
+            </div>
+    <?
+        }else{
+    ?>
     <div class="footer__button">
         <a id="go" >ОБРАТНАЯ СВЯЗЬ</a>
     </div>
+    <?php
+        }
+    ?>
     <div class="footer__soc">
         <div class="footer__soc--box">
             <a href="<?php echo get_theme_mod('vk_textbox'); ?>"><i class="fa fa-circle fa-vk"></i></a>

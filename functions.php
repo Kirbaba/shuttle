@@ -561,6 +561,17 @@ add_action('wp_ajax_save_big_banner', 'save_big_banner');
 add_action('wp_ajax_save_partner', 'save_partner');
 add_action('wp_ajax_update_partner', 'update_partner');
 add_action('wp_ajax_delete_partner', 'delete_partner');
+add_action('wp_ajax_order', 'set_order');
+
+
+function set_order(){
+    $nameproduct = $_POST['nameproduct'];
+    $name = $_POST['name'];
+    $tel = $_POST['tel'];
+    $email = $_POST['email'];
+    mail("korol_dima@list.ru", "Заказ товара с вашего сайта", "С вашего сайта заказали товар:<br>Название: $nameproduct <br> Имя заказчика: $name<br> Телефон для связи: $tel Email для связи: $email","Content-type: text/html; charset=UTF-8\r\n");
+    die();
+}
 
 function choose_main()
 {
