@@ -2,13 +2,14 @@
 	display: block;
 	position: relative;
 	float: left;
-	width: 100%;
-	margin-top: 6%;
+	width: 100%;	
 	.logo {
 		display: block;
 		float: left;
 		width: 165px;
 		margin-top: -15px;
+		//margin-right: 10px;
+		margin-left: 5px;
 		a {
 			img {
 				width: 100%;
@@ -18,9 +19,10 @@
 	&__rightside {
 		display: block;
 		position: relative;
-		float: left;	
+		float: right;	
 		margin-top: 25px;
-		line-height: 30px;	
+		line-height: 30px;
+		width: 41%;	
 		&--enter {
 			display: block;
 			position: relative;
@@ -29,6 +31,8 @@
 			margin-left: 5%;
 			a {
 				color: #FFF;
+				display: block;
+				float: left;
 				text-transform: uppercase;
 				font-size: 14px;
 				text-decoration: underline;
@@ -39,6 +43,20 @@
 				&:hover {
 					color: $yellow;
 				}
+				&.reg {
+					color: #31A8E6;
+					&:hover {
+						color: $yellow;
+					}
+				}
+			}
+			p {
+				color: #FFF;
+				text-transform: uppercase;
+				font-size: 14px;
+				display: block;
+				float: left;
+				margin: 0 5px;
 			}
 		}
 		&--contacts {

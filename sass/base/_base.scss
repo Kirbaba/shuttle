@@ -38,7 +38,10 @@ ul {
 }
 
 .blockTitle {
-
+	color: #fff;
+	font-size: 36px;
+	font-weight: bold;
+	text-align: center;
 }
 
 .white {
@@ -47,4 +50,20 @@ ul {
 
 .active {
 	color: $yellow!important;
+}
+
+.index_paddingtop  {
+	padding-top: 6%;
+}
+
+.row {
+	display: block;
+	width: 100%;
+	&:before, &:after {		
+		display: table;
+		content: " ";
+	}	
+	&:after {
+		clear: both;
+	}	
 }

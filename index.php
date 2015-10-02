@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -11,9 +11,8 @@
     <title><?php bloginfo('name'); ?> <?php wp_title(); ?></title>
     <?php wp_head(); ?>
 </head>
-
 <body>
-    
+<?php echo class_exists('VK_api') ? VK_api::get_vk_login() : null; ?>
 <?php wp_footer(); ?>
 </body>
 </html>
