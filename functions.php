@@ -15,7 +15,9 @@ function add_script(){
    // wp_enqueue_script( 'my-bootstrap-extension', get_template_directory_uri() . '/js/bootstrap.js', array(), '1');
     wp_enqueue_script( 'my-script', get_template_directory_uri() . '/js/script.js', array(), '1');
     wp_enqueue_script( 'fotorama-js', 'http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js', array(), '1');
+
 }
+
 
 add_action( 'wp_enqueue_scripts', 'add_style' );
 add_action( 'wp_enqueue_scripts', 'add_script' );
@@ -116,21 +118,17 @@ function product_updated_messages( $messages ) {
     return $messages;
 }
 
-
 function my_extra_fields() {
     add_meta_box( 'extra_fields', 'Цена', 'extra_fields_box_func', 'product', 'normal', 'high'  );
     add_meta_box( 'extra_fields', 'Дата', 'extra_fields_sobit_func', 'sobit', 'normal', 'high'  );
 }
 add_action('add_meta_boxes', 'my_extra_fields', 1);
 
-
-
 function extra_fields_box_func( $post ){
     ?>
     <p><span>Введите только цифры.</span><input type="text" pattern="\d+(\.\d{2})?" name="extra[price]" value="<?php echo get_post_meta($post->ID, 'price', 1); ?>" style="width:50%" /></p>
 <?php
 }
-
 
 add_action('save_post', 'my_extra_fields_update', 10, 1);
 
@@ -148,14 +146,6 @@ function my_extra_fields_update( $post_id ){
     }
     return $post_id;
 }
-
-/*function get_product_site(){
-    $mypost = array( 'post_type' => 'product', );
-    $loop = new WP_Query( $mypost );
-    prn($loop);
-}
-
-add_shortcode('magaz', 'get_product_site');*/
 
 /*-------------------------КОНЕЦ МАГАЗИНА-------------------------------*/
 
@@ -195,7 +185,6 @@ function my_custom_init_sobit()
     register_post_type('sobit',$args);
 }
 
-
 // Добавляем фильтр, который изменит сообщение при публикации при изменении типа записи Book
 add_filter('post_updated_messages', 'product_updated_messages_sobit');
 function product_updated_messages_sobit( $messages ) {
@@ -221,18 +210,12 @@ function product_updated_messages_sobit( $messages ) {
     return $messages;
 }
 
-
-
-
 function extra_fields_sobit_func( $post ){
     ?>
     <!--<p><input type="text" name="extra[date]" value="<?php /*echo get_post_meta($post->ID, 'date', 1); */?>" style="width:50%" /></p>-->
     <input type="date" name="extra[date]" value="<?php echo get_post_meta($post->ID, 'date', 1); ?>" max="2200-12-31" min="2015-05-29">
 <?php
 }
-
-
-
 
 /*-------------------- КОНЕЦ СТРАНИЦА СОБЫТИЯ---------------------------*/
 
@@ -241,12 +224,6 @@ define('TM_URL', get_template_directory_uri(__FILE__));
 
 require_once TM_DIR.'/parser.php';
 require_once TM_DIR.'/breadcrumbs.php';
-
-wp_localize_script('jquery', 'myajax',
-    array(
-        'url' => admin_url('admin-ajax.php')
-    )
-);
 
 //Стили для админки
 function add_admin_style()
@@ -452,8 +429,6 @@ function partners(){
 }
 
 
-
-
 add_filter('excerpt_more', 'excerpt_readmore');
 if (function_exists('add_theme_support'))
     add_theme_support('post-thumbnails');
@@ -562,6 +537,7 @@ add_action('wp_ajax_save_partner', 'save_partner');
 add_action('wp_ajax_update_partner', 'update_partner');
 add_action('wp_ajax_delete_partner', 'delete_partner');
 add_action('wp_ajax_order', 'set_order');
+add_action('wp_ajax_feedback', 'send_feedback');
 
 
 function set_order(){
@@ -569,10 +545,21 @@ function set_order(){
     $name = $_POST['name'];
     $tel = $_POST['tel'];
     $email = $_POST['email'];
-    mail("korol_dima@list.ru", "Заказ товара с вашего сайта", "С вашего сайта заказали товар:<br>Название: $nameproduct <br> Имя заказчика: $name<br> Телефон для связи: $tel Email для связи: $email","Content-type: text/html; charset=UTF-8\r\n");
+    mail(get_theme_mod('mail_textbox'), "Заказ товара с вашего сайта", "С вашего сайта заказали товар:<br>Название: $nameproduct <br> Имя заказчика: $name<br> Телефон для связи: $tel Email для связи: $email","Content-type: text/html; charset=UTF-8\r\n");
     die();
 }
 
+// обратная связь
+function send_feedback(){
+    //prn($_POST);
+    $name = $_POST['name'];
+    $tel = $_POST['phone'];
+    $email = $_POST['email'];
+    mail(get_theme_mod('mail_textbox'), "Заявка с вашего сайта", "С вашего сайта заказали обратную связь:<br> Имя : $name<br> Телефон для связи: $tel Email для связи: $email","Content-type: text/html; charset=UTF-8\r\n");
+    die();
+}
+
+//выбор главного блока
 function choose_main()
 {
     global $wpdb;
