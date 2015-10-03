@@ -540,6 +540,7 @@ add_action('wp_ajax_update_partner', 'update_partner');
 add_action('wp_ajax_delete_partner', 'delete_partner');
 add_action('wp_ajax_order', 'set_order');
 add_action('wp_ajax_feedback', 'send_feedback');
+add_action('wp_ajax_showevents', 'show_events');
 
 
 function set_order(){
@@ -784,22 +785,26 @@ function partners_sc(){
 add_shortcode('partners', 'partners_sc');
 
 function get_event_calendar($mon=0){
-    $calendar = all_calendar();
     $parser = new Parser();
     if($mon == 0){
         $a = getdate();
         $mon = $a['mon'];
-        $nameMon = name_mon($mon);
-        $event = get_event($mon);
+        $calendar = all_calendar();
     }
+    else{
+
+        $calendar = all_calendar($mon);
+    }
+    $nameMon = name_mon($mon);
+    $event = get_event($mon);
     $parser->parse(TM_DIR.'/views/events/all_events.php',['calendar'=>$calendar,'event'=>$event,'namemon'=>$nameMon],TRUE);
 }
 
 add_shortcode('calendar', 'get_event_calendar');
 
-function all_calendar($year=0,$mon=0){
+function all_calendar($mon=0){
     $parser = new Parser();
-    if(($year == 0) && ($mon == 0) ){
+    if(($mon == 0) ){
         $a = getdate();
         $currentYear =  $a['year'];
         $currentMon = $a['mon'];
@@ -811,7 +816,7 @@ function all_calendar($year=0,$mon=0){
                 $mon .= "<span class='currentMon'> <a href='#'>$allMon[$i]</a> </span>";
             }
             else{
-                $mon .= "<span class='mon'> <a href='#'>$allMon[$i]</a> </span>";
+                $mon .= "<span class='mon'> <a data-id='$i' id='linkMon' href='#'>$allMon[$i]</a> </span>";
             }
 
         }
@@ -829,6 +834,45 @@ function all_calendar($year=0,$mon=0){
 
         }
         $calendar = $parser->parse(TM_DIR.'/views/calendar/calendar.php',['days'=>$days,'mon'=>$mon],FALSE);
+    }else{
+        $a = getdate();
+        $currentYear =  $a['year'];
+        $currentMon = $mon;
+        $dayMon = cal_days_in_month(CAL_GREGORIAN, $currentMon,  $currentYear);
+        $allMon = [1=>'Январь',2=>'Февраль',3=>'Март',4=>'Апрель', 5=>'Май',6=>'Июнь',7=>'Июль',8=>'Август',9=>'Сентябрь',10=>'Октябрь',11=>'Ноябрь',12=>'Декабрь'];
+        $mon = '';
+        for($i=1;$i<=12;$i++){
+            if($i == $currentMon){
+                $mon .= "<span class='currentMon'> <a href='#'>$allMon[$i]</a> </span>";
+            }
+            else{
+                $mon .= "<span class='mon'> <a data-id='$i' id='linkMon' href='#'>$allMon[$i]</a> </span>";
+            }
+
+        }
+        $eventDay = get_event_day($currentMon);
+        $days = '';
+        if(isset($eventDay)){
+            for($i=1;$i<=$dayMon;$i++){
+                $days .= "<span class='day'> $i </span>";
+            }
+        }else{
+            for($i=1;$i<=$dayMon;$i++){
+
+                if(in_array($i,$eventDay)){
+                    $days .= "<span class='selectDay'> $i </span>";
+                }
+                else{
+                    $days .= "<span class='day'> $i </span>";
+                }
+
+
+            }
+
+        }
+        $calendar = $parser->parse(TM_DIR.'/views/calendar/calendar.php',['days'=>$days,'mon'=>$mon],FALSE);
+
+
     }
     return $calendar;
 }
@@ -846,7 +890,9 @@ function get_event_day($mon){
             }
         }
         else{
-            $arr_date[] = $date[2];
+            if($date[1] == $mon){
+                $arr_date[] = $date[2];
+            }
         }
     }
     $arr_end_date = [];
@@ -882,7 +928,9 @@ function get_event($mon){
             }
         }
         else{
-           $event .= $parser->parse(TM_DIR.'/views/events/event.php',['name'=>$sob->post_title,'img'=>$img,'number'=>$dateEvent,'link'=>$sob->guid],FALSE);
+            if($date[1] == $mon){
+                $event .= $parser->parse(TM_DIR.'/views/events/event.php',['name'=>$sob->post_title,'img'=>$img,'number'=>$dateEvent,'link'=>$sob->guid],FALSE);
+            }
         }
     }
     return $event;
@@ -890,18 +938,23 @@ function get_event($mon){
 
 function name_mon($mon){
     $months = Array(
-        '01' => 'января',
-        '02' => 'февраля',
-        '03' => 'марта',
-        '04' => 'апреля',
-        '05' => 'мая',
-        '06' => 'июня',
-        '07' => 'июля',
-        '08' => 'августа',
-        '09' => 'сентября',
+        '1' => 'января',
+        '2' => 'февраля',
+        '3' => 'марта',
+        '4' => 'апреля',
+        '5' => 'мая',
+        '6' => 'июня',
+        '7' => 'июля',
+        '8' => 'августа',
+        '9' => 'сентября',
         '10' => 'октября',
         '11' => 'ноября',
         '12' => 'декабря'
     );
 return $months[$mon];
+}
+
+function show_events(){
+    get_event_calendar($_POST['mon']);
+    die();
 }
