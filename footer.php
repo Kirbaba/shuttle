@@ -36,10 +36,28 @@
     <span id="modal_close"><i class="fa fa-times"></i></span> <!-- Кнoпкa зaкрыть -->
     <h4>ОБРАТНАЯ СВЯЗЬ</h4>
     <p>Если вы хотите забронировать столик, у вас есть вопросы или предлождения, то укажите свое имя, e-mail или номер телефона. Наш сотрудник обязательно свяжется с вами в ближайшее время.  Вы также можете оставить заявку по телефону: <span class="modal_phone"> 24-20-20</span></p>
+    <form>
+        <p>Как вас зовут?
+            <br /><input type="text" name="name" id="nameFeedback" required/></p>
+        <p>Ваш e-mail
+            <br /><input type="email" name="email" id="emailFeedback" required/></p>
+        <p>Номер телефона для обратной связи
+            <br /><input type="text" name="telephone" id="telephoneFeedback" required/></p>
+        <input type="button" class="feedback-button" name="" id="buttonFeedback" value="Отправить"/>
+    </form>
     <!-- Тут любoе сoдержимoе -->
 </div>
 <div id="overlay"></div><!-- Пoдлoжкa -->
-
 <?php wp_footer(); ?>
+<script type="text/javascript">
+    addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
+    var ajaxurl = '/wp-admin/admin-ajax.php',
+        pagenow = 'toplevel_page_mainpage',
+        typenow = '',
+        adminpage = 'toplevel_page_mainpage',
+        thousandsSeparator = ' ',
+        decimalPoint = ',',
+        isRtl = 0;
+</script>
 </body>
 </html>

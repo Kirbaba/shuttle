@@ -54,4 +54,36 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
 
     });
 
+    $('#buttonFeedback').click(function(){
+        var name = $('#nameFeedback').val();
+        var telephone = $('#telephoneFeedback').val();
+        var email = $('#emailFeedback').val();
+
+     //   console.log(name);
+      //  console.log(telephone);
+       // console.log(email);
+
+        $.ajax({
+            type: "POST",
+            url: ajaxurl, //url, к которому обращаемся
+            data: "action=feedback&name=" + name + "&phone=" + telephone + "&email=" + email, //данные, которые передаем. Обязательно для action указываем имя нашего хука
+            success: function(data){
+               // alert('Ваш заказ сделан. В ближайшее время с вами свяжутся. Спасибо.')
+               // console.log(data);
+               /*  alert(data);*/
+            }
+        });
+
+        $('#nameFeedback').val('');
+        $('#telephoneFeedback').val('');
+        $('#emailFeedback').val('');
+        $('#modal_form')
+            .animate({opacity: 0, top: '45%'}, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
+            function(){ // пoсле aнимaции
+                $(this).css('display', 'none'); // делaем ему display: none;
+                $('#overlay').fadeOut(400); // скрывaем пoдлoжку
+            }
+        );
+    });
+
 });

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title><?php wp_title(''); ?></title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/sass/style.css">
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">-->
+<!--    <link rel="stylesheet" href="--><?php //echo get_template_directory_uri(); ?><!--/css/style.css">-->
+<!--    <link rel="stylesheet" href="--><?php //echo get_template_directory_uri(); ?><!--/sass/style.css">-->
+<!--    <link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">-->
     <?php wp_head();?>
 </head>
 <body>
