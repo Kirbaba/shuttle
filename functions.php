@@ -15,6 +15,9 @@ function add_script(){
    // wp_enqueue_script( 'my-bootstrap-extension', get_template_directory_uri() . '/js/bootstrap.js', array(), '1');
     wp_enqueue_script( 'my-script', get_template_directory_uri() . '/js/script.js', array(), '1');
     wp_enqueue_script( 'fotorama-js', 'http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js', array(), '1');
+    wp_enqueue_script( 'plagins', get_template_directory_uri() . '/js/plugins.js', array(), '1');
+    wp_enqueue_script( 'slymin', get_template_directory_uri() . '/js/sly.min.js', array(), '1');
+    wp_enqueue_script( 'horizontal', get_template_directory_uri() . '/js/horizontal.js', array(), '1');
 }
 
 add_action( 'wp_enqueue_scripts', 'add_style' );
@@ -149,13 +152,6 @@ function my_extra_fields_update( $post_id ){
     return $post_id;
 }
 
-/*function get_product_site(){
-    $mypost = array( 'post_type' => 'product', );
-    $loop = new WP_Query( $mypost );
-    prn($loop);
-}
-
-add_shortcode('magaz', 'get_product_site');*/
 
 /*-------------------------КОНЕЦ МАГАЗИНА-------------------------------*/
 
@@ -793,3 +789,126 @@ function partners_sc(){
 }
 
 add_shortcode('partners', 'partners_sc');
+
+function get_event_calendar($mon=0){
+    $calendar = all_calendar();
+    $parser = new Parser();
+    if($mon == 0){
+        $a = getdate();
+        $mon = $a['mon'];
+        $nameMon = name_mon($mon);
+        $event = get_event($mon);
+    }
+    $parser->parse(TM_DIR.'/views/events/all_events.php',['calendar'=>$calendar,'event'=>$event,'namemon'=>$nameMon],TRUE);
+}
+
+add_shortcode('calendar', 'get_event_calendar');
+
+function all_calendar($year=0,$mon=0){
+    $parser = new Parser();
+    if(($year == 0) && ($mon == 0) ){
+        $a = getdate();
+        $currentYear =  $a['year'];
+        $currentMon = $a['mon'];
+        $dayMon = cal_days_in_month(CAL_GREGORIAN, $currentMon,  $currentYear);
+        $allMon = [1=>'Январь',2=>'Февраль',3=>'Март',4=>'Апрель', 5=>'Май',6=>'Июнь',7=>'Июль',8=>'Август',9=>'Сентябрь',10=>'Октябрь',11=>'Ноябрь',12=>'Декабрь'];
+        $mon = '';
+        for($i=1;$i<=12;$i++){
+            if($i == $currentMon){
+                $mon .= "<span class='currentMon'> <a href='#'>$allMon[$i]</a> </span>";
+            }
+            else{
+                $mon .= "<span class='mon'> <a href='#'>$allMon[$i]</a> </span>";
+            }
+
+        }
+        $eventDay = get_event_day($currentMon);
+        $days = '';
+        for($i=1;$i<=$dayMon;$i++){
+
+                if(in_array($i,$eventDay)){
+                    $days .= "<span class='selectDay'> $i </span>";
+                }
+                else{
+                    $days .= "<span class='day'> $i </span>";
+                }
+
+
+        }
+        $calendar = $parser->parse(TM_DIR.'/views/calendar/calendar.php',['days'=>$days,'mon'=>$mon],FALSE);
+    }
+    return $calendar;
+}
+
+function get_event_day($mon){
+    $mypost = array( 'post_type' => 'sobit', );
+    $loop = new WP_Query( $mypost );
+    $arr_date = [];
+    foreach($loop->posts as $sob){
+        $date = get_post_meta($sob->ID,'date',TRUE);
+        $date = explode('-',$date);
+        if($date[1][0] == 0){
+            if($date[1][0] == $mon){
+                $arr_date[] = $date[2];
+            }
+        }
+        else{
+            $arr_date[] = $date[2];
+        }
+    }
+    $arr_end_date = [];
+    foreach($arr_date as $d){
+        if($d[0] == 0){
+            $arr_end_date[] = $d[1];
+        }
+        else{
+            $arr_end_date[] = $d;
+        }
+    }
+    return $arr_end_date;
+}
+
+function get_event($mon){
+    $parser = new Parser();
+    $mypost = array( 'post_type' => 'sobit', 'orderby' => 'meta_value', 'meta_key' => 'date','order' => 'ASC');
+    $loop = new WP_Query( $mypost );
+    $event = '';
+    foreach($loop->posts as $sob){
+        $img = get_the_post_thumbnail($sob->ID);
+        $date = get_post_meta($sob->ID,'date',TRUE);
+        $date = explode('-',$date);
+        if($date[2][0] == 0){
+            $dateEvent = $date[2][1];
+        }
+        else{
+            $dateEvent = $date[2] ;
+        }
+        if($date[1][0] == 0){
+            if($date[1][1] == $mon){
+               $event .=  $parser->parse(TM_DIR.'/views/events/event.php',['name'=>$sob->post_title,'img'=>$img,'number'=>$dateEvent,'link'=>$sob->guid],FALSE);
+            }
+        }
+        else{
+           $event .= $parser->parse(TM_DIR.'/views/events/event.php',['name'=>$sob->post_title,'img'=>$img,'number'=>$dateEvent,'link'=>$sob->guid],FALSE);
+        }
+    }
+    return $event;
+}
+
+function name_mon($mon){
+    $months = Array(
+        '01' => 'января',
+        '02' => 'февраля',
+        '03' => 'марта',
+        '04' => 'апреля',
+        '05' => 'мая',
+        '06' => 'июня',
+        '07' => 'июля',
+        '08' => 'августа',
+        '09' => 'сентября',
+        '10' => 'октября',
+        '11' => 'ноября',
+        '12' => 'декабря'
+    );
+return $months[$mon];
+}

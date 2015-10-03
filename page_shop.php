@@ -24,7 +24,6 @@ get_header(); ?>
                                 <?php
                                 $mypost = array( 'post_type' => 'product', );
                                 $loop = new WP_Query( $mypost );
-                                //prn($loop);
                                 foreach($loop->posts as $prod){
                                     $img = get_the_post_thumbnail($prod->ID);
                                     $price = get_post_meta($prod->ID,'price',TRUE);
