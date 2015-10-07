@@ -107,3 +107,9 @@
     color: #1c89cb;
     font-weight: bold;
 }
+.tab-pane{
+    display: none;
+}
+.tab-pane.active{
+    display:block;
+}

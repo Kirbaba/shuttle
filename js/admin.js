@@ -278,4 +278,48 @@ $(document).ready(function ($) {
         }
 
     });
+
+    $(document).on('click','#add_artist',function(){
+        $("#add_artist").parent().append('<input type="text" name="extra[artist][]" id="" value=""><a href="#" id="delArtist">Del</a><br />');
+
+        return false;
+    });
+
+    $(document).on('click','#add_circs_entry',function(){
+        $("#add_circs_entry").parent().append('<p>Название условия: <input type="text" name="extra[circs_entry_key][]" id="" value=""/>Условие: <input type="text" name="extra[circs_entry_value][]" id="" value=""/> <a href="#" id="del_circs_entry">Del</a></p><br/>');
+        return false;
+    });
+
+    $(document).on('click','#delArtist',function(){
+        $(this).prev().remove();
+        $(this).remove();
+        return false;
+    });
+
+    $(document).on('click','#del_circs_entry',function(){
+        $(this).parent().remove();
+        $(this).remove();
+        return false;
+    });
+
+    $(document).on('change','#date',function(){
+        var date = $(this).val();
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=get_event_admin&date=' + date,
+            success:function(data){
+                if (data !=="null"){
+                    var obj = jQuery.parseJSON(data);
+                    $('#id_event').val(obj.ID);
+                    $('.oneEvent').html('<p>В этот день мероприятие: ' + obj.post_title + '</p><label> Добавьте все файлы здесь: <input type="file" name="kv_multiple_attachments[]" multiple="multiple" > </label> <input type="submit" name="uploadimg" value="Загрузить" >');
+                }
+                else{
+                    $('.oneEvent').html('<p>В этот день мероприятий нет</p>');
+                }
+
+            }
+        });
+
+    });
 });

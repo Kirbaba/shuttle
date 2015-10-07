@@ -1,6 +1,24 @@
 $(document).ready(function() { // вся мaгия пoсле зaгрузки стрaницы
-    var sly = new Sly( '.sly');
-    sly.init();
+
+    var options = {
+        horizontal: 1,
+        itemNav: 'centered',
+        smart: 1,
+        activateOn: 'click',
+        mouseDragging: 1,
+        touchDragging: 1,
+        releaseSwing: 1,
+        startAt: 1,
+        scrollBar: $('.scrollbar'),
+        scrollBy: 1,
+        speed: 300,
+        elasticBounds: 1,
+        easing: 'easeOutExpo',
+        dragHandle: 1,
+        dynamicHandle: 1,
+        clickBar: 1
+    };
+    $('#centered').sly(options);
     $('a#go').click( function(event){ // лoвим клик пo ссылки с id="go"
         event.preventDefault(); // выключaем стaндaртную рoль элементa
         $('#overlay').fadeIn(400, // снaчaлa плaвнo пoкaзывaем темную пoдлoжку
@@ -85,18 +103,28 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
             }
         );
     });
-    $(document).on('click','#linkMon', function(){
-        var idMon = $(this).attr('data-id');
-        $.ajax({
-           type: "POST",
-            url: ajaxurl,
-            data: "action=showevents&mon=" + idMon,
-            success: function(data){
-                $('.events').parent().html(data);
 
+    /*$(document).on('click','#photoreportEvent',function(){
+        $('.events-page__head--but').removeClass('activeTab');
+        $(this).addClass('activeTab');
+        var postId = $(this).attr('data-id');
+        $.ajax({
+            type: "POST",
+            url: ajaxurl, //url, к которому обращаемся
+            data: "action=show_report&id=" + postId, //данные, которые передаем. Обязательно для action указываем имя нашего хука
+            success: function(data){
+                // alert('Ваш заказ сделан. В ближайшее время с вами свяжутся. Спасибо.')
+                 $('.events-page__box').html(data);
+                *//*  alert(data);*//*
             }
         });
-        return false;
     });
+
+    $(document).on('click','#descriptionEvent',function(){
+        $('.events-page__head--but').removeClass('activeTab');
+        $(this).addClass('activeTab');
+    });*/
+
+
 
 });

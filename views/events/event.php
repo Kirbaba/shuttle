@@ -1,6 +1,6 @@
 <li>
     <a href="{link}" class="events__poster">
-        <h3><span>{number}</span> августа</h3>
+        <h3><span>{number}</span> {namemon}</h3>
 										<span class="events__poster--imagebox">
 											{img}
 											<h2>Подробнее</h2>

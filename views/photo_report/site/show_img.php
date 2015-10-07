@@ -1,0 +1,1 @@
+<span><img src="{link}/img_events/{img}" alt="" width="100px;"/></span>

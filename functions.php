@@ -1,63 +1,71 @@
 <?php
 
-function add_style(){
-   // wp_enqueue_style( 'my-bootstrap-extension', get_template_directory_uri() . '/css/bootstrap.css', array(), '1');
-    wp_enqueue_style( 'my-styles', get_template_directory_uri() . '/css/style.css', array(), '1');
-    wp_enqueue_style( 'my-sass', get_template_directory_uri() . '/sass/style.css', array(), '1');
+function add_style()
+{
+    // wp_enqueue_style( 'my-bootstrap-extension', get_template_directory_uri() . '/css/bootstrap.css', array(), '1');
+    wp_enqueue_style('my-styles', get_template_directory_uri() . '/css/style.css', array(), '1');
+    wp_enqueue_style('my-sass', get_template_directory_uri() . '/sass/style.css', array(), '1');
     wp_enqueue_style('fotorama-css', 'http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css', array(), '1');
     wp_enqueue_style('fa-style', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css', array(), '1');
+    wp_enqueue_style('likely', get_template_directory_uri() . '/css/likely.css', array(), '1');
+}
+
+function add_script()
+{
+    wp_enqueue_script('jquery', get_template_directory_uri() . '/js/jquery-2.1.3.min.js', array(), '1');
+    wp_enqueue_script('likely', get_template_directory_uri() . '/js/likely.js', array(), '1');
+    wp_enqueue_script('jq', 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js', array(), '1');
+     wp_enqueue_script( 'my-bootstrap-extension', get_template_directory_uri() . '/js/bootstrap.js', array(), '1');
+    wp_enqueue_script('my-script', get_template_directory_uri() . '/js/script.js', array(), '1');
+    wp_enqueue_script('fotorama-js', 'http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js', array(), '1');
+    wp_enqueue_script('plagins', get_template_directory_uri() . '/js/plugins.js', array(), '1');
+    wp_enqueue_script('slymin', get_template_directory_uri() . '/js/sly.min.js', array(), '1');
+    wp_enqueue_script('slymin', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '1');
+    // wp_enqueue_script( 'horizontal', get_template_directory_uri() . '/js/horizontal.js', array(), '1');
 }
 
 
-function add_script(){
-    wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery-2.1.3.min.js', array(), '1');
-    wp_enqueue_script( 'jq', 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js', array(), '1');
-   // wp_enqueue_script( 'my-bootstrap-extension', get_template_directory_uri() . '/js/bootstrap.js', array(), '1');
-    wp_enqueue_script( 'my-script', get_template_directory_uri() . '/js/script.js', array(), '1');
-    wp_enqueue_script( 'fotorama-js', 'http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js', array(), '1');
-    wp_enqueue_script( 'plagins', get_template_directory_uri() . '/js/plugins.js', array(), '1');
-    wp_enqueue_script( 'slymin', get_template_directory_uri() . '/js/sly.min.js', array(), '1');
-    wp_enqueue_script( 'horizontal', get_template_directory_uri() . '/js/horizontal.js', array(), '1');
-}
+add_action('wp_enqueue_scripts', 'add_style');
+add_action('wp_enqueue_scripts', 'add_script');
 
-
-add_action( 'wp_enqueue_scripts', 'add_style' );
-add_action( 'wp_enqueue_scripts', 'add_script' );
-
-function prn($content) {
+function prn($content)
+{
     echo '<pre style="background: lightgray; border: 1px solid black; padding: 2px">';
-    print_r ( $content );
+    print_r($content);
     echo '</pre>';
 }
 
-function my_pagenavi() {
+function my_pagenavi()
+{
     global $wp_query;
 
     $big = 999999999; // уникальное число для замены
 
     $args = array(
-        'base' => str_replace( $big, '%#%', get_pagenum_link( $big ) )
-    ,'format' => ''
-    ,'current' => max( 1, get_query_var('paged') )
-    ,'total' => $wp_query->max_num_pages
+        'base' => str_replace($big, '%#%', get_pagenum_link($big))
+    , 'format' => ''
+    , 'current' => max(1, get_query_var('paged'))
+    , 'total' => $wp_query->max_num_pages
     );
 
-    $result = paginate_links( $args );
+    $result = paginate_links($args);
 
     // удаляем добавку к пагинации для первой страницы
-    $result = str_replace( '/page/1/', '', $result );
+    $result = str_replace('/page/1/', '', $result);
 
     echo $result;
 }
 
-function excerpt_readmore($more) {
-    return '... <br><a href="'. get_permalink($post->ID) . '" class="readmore">' . 'Читать далее' . '</a>';
+function excerpt_readmore($more)
+{
+    return '... <br><a href="' . get_permalink($post->ID) . '" class="readmore">' . 'Читать далее' . '</a>';
 }
+
 add_filter('excerpt_more', 'excerpt_readmore');
 
 
-if ( function_exists( 'add_theme_support' ) )
-    add_theme_support( 'post-thumbnails' );
+if (function_exists('add_theme_support'))
+    add_theme_support('post-thumbnails');
 
 /*-------------------------МАГАЗИН-------------------------------*/
 add_action('init', 'my_custom_init');
@@ -72,7 +80,7 @@ function my_custom_init()
         'new_item' => 'Новый товар',
         'view_item' => 'Посмотреть товар',
         'search_items' => 'Найти товар',
-        'not_found' =>  'Товаров не найдено',
+        'not_found' => 'Товаров не найдено',
         'not_found_in_trash' => 'В корзине товаров не найдено',
         'parent_item_colon' => '',
         'menu_name' => 'Магазин'
@@ -90,70 +98,91 @@ function my_custom_init()
         'has_archive' => true,
         'hierarchical' => false,
         'menu_position' => null,
-        'supports' => array('title','editor','thumbnail')
+        'supports' => array('title', 'editor', 'thumbnail')
     );
-    register_post_type('product',$args);
+    register_post_type('product', $args);
 }
 
 // Добавляем фильтр, который изменит сообщение при публикации при изменении типа записи Book
 add_filter('post_updated_messages', 'product_updated_messages');
-function product_updated_messages( $messages ) {
+function product_updated_messages($messages)
+{
     global $post, $post_ID;
 
     $messages['product'] = array(
         0 => '', // Не используется. Сообщения используются с индекса 1.
-        1 => sprintf( 'Book обновлено. <a href="%s">Посмотреть запись book</a>', esc_url( get_permalink($post_ID) ) ),
+        1 => sprintf('Book обновлено. <a href="%s">Посмотреть запись book</a>', esc_url(get_permalink($post_ID))),
         2 => 'Произвольное поле обновлено.',
         3 => 'Произвольное поле удалено.',
         4 => 'Запись Book обновлена.',
         /* %s: дата и время ревизии */
-        5 => isset($_GET['revision']) ? sprintf( 'Запись Book восстановлена из ревизии %s', wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-        6 => sprintf( 'Товар опубликован. <a href="%s">Перейти к продукту</a>', esc_url( get_permalink($post_ID) ) ),
+        5 => isset($_GET['revision']) ? sprintf('Запись Book восстановлена из ревизии %s', wp_post_revision_title((int)$_GET['revision'], false)) : false,
+        6 => sprintf('Товар опубликован. <a href="%s">Перейти к продукту</a>', esc_url(get_permalink($post_ID))),
         7 => 'Запись Book сохранена.',
-        8 => sprintf( 'Продукт сохранен. <a target="_blank" href="%s">Предпросмотр продукта</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-        9 => sprintf( 'Запись Book запланирована на: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Предпросмотр записи book</a>',
+        8 => sprintf('Продукт сохранен. <a target="_blank" href="%s">Предпросмотр продукта</a>', esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+        9 => sprintf('Запись Book запланирована на: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Предпросмотр записи book</a>',
             // Как форматировать даты в PHP можно посмотреть тут: http://php.net/date
-            date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-        10 => sprintf( 'Черновик записи Book обновлен. <a target="_blank" href="%s">Предпросмотр записи book</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+            date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date)), esc_url(get_permalink($post_ID))),
+        10 => sprintf('Черновик записи Book обновлен. <a target="_blank" href="%s">Предпросмотр записи book</a>', esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
     );
 
     return $messages;
 }
 
-function my_extra_fields() {
-    add_meta_box( 'extra_fields', 'Цена', 'extra_fields_box_func', 'product', 'normal', 'high'  );
-    add_meta_box( 'extra_fields', 'Дата', 'extra_fields_sobit_func', 'sobit', 'normal', 'high'  );
+function my_extra_fields()
+{
+    add_meta_box('extra_fields', 'Цена', 'extra_fields_box_func', 'product', 'normal', 'high');
+    add_meta_box('extra_fields', 'Дата', 'extra_fields_event_func', 'event', 'normal', 'high');
 }
+
 add_action('add_meta_boxes', 'my_extra_fields', 1);
 
-function extra_fields_box_func( $post ){
+function extra_fields_box_func($post)
+{
     ?>
-    <p><span>Введите только цифры.</span><input type="text" pattern="\d+(\.\d{2})?" name="extra[price]" value="<?php echo get_post_meta($post->ID, 'price', 1); ?>" style="width:50%" /></p>
+    <p><span>Введите только цифры.</span><input type="text" pattern="\d+(\.\d{2})?" name="extra[price]"
+                                                value="<?php echo get_post_meta($post->ID, 'price', 1); ?>"
+                                                style="width:50%"/></p>
 <?php
 }
 
 add_action('save_post', 'my_extra_fields_update', 10, 1);
 
 /* Сохраняем данные, при сохранении поста */
-function my_extra_fields_update( $post_id ){
-    
-    if( !isset($_POST['extra']) ) return false;
-    foreach( $_POST['extra'] as $key=>$value ){
-        if( empty($value) ){
-            delete_post_meta($post_id, $key); // удаляем поле если значение пустое
-            continue;
-        }
+function my_extra_fields_update($post_id)
+{
+    // Все ОК! Теперь, нужно сохранить/удалить данные
+    //$_POST['extra'] = array_map('trim', $_POST['extra']); // чистим все данные от пробелов по краям
+    /*foreach($_POST['extra']['artist'] as $v){
 
-        update_post_meta($post_id, $key, $value); // add_post_meta() работает автоматически
+    }*/
+    if (isset($_POST['extra'])) {
+        $artist = json_encode($_POST['extra']['artist'],JSON_UNESCAPED_UNICODE);
+        update_post_meta($post_id, 'all_artist', $artist);
+        unset($_POST['extra']['artist']);
+        $circs_entry = array_combine($_POST['extra']['circs_entry_key'],$_POST['extra']['circs_entry_value']);
+        $circs_entry = json_encode($circs_entry,JSON_UNESCAPED_UNICODE);
+        update_post_meta($post_id, 'circs_entry', $circs_entry);
+        unset($_POST['extra']['circs_entry_key']);
+        unset($_POST['extra']['circs_entry_value']);
+        foreach ($_POST['extra'] as $key => $value) {
+
+            if (empty($value)) {
+                delete_post_meta($post_id, $key); // удаляем поле если значение пустое
+                continue;
+            }
+
+            update_post_meta($post_id, $key, $value); // add_post_meta() работает автоматически
+        }
+        return $post_id;
     }
-    return $post_id;
 }
 
 /*-------------------------КОНЕЦ МАГАЗИНА-------------------------------*/
 
 /*------------------------СТРАНИЦА СОБЫТИЯ------------------------------*/
-add_action('init', 'my_custom_init_sobit');
-function my_custom_init_sobit()
+add_action('init', 'my_custom_init_event');
+function my_custom_init_event()
 {
     $labels = array(
         'name' => 'События', // Основное название типа записи
@@ -164,7 +193,7 @@ function my_custom_init_sobit()
         'new_item' => 'Новое событие',
         'view_item' => 'Посмотреть событие',
         'search_items' => 'Найти событие',
-        'not_found' =>  'Событий не найдено',
+        'not_found' => 'Событий не найдено',
         'not_found_in_trash' => 'В корзине событий не найдено',
         'parent_item_colon' => '',
         'menu_name' => 'События'
@@ -182,50 +211,121 @@ function my_custom_init_sobit()
         'has_archive' => true,
         'hierarchical' => false,
         'menu_position' => null,
-        'supports' => array('title','editor','thumbnail')
+        'supports' => array('title', 'editor', 'thumbnail')
     );
-    register_post_type('sobit',$args);
+    register_post_type('event', $args);
 }
 
 // Добавляем фильтр, который изменит сообщение при публикации при изменении типа записи Book
-add_filter('post_updated_messages', 'product_updated_messages_sobit');
-function product_updated_messages_sobit( $messages ) {
+add_filter('post_updated_messages', 'product_updated_messages_event');
+function product_updated_messages_event($messages)
+{
     global $post, $post_ID;
 
     $messages['product'] = array(
         0 => '', // Не используется. Сообщения используются с индекса 1.
-        1 => sprintf( 'Book обновлено. <a href="%s">Посмотреть запись book</a>', esc_url( get_permalink($post_ID) ) ),
+        1 => sprintf('Book обновлено. <a href="%s">Посмотреть запись book</a>', esc_url(get_permalink($post_ID))),
         2 => 'Произвольное поле обновлено.',
         3 => 'Произвольное поле удалено.',
         4 => 'Запись Book обновлена.',
         /* %s: дата и время ревизии */
-        5 => isset($_GET['revision']) ? sprintf( 'Запись Book восстановлена из ревизии %s', wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-        6 => sprintf( 'Событие опубликовано. <a href="%s">Перейти к продукту</a>', esc_url( get_permalink($post_ID) ) ),
+        5 => isset($_GET['revision']) ? sprintf('Запись Book восстановлена из ревизии %s', wp_post_revision_title((int)$_GET['revision'], false)) : false,
+        6 => sprintf('Событие опубликовано. <a href="%s">Перейти к продукту</a>', esc_url(get_permalink($post_ID))),
         7 => 'Запись Book сохранена.',
-        8 => sprintf( 'Событие сохранено. <a target="_blank" href="%s">Предпросмотр продукта</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-        9 => sprintf( 'Запись Book запланирована на: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Предпросмотр записи book</a>',
+        8 => sprintf('Событие сохранено. <a target="_blank" href="%s">Предпросмотр продукта</a>', esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+        9 => sprintf('Запись Book запланирована на: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Предпросмотр записи book</a>',
             // Как форматировать даты в PHP можно посмотреть тут: http://php.net/date
-            date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-        10 => sprintf( 'Черновик записи Book обновлен. <a target="_blank" href="%s">Предпросмотр записи book</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+            date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date)), esc_url(get_permalink($post_ID))),
+        10 => sprintf('Черновик записи Book обновлен. <a target="_blank" href="%s">Предпросмотр записи book</a>', esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
     );
 
     return $messages;
 }
 
-function extra_fields_sobit_func( $post ){
+function extra_fields_event_func($post)
+{
     ?>
-    <!--<p><input type="text" name="extra[date]" value="<?php /*echo get_post_meta($post->ID, 'date', 1); */?>" style="width:50%" /></p>-->
-    <input type="date" name="extra[date]" value="<?php echo get_post_meta($post->ID, 'date', 1); ?>" max="2200-12-31" min="2015-05-29">
+    <!--<p><input type="text" name="extra[date]" value="<?php /*echo get_post_meta($post->ID, 'date', 1); */ ?>" style="width:50%" /></p>-->
+    <input type="date" name="extra[date]" value="<?php echo get_post_meta($post->ID, 'date', 1); ?>" max="2200-12-31"
+           min="2015-05-29">
+
 <?php
 }
 
+function extra_fields_event_artist($post)
+{
+    $artist = get_post_meta($post->ID, 'all_artist', TRUE);
+    $artist = json_decode($artist);
+    if (empty($artist)) {
+        ?>
+        <input type="text" name="extra[artist][]" id="" value=""/><a href="#" id="delArtist">Del</a><br/>
+        <input type="button" name="" id="add_artist" value="Добавить"/>
+    <?php
+    } else {
+        foreach ($artist as $v) {
+            ?>
+            <input type="text" name="extra[artist][]" id="" value="<?= $v; ?>"/>
+            <a href="#" id="delArtist">Del</a>
+            <br/>
+
+        <?php
+        }
+        ?>
+        <input type="button" name="" id="add_artist" value="Добавить"/>
+    <?php
+    }
+    //prn($artist);
+    ?>
+
+
+<?php
+}
+
+function artist_extra_field_event()
+{
+    add_meta_box('extra_fields_artist', 'Исполнители', 'extra_fields_event_artist', 'event', 'normal', 'high');
+}
+
+add_action('add_meta_boxes', 'artist_extra_field_event', 5);
+
+function circs_entry_extra_field_event(){
+    add_meta_box('extra_fields_circs_entry', 'Условия входа', 'extra_field_event_circs_entry', 'event', 'normal', 'high');
+}
+
+add_action('add_meta_boxes', 'circs_entry_extra_field_event', 2);
+
+function extra_field_event_circs_entry($post){
+    $circs_entry = get_post_meta($post->ID, 'circs_entry', TRUE);
+    $circs_entry = json_decode($circs_entry);
+    if(empty($circs_entry)){
+    ?>
+            <p>Название условия: <input type="text" name="extra[circs_entry_key][]" id="" value=""/>
+                Условие: <input type="text" name="extra[circs_entry_value][]" id="" value=""/>
+                <a href="#" id="del_circs_entry">Del</a></p><br/>
+            <input type="button" name="" id="add_circs_entry" value="Добавить"/>
+            <?php
+        }
+        else{
+            foreach($circs_entry as $key=>$value){?>
+                <p>Название условия: <input type="text" name="extra[circs_entry_key][]" id="" value="<?=$key;?>"/>
+                Условие: <input type="text" name="extra[circs_entry_value][]" id="" value="<?=$value;?>"/>
+                <a href="#" id="del_circs_entry">Del</a></p><br/>
+          <?php  } ?>
+            <input type="button" name="" id="add_circs_entry" value="Добавить"/>
+       <?php }
+    ?>
+
+
+<?php
+}
 /*-------------------- КОНЕЦ СТРАНИЦА СОБЫТИЯ---------------------------*/
 
 define('TM_DIR', get_template_directory(__FILE__));
 define('TM_URL', get_template_directory_uri(__FILE__));
 
-require_once TM_DIR.'/parser.php';
-require_once TM_DIR.'/breadcrumbs.php';
+require_once TM_DIR . '/parser.php';
+require_once TM_DIR . '/breadcrumbs.php';
+require_once TM_DIR . '/lib/Photo_report.php';
 
 //Стили для админки
 function add_admin_style()
@@ -386,7 +486,8 @@ function mainpage()
 }
 
 //админка наших партнеров
-function partners(){
+function partners()
+{
 
     if (function_exists('wp_enqueue_media')) {
         wp_enqueue_media();
@@ -401,22 +502,22 @@ function partners(){
     $html = "";
     foreach ($partners as $item) {
 
-        $html .= '<li class="list-group-item" data-num="'.$item['id'].'">
+        $html .= '<li class="list-group-item" data-num="' . $item['id'] . '">
                 <div class="row">
                     <div class="col-lg-5">
-                        <img src="'.$item['img'].'" alt="" class="partner-img media">
+                        <img src="' . $item['img'] . '" alt="" class="partner-img media">
                         <button class="btn btn-info media-upload"><span class="glyphicon glyphicon-picture"> Выбрать изображение</span></button>
-                        <input type="hidden" class="media-img" name="partner-img" value="'.$item['img'].'">
+                        <input type="hidden" class="media-img" name="partner-img" value="' . $item['img'] . '">
                     </div>
                     <div class="col-lg-5">
-                        <input type="text" placeholder="Ссылка на партнера" name="partner-link" value="'.$item['link'].'">
+                        <input type="text" placeholder="Ссылка на партнера" name="partner-link" value="' . $item['link'] . '">
                     </div>
                     <div class="col-lg-1">
                         <button class="btn btn-success save-partner"><span class="glyphicon glyphicon-floppy-disk"></span></button>
                     </div>
                     <div class="col-lg-1">';
-        if($item['id'] != 1){
-            $html .= '<button class="btn btn-danger del-partner" data-num="'.$item['id'].'"><span class="glyphicon glyphicon-trash"></span></button>';
+        if ($item['id'] != 1) {
+            $html .= '<button class="btn btn-danger del-partner" data-num="' . $item['id'] . '"><span class="glyphicon glyphicon-trash"></span></button>';
         }
 
         $html .= ' </div>
@@ -436,14 +537,14 @@ if (function_exists('add_theme_support'))
     add_theme_support('post-thumbnails');
 
 //nav menus wordpress
-register_nav_menus( array(
+register_nav_menus(array(
     'header_menu' => 'Меню в шапке',
-) );
+));
 
 /**
  * Добавляет секции, параметры и элементы управления (контролы) на страницу настройки темы
  */
-add_action('customize_register', function($customizer){
+add_action('customize_register', function ($customizer) {
     /*Меню настройки контактов*/
     $customizer->add_section(
         'contacts_section',
@@ -541,24 +642,27 @@ add_action('wp_ajax_delete_partner', 'delete_partner');
 add_action('wp_ajax_order', 'set_order');
 add_action('wp_ajax_feedback', 'send_feedback');
 add_action('wp_ajax_showevents', 'show_events');
+add_action('wp_ajax_show_report', 'show_report');
 
 
-function set_order(){
+function set_order()
+{
     $nameproduct = $_POST['nameproduct'];
     $name = $_POST['name'];
     $tel = $_POST['tel'];
     $email = $_POST['email'];
-    mail(get_theme_mod('mail_textbox'), "Заказ товара с вашего сайта", "С вашего сайта заказали товар:<br>Название: $nameproduct <br> Имя заказчика: $name<br> Телефон для связи: $tel Email для связи: $email","Content-type: text/html; charset=UTF-8\r\n");
+    mail(get_theme_mod('mail_textbox'), "Заказ товара с вашего сайта", "С вашего сайта заказали товар:<br>Название: $nameproduct <br> Имя заказчика: $name<br> Телефон для связи: $tel Email для связи: $email", "Content-type: text/html; charset=UTF-8\r\n");
     die();
 }
 
 // обратная связь
-function send_feedback(){
+function send_feedback()
+{
     //prn($_POST);
     $name = $_POST['name'];
     $tel = $_POST['phone'];
     $email = $_POST['email'];
-    mail(get_theme_mod('mail_textbox'), "Заявка с вашего сайта", "С вашего сайта заказали обратную связь:<br> Имя : $name<br> Телефон для связи: $tel Email для связи: $email","Content-type: text/html; charset=UTF-8\r\n");
+    mail(get_theme_mod('mail_textbox'), "Заявка с вашего сайта", "С вашего сайта заказали обратную связь:<br> Имя : $name<br> Телефон для связи: $tel Email для связи: $email", "Content-type: text/html; charset=UTF-8\r\n");
     die();
 }
 
@@ -678,7 +782,7 @@ function getDataFromDb($tableName)
     global $wpdb;
 
     $data = $wpdb->get_results("SELECT * FROM `$tableName`", ARRAY_A);
-   // prn($data);
+    // prn($data);
     return $data;
 }
 
@@ -770,13 +874,14 @@ function delete_partner()
     die();
 }
 
-function partners_sc(){
+function partners_sc()
+{
     $partners = getDataFromDb('partners');
 
     $html = "";
 
-    foreach($partners as $partner){
-        $html .= '<div><a href="'.$partner['link'].'"><img src="'.$partner['img'].'" alt="" ></a></div>';
+    foreach ($partners as $partner) {
+        $html .= '<div><a href="' . $partner['link'] . '"><img src="' . $partner['img'] . '" alt="" ></a></div>';
     }
 
     return $html;
@@ -784,159 +889,158 @@ function partners_sc(){
 
 add_shortcode('partners', 'partners_sc');
 
-function get_event_calendar($mon=0){
+function get_event_calendar()
+{
     $parser = new Parser();
-    if($mon == 0){
+    if (isset($_GET['mon'])) {
+        $mon = $_GET['mon'];
+        if ($_GET['mon'] == 13) {
+            $mon = 1;
+        }
+        if ($_GET['mon'] == 0) {
+            $mon = 12;
+        }
+        $calendar = all_calendar($mon);
+    } else {
+        $calendar = all_calendar();
         $a = getdate();
         $mon = $a['mon'];
-        $calendar = all_calendar();
-    }
-    else{
-
-        $calendar = all_calendar($mon);
     }
     $nameMon = name_mon($mon);
     $event = get_event($mon);
-    $parser->parse(TM_DIR.'/views/events/all_events.php',['calendar'=>$calendar,'event'=>$event,'namemon'=>$nameMon],TRUE);
+    $parser->parse(TM_DIR . '/views/events/all_events.php', ['calendar' => $calendar, 'event' => $event, 'namemon' => $nameMon], TRUE);
 }
 
 add_shortcode('calendar', 'get_event_calendar');
 
-function all_calendar($mon=0){
+function all_calendar($mon = 0)
+{
     $parser = new Parser();
-    if(($mon == 0) ){
+    if (($mon == 0)) {
         $a = getdate();
-        $currentYear =  $a['year'];
+        $currentYear = $a['year'];
         $currentMon = $a['mon'];
-        $dayMon = cal_days_in_month(CAL_GREGORIAN, $currentMon,  $currentYear);
-        $allMon = [1=>'Январь',2=>'Февраль',3=>'Март',4=>'Апрель', 5=>'Май',6=>'Июнь',7=>'Июль',8=>'Август',9=>'Сентябрь',10=>'Октябрь',11=>'Ноябрь',12=>'Декабрь'];
+        $dayMon = cal_days_in_month(CAL_GREGORIAN, $currentMon, $currentYear);
+        $allMon = [1 => 'Январь', 2 => 'Февраль', 3 => 'Март', 4 => 'Апрель', 5 => 'Май', 6 => 'Июнь', 7 => 'Июль', 8 => 'Август', 9 => 'Сентябрь', 10 => 'Октябрь', 11 => 'Ноябрь', 12 => 'Декабрь'];
         $mon = '';
-        for($i=1;$i<=12;$i++){
-            if($i == $currentMon){
-                $mon .= "<span class='currentMon'> <a href='#'>$allMon[$i]</a> </span>";
-            }
-            else{
-                $mon .= "<span class='mon'> <a data-id='$i' id='linkMon' href='#'>$allMon[$i]</a> </span>";
+        for ($i = 1; $i <= 12; $i++) {
+            if ($i == $currentMon) {
+                $mon .= "<span class='currentMon'> <a href='?mon=$i'>$allMon[$i]</a> </span>";
+            } else {
+                $mon .= "<span class='mon'> <a data-id='$i' id='linkMon' href='?mon=$i'>$allMon[$i]</a> </span>";
             }
 
         }
         $eventDay = get_event_day($currentMon);
         $days = '';
-        for($i=1;$i<=$dayMon;$i++){
+        for ($i = 1; $i <= $dayMon; $i++) {
 
-                if(in_array($i,$eventDay)){
-                    $days .= "<span class='selectDay'> $i </span>";
-                }
-                else{
-                    $days .= "<span class='day'> $i </span>";
-                }
-
-
-        }
-        $calendar = $parser->parse(TM_DIR.'/views/calendar/calendar.php',['days'=>$days,'mon'=>$mon],FALSE);
-    }else{
-        $a = getdate();
-        $currentYear =  $a['year'];
-        $currentMon = $mon;
-        $dayMon = cal_days_in_month(CAL_GREGORIAN, $currentMon,  $currentYear);
-        $allMon = [1=>'Январь',2=>'Февраль',3=>'Март',4=>'Апрель', 5=>'Май',6=>'Июнь',7=>'Июль',8=>'Август',9=>'Сентябрь',10=>'Октябрь',11=>'Ноябрь',12=>'Декабрь'];
-        $mon = '';
-        for($i=1;$i<=12;$i++){
-            if($i == $currentMon){
-                $mon .= "<span class='currentMon'> <a href='#'>$allMon[$i]</a> </span>";
-            }
-            else{
-                $mon .= "<span class='mon'> <a data-id='$i' id='linkMon' href='#'>$allMon[$i]</a> </span>";
-            }
-
-        }
-        $eventDay = get_event_day($currentMon);
-        $days = '';
-        if(isset($eventDay)){
-            for($i=1;$i<=$dayMon;$i++){
+            if (in_array($i, $eventDay)) {
+                $days .= "<span class='selectDay'> $i </span>";
+            } else {
                 $days .= "<span class='day'> $i </span>";
             }
-        }else{
-            for($i=1;$i<=$dayMon;$i++){
-
-                if(in_array($i,$eventDay)){
-                    $days .= "<span class='selectDay'> $i </span>";
-                }
-                else{
-                    $days .= "<span class='day'> $i </span>";
-                }
 
 
+        }
+        $calendar = $parser->parse(TM_DIR . '/views/calendar/calendar.php', ['days' => $days, 'mon' => $mon, 'currentmonleft' => $currentMon - 1, 'currentmonright' => $currentMon + 1], FALSE);
+    } else {
+        $a = getdate();
+        $currentYear = $a['year'];
+        $currentMon = $mon;
+        $dayMon = cal_days_in_month(CAL_GREGORIAN, $currentMon, $currentYear);
+        $allMon = [1 => 'Январь', 2 => 'Февраль', 3 => 'Март', 4 => 'Апрель', 5 => 'Май', 6 => 'Июнь', 7 => 'Июль', 8 => 'Август', 9 => 'Сентябрь', 10 => 'Октябрь', 11 => 'Ноябрь', 12 => 'Декабрь'];
+        $mon = '';
+        for ($i = 1; $i <= 12; $i++) {
+            if ($i == $currentMon) {
+                $mon .= "<span class='currentMon'> <a href='?mon=$i'>$allMon[$i]</a> </span>";
+            } else {
+                $mon .= "<span class='mon'> <a data-id='$i' id='linkMon' href='?mon=$i'>$allMon[$i]</a> </span>";
             }
 
         }
-        $calendar = $parser->parse(TM_DIR.'/views/calendar/calendar.php',['days'=>$days,'mon'=>$mon],FALSE);
+        $eventDay = get_event_day($currentMon);
+        $days = '';
+        if (isset($eventDay)) {
+            for ($i = 1; $i <= $dayMon; $i++) {
+                $days .= "<span class='day'> $i </span>";
+            }
+        } else {
+            for ($i = 1; $i <= $dayMon; $i++) {
 
-
+                if (in_array($i, $eventDay)) {
+                    $days .= "<span class='selectDay'> $i </span>";
+                } else {
+                    $days .= "<span class='day'> $i </span>";
+                }
+            }
+        }
+        $calendar = $parser->parse(TM_DIR . '/views/calendar/calendar.php', ['days' => $days, 'mon' => $mon, 'currentmonleft' => $currentMon - 1, 'currentmonright' => $currentMon + 1], FALSE);
     }
     return $calendar;
 }
 
-function get_event_day($mon){
-    $mypost = array( 'post_type' => 'sobit', );
-    $loop = new WP_Query( $mypost );
+function get_event_day($mon)
+{
+    $mypost = array('post_type' => 'event',);
+    $loop = new WP_Query($mypost);
     $arr_date = [];
-    foreach($loop->posts as $sob){
-        $date = get_post_meta($sob->ID,'date',TRUE);
-        $date = explode('-',$date);
-        if($date[1][0] == 0){
-            if($date[1][0] == $mon){
+    foreach ($loop->posts as $sob) {
+        $date = get_post_meta($sob->ID, 'date', TRUE);
+        $date = explode('-', $date);
+        if ($date[1][0] == 0) {
+            if ($date[1][0] == $mon) {
                 $arr_date[] = $date[2];
             }
-        }
-        else{
-            if($date[1] == $mon){
+        } else {
+            if ($date[1] == $mon) {
                 $arr_date[] = $date[2];
             }
         }
     }
     $arr_end_date = [];
-    foreach($arr_date as $d){
-        if($d[0] == 0){
+    foreach ($arr_date as $d) {
+        if ($d[0] == 0) {
             $arr_end_date[] = $d[1];
-        }
-        else{
+        } else {
             $arr_end_date[] = $d;
         }
     }
     return $arr_end_date;
 }
 
-function get_event($mon){
+function get_event($mon)
+{
     $parser = new Parser();
-    $mypost = array( 'post_type' => 'sobit', 'orderby' => 'meta_value', 'meta_key' => 'date','order' => 'ASC');
-    $loop = new WP_Query( $mypost );
+    $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC');
+    $loop = new WP_Query($mypost);
     $event = '';
-    foreach($loop->posts as $sob){
+    $nameMon = name_mon($mon);
+
+    foreach ($loop->posts as $sob) {
         $img = get_the_post_thumbnail($sob->ID);
-        $date = get_post_meta($sob->ID,'date',TRUE);
-        $date = explode('-',$date);
-        if($date[2][0] == 0){
+        $date = get_post_meta($sob->ID, 'date', TRUE);
+        $date = explode('-', $date);
+        if ($date[2][0] == 0) {
             $dateEvent = $date[2][1];
+        } else {
+            $dateEvent = $date[2];
         }
-        else{
-            $dateEvent = $date[2] ;
-        }
-        if($date[1][0] == 0){
-            if($date[1][1] == $mon){
-               $event .=  $parser->parse(TM_DIR.'/views/events/event.php',['name'=>$sob->post_title,'img'=>$img,'number'=>$dateEvent,'link'=>$sob->guid],FALSE);
+        if ($date[1][0] == 0) {
+            if ($date[1][1] == $mon) {
+                $event .= $parser->parse(TM_DIR . '/views/events/event.php', ['name' => $sob->post_title, 'img' => $img, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon], FALSE);
             }
-        }
-        else{
-            if($date[1] == $mon){
-                $event .= $parser->parse(TM_DIR.'/views/events/event.php',['name'=>$sob->post_title,'img'=>$img,'number'=>$dateEvent,'link'=>$sob->guid],FALSE);
+        } else {
+            if ($date[1] == $mon) {
+                $event .= $parser->parse(TM_DIR . '/views/events/event.php', ['name' => $sob->post_title, 'img' => $img, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon], FALSE);
             }
         }
     }
     return $event;
 }
 
-function name_mon($mon){
+function name_mon($mon)
+{
     $months = Array(
         '1' => 'января',
         '2' => 'февраля',
@@ -951,10 +1055,147 @@ function name_mon($mon){
         '11' => 'ноября',
         '12' => 'декабря'
     );
-return $months[$mon];
+    return $months[$mon];
 }
 
-function show_events(){
-    get_event_calendar($_POST['mon']);
-    die();
+/*------День недели по дате-----*/
+function get_day_week($date){
+    $date=explode("-", $date);
+    $day = date("w", mktime(0, 0, 0, $date[1], $date[2], $date[0]));
+    $week=array(
+        1=> "Понедельник",
+        2=>"Вторник",
+        3=>"Срееда",
+        4=>"Четверг",
+        5=>"Пятница",
+        6=>"Суббота",
+        7=>"Воскресенье"
+    );
+    return $week[$day];
+}
+
+function upcoming_events($mon,$id){
+    $parser = new Parser();
+    $event = get_upcoming_event($mon,$id);
+    $parser->parse(TM_DIR . '/views/events/upcoming_events.php', ['event' => $event],true);
+
+}
+
+function get_upcoming_event($mon,$id)
+{
+    $parser = new Parser();
+    $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC');
+    $loop = new WP_Query($mypost);
+    $event = '';
+    $nameMon = name_mon($mon);
+    prn($mon);
+    foreach ($loop->posts as $sob) {
+        if($sob->ID != $id){
+            $img = get_the_post_thumbnail($sob->ID);
+            $date = get_post_meta($sob->ID, 'date', TRUE);
+            $date = explode('-', $date);
+            if ($date[2][0] == 0) {
+                $dateEvent = $date[2][1];
+            } else {
+                $dateEvent = $date[2];
+            }
+            if ($date[1][0] == 0) {
+                if ($date[1][1] == $mon) {
+                    $event .= $parser->parse(TM_DIR . '/views/events/event.php', ['name' => $sob->post_title, 'img' => $img, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon], FALSE);
+                }
+            } else {
+                if ($date[1] == $mon) {
+                    $event .= $parser->parse(TM_DIR . '/views/events/event.php', ['name' => $sob->post_title, 'img' => $img, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon], FALSE);
+                }
+            }
+        }
+    }
+    return $event;
+}
+
+function photo_report_menu_page(){
+    add_menu_page( 'Фоторепортаж', 'Фоторепортаж', 'administrator', 'photo_report', 'photo_report_admin_page' );
+}
+
+add_action('admin_menu', 'photo_report_menu_page');
+
+function photo_report_admin_page(){
+    $parser = new Parser();
+    if(isset($_GET['action'])) {
+        if ($_GET['action'] == 'add_photo_report') {
+            if(isset($_POST['uploadimg'])){
+                $photo = new Photo_report();
+                $photo->upload_img($_POST['id_event'],$_FILES);
+                print_photo_report();
+            }else{
+                $parser->parse(TM_DIR . '/views/photo_report/photo_report_add.php', array(), TRUE);
+            }
+
+        }
+        if($_GET['action'] == 'delit'){
+            $photo = new Photo_report();
+            $photo->delite_img($_GET['id']);
+            print_photo_report();
+        }
+        if($_GET['action'] == 'edit_photo_report'){
+            $photo = new Photo_report();
+            $img = $photo->get_img_report($_GET['id']);
+            $date = $photo->get_date_post($_GET['id']);
+            $link = get_template_directory_uri();
+            $images = '';
+            foreach($img as $i){
+                $images .= $parser->parse(TM_DIR . '/views/photo_report/list_img_photo_report.php', array('img'=>$i->images,'link'=>$link,'id_images'=>$i->id), FALSE);
+            }
+            $parser->parse(TM_DIR . '/views/photo_report/edit_photo_report.php', array('date'=>$date,'images'=>$images), TRUE);
+        }
+    }
+    else{
+        print_photo_report();
+    }
+}
+
+function print_photo_report(){
+    $parser = new Parser();
+    $photo = new Photo_report();
+    $id = $photo->get_img_event();
+    $event = '';
+    foreach($id as $p){
+        $k = get_post($p);
+       // prn($k);
+        $event .= $parser->parse(TM_DIR . '/views/photo_report/list_photo_report.php', ['name'=>$k->post_title,'ID'=>$k->ID], false);
+    }
+    $parser->parse(TM_DIR . '/views/photo_report/photo_report.php', ['events'=>$event], TRUE);
+}
+
+add_action('wp_ajax_get_event_admin', 'get_event_admin');
+
+function get_event_admin(){
+    $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC');
+    $loop = new WP_Query($mypost);
+    foreach($loop->posts as $v ){
+        $date = get_post_meta($v->ID, 'date', TRUE);
+        if($date == $_POST['date']){
+            $events = $v;
+        }
+    }
+
+        $events = json_encode($events);
+        echo  $events;
+
+
+
+die();
+}
+
+function show_report($id){
+    $parser = new Parser();
+    $photo = new Photo_report();
+    $img = $photo->get_img_report($id);
+    $link = get_template_directory_uri();
+    $images = '';
+    foreach($img as $i){
+        $images .= $parser->parse(TM_DIR . '/views/photo_report/site/show_img.php', array('img'=>$i->images,'link'=>$link), FALSE);
+    }
+    $parser->parse(TM_DIR . '/views/photo_report/site/show_photo_report.php', array('img'=>$images), true);
+
 }
