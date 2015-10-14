@@ -104,10 +104,10 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
         );
     });
 
-    /*$(document).on('click','#photoreportEvent',function(){
+    $(document).on('click','.events-page__head--but',function(){
         $('.events-page__head--but').removeClass('activeTab');
         $(this).addClass('activeTab');
-        var postId = $(this).attr('data-id');
+       /* var postId = $(this).attr('data-id');
         $.ajax({
             type: "POST",
             url: ajaxurl, //url, к которому обращаемся
@@ -115,12 +115,12 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
             success: function(data){
                 // alert('Ваш заказ сделан. В ближайшее время с вами свяжутся. Спасибо.')
                  $('.events-page__box').html(data);
-                *//*  alert(data);*//*
+                *//**//*  alert(data);*//**//*
             }
-        });
+        });*/
     });
 
-    $(document).on('click','#descriptionEvent',function(){
+    /*  $(document).on('click','#descriptionEvent',function(){
         $('.events-page__head--but').removeClass('activeTab');
         $(this).addClass('activeTab');
     });*/

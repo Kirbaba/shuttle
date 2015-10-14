@@ -1,1 +1,1 @@
-<span><img src="{link}/img_events/{img}" alt="" width="100px;"/></span>
+<a class="highslide" onclick="return hs.expand(this)" href="{link}/img_events/{img}"><img src="{link}/img_events/{img}" alt="" width="100px;"/></a>

@@ -1,7 +1,31 @@
+
+
 <?php
 get_header(); // Пoдключaeм хeдeр?>
 
+<script type="text/javascript">
+    hs.graphicsDir = '<?=get_template_directory_uri()?>/highslide/graphics/';
+    hs.align = 'center';
+    hs.transitions = ['expand', 'crossfade'];
+    hs.wrapperClassName = 'dark borderless floating-caption';
+    hs.fadeInOut = true;
+    hs.dimmingOpacity = .75;
+    hs.showCredits = false;
 
+    // Add the controlbar
+    if (hs.addSlideshow) hs.addSlideshow({
+        //slideshowGroup: 'group1',
+        interval: 5000,
+        repeat: false,
+        useControls: true,
+        fixedControls: 'fit',
+        overlayOptions: {
+            opacity: .6,
+            position: 'bottom center',
+            hideOnMouseOut: true
+        }
+    });
+</script>
 
 
 
@@ -24,6 +48,7 @@ get_header(); // Пoдключaeм хeдeр?>
     ?>
     <section class="events-page">
         <div class="events-page__head">
+
             <div class="breadcrumbs">
                 <?php if( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); ?>
                 <div class="likely likely-light">
@@ -56,94 +81,38 @@ get_header(); // Пoдключaeм хeдeр?>
         <div class="tab-content">
             <div class="tab-pane active" id="description">
                 <div class="events-page__box">
-                    <div class="events-page__info">
-                        <div class="events-page__info--left">
-                            <?=get_the_post_thumbnail($post->ID);?>
-                            <div class="events-page__info--cocktail">
-                                <h4 class="white">Коктейль в подарок</h4>
-                                <p>За фото и хэштэг <i>#shuttlenightclub</i> в instagram</p>
-                                <p>За вступление в <a href="#">группу вконтакте</a> и фотографию в ленту группы</p>
-                                <p>За вступление в <a href="#">группу фейсбука</a> и фотографию в ленту группы</p>
-                                <p></p>
-                            </div>
-                            <div class="events-page__info--contacts white">
-                                <h3>Телефоны для справок:</h3>
-                                <p><?php echo get_theme_mod('phone_textbox'); ?></p>
-                            </div>
-                        </div>
-                        <div class="events-page__info--right">
-                            <h2><?=$number?> <?=name_mon($mon)?>, <?=get_day_week($dateish);?></h2>
-                            <?=$post->post_content;?>
-                            <h3>Line up</h3>
-                            <div class="events-page--lineup">
-                                <?php
-                                $artist = get_post_meta($post->ID, 'all_artist', TRUE);
-                                $artist = json_decode($artist);
-                                foreach($artist as $v){
-                                    ?>
-                                    <p><?=$v?></p>
-                                <?php
-                                }
-                                ?>
-                            </div>
-                            <!--<div class="events-page--lineup--gogo">
-                                <p><span>S|N|C GO-GO:</span> Cosmo Dance</p>
-                            </div>-->
 
-                            <h3>Services</h3>
-                            <div class="events-page--services">
-                                <p>WI-FI</p>
-                                <p>Cocktail Set</p>
-                                <p>Кальян(Atlantis)</p>
-                                <p>FREE Cocktails for VIP Card</p>
-                                <p>VIP Lodge</p>
-                            </div>
-                            <h3>Условия входа</h3>
-                            <div class="events-page--enter">
-                                <ul>
-                                    <?php
-                                    $circs_entry = get_post_meta($post->ID, 'circs_entry', TRUE);
-                                    $circs_entry = json_decode($circs_entry);
-                                    foreach($circs_entry as $key=>$value){
-                                        ?>
-                                        <li><p><?=$key;?></p><span class="free"><?=$value;?></span></li>
-                                    <?php
-                                    }
-                                    ?>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <?=$post->post_content;?>
+
                 </div>
                 <?php
-                $upcoming_event = upcoming_events($mon,$post->ID);
-                echo $upcoming_event;
+              upcoming_events($mon,$post->ID);
+                echo get_parent($post->ID);
                 ?>
-                <div class="events-page__partners">
-                    <h1 class="blockTitle">Партнеры мероприятия</h1>
-                    <div class="events-page__partners--item">
-                        <img src="img/2gis-Logo.png" alt="">
-                    </div>
-                    <div class="events-page__partners--item">
-                        <img src="img/2gis-Logo.png" alt="">
-                    </div>
-                    <div class="events-page__partners--item">
-                        <img src="img/2gis-Logo.png" alt="">
-                    </div>
-                    <div class="events-page__partners--item">
-                        <img src="img/2gis-Logo.png" alt="">
-                    </div>
-                    <div class="events-page__partners--item">
-                        <img src="img/2gis-Logo.png" alt="">
-                    </div>
-                    <div class="events-page__partners--item">
-                        <img src="img/2gis-Logo.png" alt="">
-                    </div>
-                </div>
             </div>
 
             <div class="tab-pane" id="fotoreport">
                <?php show_report($post->ID);?>
+                <div class="coments_wr">
+                    <div class="coments">
+                        <!-- Put this script tag to the <head> of your page -->
+                        <script type="text/javascript" src="//vk.com/js/api/openapi.js?117"></script>
+
+                        <script type="text/javascript">
+                            VK.init({apiId: 5105016, onlyWidgets: true});
+                        </script>
+
+                        <!-- Put this div tag to the place, where the Comments block will be -->
+                        <div id="vk_comments"></div>
+                        <script type="text/javascript">
+                            VK.Widgets.Comments("vk_comments", {limit: 5, width: "665", attach: "*"});
+                        </script>
+                    </div>
+                    <div class="group_vidget">
+
+                    </div>
+                </div>
+               <?php echo get_upcoming_other_event($mon,$post->ID);?>
             </div>
         </div>
 

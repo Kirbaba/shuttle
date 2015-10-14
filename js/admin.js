@@ -312,7 +312,32 @@ $(document).ready(function ($) {
                 if (data !=="null"){
                     var obj = jQuery.parseJSON(data);
                     $('#id_event').val(obj.ID);
-                    $('.oneEvent').html('<p>В этот день мероприятие: ' + obj.post_title + '</p><label> Добавьте все файлы здесь: <input type="file" name="kv_multiple_attachments[]" multiple="multiple" > </label> <input type="submit" name="uploadimg" value="Загрузить" >');
+                    $('.oneEvent').html('<p>В этот день мероприятие: ' + obj.post_title + '</p><label> Добавьте все файлы здесь: <input type="file" name="kv_multiple_attachments[]" multiple="multiple" > </label> <br / ><input type="button" name="videoadd" id="videoadd" value="Добавить видео"/><div class="vidos"></div><br /><input type="submit" name="uploadimg" value="Загрузить" >');
+                }
+                else{
+                    $('.oneEvent').html('<p>В этот день мероприятий нет</p>');
+                }
+
+            }
+        });
+
+    });
+
+    $(document).on('click','#videoadd',function(){
+        $('.vidos').append('<input type="text" name="video[]" id="" placeholder="Вставте ссылку на видео"/><br />');
+    });
+
+    $(document).on('change','#dateparent',function(){
+        var date = $(this).val();
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=get_event_admin&date=' + date,
+            success:function(data){
+                if (data !=="null"){
+                    var obj = jQuery.parseJSON(data);
+                    $('#id_event').val(obj.ID);
+                    $('.oneEvent').html('<p>В этот день мероприятие: ' + obj.post_title + '</p><label> Добавьте все файлы здесь: <input type="file" name="kv_multiple_attachments[]" multiple="multiple" > </label> <br / ><div class="vidos"></div><br /><input type="submit" name="uploadimg" value="Загрузить" >');
                 }
                 else{
                     $('.oneEvent').html('<p>В этот день мероприятий нет</p>');

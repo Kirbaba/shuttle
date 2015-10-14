@@ -113,3 +113,251 @@
 .tab-pane.active{
     display:block;
 }
+
+.events-page-photo-report{
+    margin-top: 115px;
+}
+.events-page-video{
+    padding: 25px;
+}
+
+.event-page-photo {
+    margin-top: 25px;
+    background: #3d4d65;
+    padding: 25px;
+}
+
+.event-page-photo img{
+    width: 166px;
+    height: 166px;
+    margin-left: 10px;
+}
+
+.other_events{
+    position: relative;
+}
+
+.other_events:hover img.see_events{
+    display: block;
+    cursor: pointer;
+}
+
+.see_events{
+    position: absolute;
+    display:none;
+    top: 37%;
+    left: 47%;
+}
+
+.name_events,.date_events,.countPhoto,.countVideo{
+    color:#fff;
+    position: absolute;
+}
+span.name_events {
+    top: 25px;
+    font-family: "PT Sans", sans-serif;
+    font-size: 36px;
+    left: 20px;
+}
+
+span.date_events {
+    top: 75px;
+    left: 21px;
+    font-family: "Myriad Pro";
+}
+
+.countPhoto {
+    color: #f8bb00;
+    font-size: 16px;
+    top: 220px;
+    position: absolute;
+    left: 21px;
+}
+
+.countPhoto span,.countVideo span{
+    color:#fff;
+}
+
+.countVideo {
+    color: #f8bb00;
+    font-size: 16px;
+    top: 240px;
+    position: absolute;
+    left: 21px;
+}
+
+.lost_found_wr{
+    padding: 0 25px;
+}
+
+.lost_found_img {
+    display: inline-block;
+}
+
+.lost_found_img img{
+    border-radius: 8px;
+}
+
+.lost_found_info {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 15px;
+}
+
+.lost_found_description {
+    width: 458px;
+    text-align: justify;
+}
+
+.lost_found_title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.lost_found_description {
+    color: #fff;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.lost__found__box {
+    width: 710px!important;
+}
+
+.store__box__info {
+    font-size: 14px;
+    color: #fff;
+}
+
+span.found {
+    font-size: 16px;
+    color: #f8bb00;
+    display: inline-block;
+    border: 1px solid #f8bb00;
+    width: 150px;
+    border-radius: 26px;
+    height: 25px;
+    text-align: center;
+    line-height: 23px;
+    margin-top: 10px;
+}
+
+a.not_found {
+    font-size: 16px;
+    color: #fff;
+    display: inline-block;
+    border: 1px solid #fff;
+    width: 150px;
+    border-radius: 26px;
+    height: 25px;
+    text-align: center;
+    line-height: 23px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+p.info_found{
+    text-align: right;
+    display: inline-block;
+    float: right;
+    color: #fff;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #54657e;
+}
+
+.calendar{
+    text-align: center;
+    position: relative;
+}
+
+.mon a{
+    color:#8493a8;
+    text-transform: lowercase;
+}
+span.currentMon a{
+    color: #fff;
+    text-transform: lowercase;
+    border: 1px solid #fff;
+    border-radius: 17px;
+    padding: 0 7px;
+}
+
+.day{
+    color:#fff;
+    float: left;
+    margin:0 5px;
+}
+.selectDay{
+    background: #f8bb00;
+    color: #3d4d65;
+    display: block;
+    border-radius: 22px;
+    float: left;
+    width: 18px;
+    margin: 0 5px;
+}
+
+.allDays{
+    width: 785px;
+    margin: 0 auto;
+    margin-top: 8px;
+}
+
+.right_arrow{
+    position: absolute;
+    background: url(../img/arrow_right.png);
+    width: 12px;
+    height: 21px;
+    right: 25px;
+}
+
+.left_arrow{
+    position: absolute;
+    background: url(../img/arrow_left.png);
+    width: 12px;
+    height: 21px;
+    left: 25px;
+}
+
+.photoreports-page__head .left_arrow,.photoreports-page__head .right_arrow{
+    top: 6px;
+}
+
+.photoreports-page__head{
+    position: relative;
+}
+
+.photoreport__zagolovok {
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+}
+
+.early_mon{
+    background: url("../img/early_mon.png") no-repeat 0% 50%;
+    height: 24px;
+    padding-left: 34px;
+    color: #fff;
+    display: block;
+    width: 50%;
+    margin-top: 26px;
+    margin-left: 17px;
+}
+
+.next_mon {
+    background: url("../img/next_mon.png") no-repeat 100%;
+    height: 24px;
+    width: 40%;
+    color: #fff;
+    padding-right: 33px;
+    float: right;
+    text-align: right;
+    margin-top: -26px;
+    margin-bottom: 26px;
+    margin-right: 17px;
+}

@@ -8,6 +8,7 @@ function add_style()
     wp_enqueue_style('fotorama-css', 'http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css', array(), '1');
     wp_enqueue_style('fa-style', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css', array(), '1');
     wp_enqueue_style('likely', get_template_directory_uri() . '/css/likely.css', array(), '1');
+    wp_enqueue_style('highslide', get_template_directory_uri() . '/highslide/highslide.css', array(), '1');
 }
 
 function add_script()
@@ -21,6 +22,7 @@ function add_script()
     wp_enqueue_script('plagins', get_template_directory_uri() . '/js/plugins.js', array(), '1');
     wp_enqueue_script('slymin', get_template_directory_uri() . '/js/sly.min.js', array(), '1');
     wp_enqueue_script('slymin', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '1');
+    wp_enqueue_script('highslide', get_template_directory_uri() . '/highslide/highslide-with-gallery.js', array(), '1');
     // wp_enqueue_script( 'horizontal', get_template_directory_uri() . '/js/horizontal.js', array(), '1');
 }
 
@@ -157,14 +159,15 @@ function my_extra_fields_update($post_id)
 
     }*/
     if (isset($_POST['extra'])) {
-        $artist = json_encode($_POST['extra']['artist'],JSON_UNESCAPED_UNICODE);
+        /*$artist = json_encode($_POST['extra']['artist'],JSON_UNESCAPED_UNICODE);
         update_post_meta($post_id, 'all_artist', $artist);
         unset($_POST['extra']['artist']);
         $circs_entry = array_combine($_POST['extra']['circs_entry_key'],$_POST['extra']['circs_entry_value']);
         $circs_entry = json_encode($circs_entry,JSON_UNESCAPED_UNICODE);
         update_post_meta($post_id, 'circs_entry', $circs_entry);
         unset($_POST['extra']['circs_entry_key']);
-        unset($_POST['extra']['circs_entry_value']);
+        unset($_POST['extra']['circs_entry_value']);*/
+
         foreach ($_POST['extra'] as $key => $value) {
 
             if (empty($value)) {
@@ -211,7 +214,7 @@ function my_custom_init_event()
         'has_archive' => true,
         'hierarchical' => false,
         'menu_position' => null,
-        'supports' => array('title', 'editor', 'thumbnail')
+        'supports' => array('title', 'editor', 'thumbnail','comments')
     );
     register_post_type('event', $args);
 }
@@ -283,16 +286,19 @@ function extra_fields_event_artist($post)
 
 function artist_extra_field_event()
 {
-    add_meta_box('extra_fields_artist', 'Исполнители', 'extra_fields_event_artist', 'event', 'normal', 'high');
+    //add_meta_box('extra_fields_artist', 'Исполнители', 'extra_fields_event_artist', 'event', 'normal', 'high');
 }
 
 add_action('add_meta_boxes', 'artist_extra_field_event', 5);
 
 function circs_entry_extra_field_event(){
-    add_meta_box('extra_fields_circs_entry', 'Условия входа', 'extra_field_event_circs_entry', 'event', 'normal', 'high');
+   // add_meta_box('extra_fields_circs_entry', 'Условия входа', 'extra_field_event_circs_entry', 'event', 'normal', 'high');
 }
 
+
+
 add_action('add_meta_boxes', 'circs_entry_extra_field_event', 2);
+
 
 function extra_field_event_circs_entry($post){
     $circs_entry = get_post_meta($post->ID, 'circs_entry', TRUE);
@@ -326,6 +332,7 @@ define('TM_URL', get_template_directory_uri(__FILE__));
 require_once TM_DIR . '/parser.php';
 require_once TM_DIR . '/breadcrumbs.php';
 require_once TM_DIR . '/lib/Photo_report.php';
+require_once TM_DIR . '/lib/Parent_events.php';
 
 //Стили для админки
 function add_admin_style()
@@ -1084,12 +1091,13 @@ function upcoming_events($mon,$id){
 function get_upcoming_event($mon,$id)
 {
     $parser = new Parser();
-    $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC');
+    $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC', 'LIMIT'=>4);
     $loop = new WP_Query($mypost);
     $event = '';
     $nameMon = name_mon($mon);
-    prn($mon);
+    $i = 0;
     foreach ($loop->posts as $sob) {
+        if($i == 4){break;}
         if($sob->ID != $id){
             $img = get_the_post_thumbnail($sob->ID);
             $date = get_post_meta($sob->ID, 'date', TRUE);
@@ -1102,13 +1110,16 @@ function get_upcoming_event($mon,$id)
             if ($date[1][0] == 0) {
                 if ($date[1][1] == $mon) {
                     $event .= $parser->parse(TM_DIR . '/views/events/event.php', ['name' => $sob->post_title, 'img' => $img, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon], FALSE);
+                    $i++;
                 }
             } else {
                 if ($date[1] == $mon) {
                     $event .= $parser->parse(TM_DIR . '/views/events/event.php', ['name' => $sob->post_title, 'img' => $img, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon], FALSE);
+                    $i++;
                 }
             }
         }
+
     }
     return $event;
 }
@@ -1124,8 +1135,9 @@ function photo_report_admin_page(){
     if(isset($_GET['action'])) {
         if ($_GET['action'] == 'add_photo_report') {
             if(isset($_POST['uploadimg'])){
+                $_POST['uploadimg'];
                 $photo = new Photo_report();
-                $photo->upload_img($_POST['id_event'],$_FILES);
+                $photo->upload_img($_POST['id_event'],$_FILES,$_POST['video']);
                 print_photo_report();
             }else{
                 $parser->parse(TM_DIR . '/views/photo_report/photo_report_add.php', array(), TRUE);
@@ -1161,7 +1173,6 @@ function print_photo_report(){
     $event = '';
     foreach($id as $p){
         $k = get_post($p);
-       // prn($k);
         $event .= $parser->parse(TM_DIR . '/views/photo_report/list_photo_report.php', ['name'=>$k->post_title,'ID'=>$k->ID], false);
     }
     $parser->parse(TM_DIR . '/views/photo_report/photo_report.php', ['events'=>$event], TRUE);
@@ -1191,11 +1202,309 @@ function show_report($id){
     $parser = new Parser();
     $photo = new Photo_report();
     $img = $photo->get_img_report($id);
+    $video = $photo->get_video_report($id);
+    $video_arr = '';
+    foreach ($video as $v) {
+        $video_arr .=  $parser->parse(TM_DIR . '/views/photo_report/site/video_report.php', array('video'=>$v->video), FALSE);
+    }
+
     $link = get_template_directory_uri();
     $images = '';
     foreach($img as $i){
         $images .= $parser->parse(TM_DIR . '/views/photo_report/site/show_img.php', array('img'=>$i->images,'link'=>$link), FALSE);
     }
-    $parser->parse(TM_DIR . '/views/photo_report/site/show_photo_report.php', array('img'=>$images), true);
+    $parser->parse(TM_DIR . '/views/photo_report/site/show_photo_report.php', array('img'=>$images,'video'=>$video_arr), true);
 
 }
+
+function other_events($mon,$id){
+    $parser = new Parser();
+    $event = get_upcoming_event($mon,$id);
+    $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['event' => $event],true);
+}
+
+function get_upcoming_other_event($mon,$id)
+{
+    $parser = new Parser();
+    $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC');
+    $loop = new WP_Query($mypost);
+    $event = '';
+    $nameMon = name_mon($mon);
+
+    foreach ($loop->posts as $sob) {
+        if($sob->ID != $id){
+            $photo = new Photo_report();
+            $img = $photo->get_img_report($sob->ID);
+            $countImg = count($img);
+            $countvideo = count($photo->get_video_report($sob->ID));
+            if($countImg > 0){
+                $photoCover = $photo->get_cover_report($sob->ID);
+                $date = get_post_meta($sob->ID, 'date', TRUE);
+                $date = explode('-', $date);
+                if ($date[2][0] == 0) {
+                    $dateEvent = $date[2][1];
+                } else {
+                    $dateEvent = $date[2];
+                }
+                if ($date[1][0] == 0) {
+                    if ($date[1][1] == $mon) {
+                        $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $photoCover, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countImg,'countvideo'=>$countvideo], TRUE);
+                    }
+                } else {
+                    if ($date[1] == $mon) {
+                        $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $photoCover, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countImg,'countvideo'=>$countvideo], TRUE);
+                    }
+                }
+            }
+        }
+    }
+    return $event;
+}
+
+
+function parent_menu_page(){
+    add_menu_page( 'Партнеры', 'Партнеры', 'administrator', 'parent', 'parent_admin_page' );
+}
+
+add_action('admin_menu', 'parent_menu_page');
+
+function parent_admin_page(){
+    $parser = new Parser();
+    if(isset($_GET['action'])) {
+        if ($_GET['action'] == 'add_parent') {
+            if(isset($_POST['uploadimg'])){
+                $_POST['uploadimg'];
+                $parent = new Parent_events();
+                $parent->upload_img($_POST['id_event'],$_FILES);
+                print_parent();
+            }else{
+                $parser->parse(TM_DIR . '/views/parent/add_parent.php', array(), TRUE);
+            }
+        }
+        if($_GET['action'] == 'delit'){
+            $parent = new Parent_events();
+            $parent->delite_img($_GET['id']);
+            print_parent();
+        }
+    }
+    else{
+        print_parent();
+    }
+
+}
+
+function print_parent(){
+    $parser = new Parser();
+    $parent = new Parent_events();
+    $id = $parent->get_img_event();
+    $event = '';
+    foreach($id as $p){
+        $k = get_post($p);
+        $event .= $parser->parse(TM_DIR . '/views/parent/list_parent.php', ['name'=>$k->post_title,'ID'=>$k->ID], false);
+    }
+    $parser->parse(TM_DIR . '/views/parent/parent.php', ['event'=>$event], TRUE);
+}
+
+function get_parent($id){
+    $parser = new Parser();
+    $parent =  new Parent_events();
+    $parentImg = $parent->get_parent_img($id);
+    $parentImgList = '';
+    $link = get_template_directory_uri();
+    if(!empty($parentImg)){
+        foreach($parentImg as $pr){
+            $parentImgList .= $parser->parse(TM_DIR . '/views/parent/site/parent.php',['img'=>$pr,'link'=>$link],FALSE);
+        }
+     return $parser->parse(TM_DIR . '/views/parent/site/show_parent.php',['parentImgList'=>$parentImgList],TRUE);
+    }
+}
+
+
+
+/*-------------------Стол находок--------------------*/
+add_action('init', 'lost_found');
+function lost_found()
+{
+    $labels = array(
+        'name' => 'Стол находок', // Основное название типа записи
+        'singular_name' => 'Стол находок', // отдельное название записи типа Book
+        'add_new' => 'Добавить находку',
+        'add_new_item' => 'Добавить новыую находку',
+        'edit_item' => 'Редактировать находку',
+        'new_item' => 'Новая находка',
+        'view_item' => 'Посмотреть находку',
+        'search_items' => 'Найти находку',
+        'not_found' => 'Находок не найдено',
+        'not_found_in_trash' => 'В корзине находок не найдено',
+        'parent_item_colon' => '',
+        'menu_name' => 'Стол находок'
+
+    );
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'query_var' => true,
+        'rewrite' => true,
+        'capability_type' => 'post',
+        'has_archive' => true,
+        'hierarchical' => false,
+        'menu_position' => null,
+        'supports' => array('title', 'editor', 'thumbnail')
+    );
+    register_post_type('lost_found', $args);
+}
+
+// Добавляем фильтр, который изменит сообщение при публикации при изменении типа записи Book
+add_filter('post_updated_messages', 'lost_found_updated_messages');
+function lost_found_updated_messages($messages)
+{
+    global $post, $post_ID;
+
+    $messages['product'] = array(
+        0 => '', // Не используется. Сообщения используются с индекса 1.
+        1 => sprintf('Book обновлено. <a href="%s">Посмотреть запись book</a>', esc_url(get_permalink($post_ID))),
+        2 => 'Произвольное поле обновлено.',
+        3 => 'Произвольное поле удалено.',
+        4 => 'Запись Book обновлена.',
+        /* %s: дата и время ревизии */
+        5 => isset($_GET['revision']) ? sprintf('Запись Book восстановлена из ревизии %s', wp_post_revision_title((int)$_GET['revision'], false)) : false,
+        6 => sprintf('Находка опубликована. <a href="%s">Перейти к находке</a>', esc_url(get_permalink($post_ID))),
+        7 => 'Запись Book сохранена.',
+        8 => sprintf('Находка сохранена. <a target="_blank" href="%s">Предпросмотр находки</a>', esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+        9 => sprintf('Запись Book запланирована на: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Предпросмотр записи book</a>',
+            // Как форматировать даты в PHP можно посмотреть тут: http://php.net/date
+            date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date)), esc_url(get_permalink($post_ID))),
+        10 => sprintf('Черновик записи Book обновлен. <a target="_blank" href="%s">Предпросмотр записи book</a>', esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+    );
+
+    return $messages;
+}
+
+
+add_action('add_meta_boxes', 'lost_found_extra_fields', 1);
+
+function lost_found_extra_fields() {
+    add_meta_box( 'lost_found_extra_fields', 'Найдено или нет?', 'extra_fields_lost_found_func', 'lost_found', 'normal', 'high'  );
+}
+
+function extra_fields_lost_found_func($post){?>
+<p>Найдено или нет?: <?php $mark_v = get_post_meta($post->ID, 'lost_found', 1); ?>
+<label><input type="radio" name="extra[lost_found]" value="found" <?php checked( $mark_v, '' ); ?> /> Найдено</label>
+<label><input type="radio" name="extra[lost_found]" value="not_found" <?php checked( $mark_v, 'not_found' ); ?> /> Не найдено</label>
+
+</p>
+<?php
+}
+    /*--------------Конец стол находок--------*/
+
+function get_name_mon($mon){
+    $months = Array(
+        '1' => 'январь',
+        '2' => 'февраль',
+        '3' => 'март',
+        '4' => 'апрель',
+        '5' => 'май',
+        '6' => 'июнь',
+        '7' => 'июль',
+        '8' => 'август',
+        '9' => 'сентябрь',
+        '10' => 'октябрь',
+        '11' => 'ноябрь',
+        '12' => 'декабрь'
+    );
+    return $months[$mon];
+}
+
+function count_report($mon){
+
+    $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC');
+    $loop = new WP_Query($mypost);
+    $count = 0;
+    foreach ($loop->posts as $sob) {
+        $date = get_post_meta($sob->ID, 'date', TRUE);
+        $date = explode('-', $date);
+
+        if($date[1][0] == 0){
+            $monEvent = $date[1][1];
+        }
+        else{
+            $monEvent = $date[1];
+        }
+
+        if($monEvent == $mon) {
+            global $wpdb;
+            $cover = $wpdb->get_results("SELECT * FROM cover_report WHERE id_event=$sob->ID");
+            if (!empty($cover)) {
+                $count++;
+            }
+
+        }
+    }
+    return $count;
+}
+/*-------------------Доска почета---------------------------------*/
+add_action('init', 'hall_fame_init_event');
+function hall_fame_init_event()
+{
+    $labels = array(
+        'name' => 'Доска почета', // Основное название типа записи
+        'singular_name' => 'Доска почета', // отдельное название записи типа Book
+        'add_new' => 'Добавить',
+        'add_new_item' => 'Добавить',
+        'edit_item' => 'Редактировать',
+        'new_item' => 'Новое',
+        'view_item' => 'Посмотреть',
+        'search_items' => 'Найти',
+        'not_found' => 'Ни чего нет',
+        'not_found_in_trash' => 'В корзине не найдено',
+        'parent_item_colon' => '',
+        'menu_name' => 'Доска почета'
+
+    );
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'query_var' => true,
+        'rewrite' => true,
+        'capability_type' => 'post',
+        'has_archive' => true,
+        'hierarchical' => false,
+        'menu_position' => null,
+        'supports' => array('title', 'editor', 'thumbnail')
+    );
+    register_post_type('hall_fame', $args);
+}
+
+// Добавляем фильтр, который изменит сообщение при публикации при изменении типа записи Book
+add_filter('post_updated_messages', 'hall_fame_updated_messages_event');
+function hall_fame_updated_messages_event($messages)
+{
+    global $post, $post_ID;
+
+    $messages['product'] = array(
+        0 => '', // Не используется. Сообщения используются с индекса 1.
+        1 => sprintf('Book обновлено. <a href="%s">Посмотреть запись book</a>', esc_url(get_permalink($post_ID))),
+        2 => 'Произвольное поле обновлено.',
+        3 => 'Произвольное поле удалено.',
+        4 => 'Запись Book обновлена.',
+        /* %s: дата и время ревизии */
+        5 => isset($_GET['revision']) ? sprintf('Запись Book восстановлена из ревизии %s', wp_post_revision_title((int)$_GET['revision'], false)) : false,
+        6 => sprintf('Событие опубликовано. <a href="%s">Перейти к продукту</a>', esc_url(get_permalink($post_ID))),
+        7 => 'Запись Book сохранена.',
+        8 => sprintf('Событие сохранено. <a target="_blank" href="%s">Предпросмотр продукта</a>', esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+        9 => sprintf('Запись Book запланирована на: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Предпросмотр записи book</a>',
+            // Как форматировать даты в PHP можно посмотреть тут: http://php.net/date
+            date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date)), esc_url(get_permalink($post_ID))),
+        10 => sprintf('Черновик записи Book обновлен. <a target="_blank" href="%s">Предпросмотр записи book</a>', esc_url(add_query_arg('preview', 'true', get_permalink($post_ID)))),
+    );
+
+    return $messages;
+}
+
+
