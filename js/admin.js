@@ -348,3 +348,102 @@ $(document).ready(function ($) {
 
     });
 });
+
+
+jQuery(document).ready(function ($) {
+    jQuery('.custom_media_upload1').click(function() {
+        var send_attachment_bkp = wp.media.editor.send.attachment;
+        wp.media.editor.send.attachment = function(props, attachment) {
+            jQuery('.custom_media_image1').attr('src', attachment.url);
+            jQuery('.custom_media_url1').val(attachment.url);
+// jQuery('.custom_media_id').val(attachment.id);
+            wp.media.editor.send.attachment = send_attachment_bkp;
+        }
+        wp.media.editor.open();
+        return false;
+    });
+
+
+    jQuery('.custom_media_upload2').click(function() {
+        var send_attachment_bkp = wp.media.editor.send.attachment;
+        wp.media.editor.send.attachment = function(props, attachment) {
+            jQuery('.custom_media_image2').attr('src', attachment.url);
+            jQuery('.custom_media_url2').val(attachment.url);
+// jQuery('.custom_media_id').val(attachment.id);
+            wp.media.editor.send.attachment = send_attachment_bkp;
+        }
+        wp.media.editor.open();
+        return false;
+    });
+
+    jQuery('.custom_media_upload3').click(function() {
+        var send_attachment_bkp = wp.media.editor.send.attachment;
+        wp.media.editor.send.attachment = function(props, attachment) {
+            jQuery('.custom_media_image3').attr('src', attachment.url);
+            jQuery('.custom_media_url3').val(attachment.url);
+// jQuery('.custom_media_id').val(attachment.id);
+            wp.media.editor.send.attachment = send_attachment_bkp;
+        }
+        wp.media.editor.open();
+        return false;
+    });
+
+    jQuery('.custom_media_upload4').click(function() {
+        var send_attachment_bkp = wp.media.editor.send.attachment;
+        wp.media.editor.send.attachment = function(props, attachment) {
+            jQuery('.custom_media_image4').attr('src', attachment.url);
+            jQuery('.custom_media_url4').val(attachment.url);
+// jQuery('.custom_media_id').val(attachment.id);
+            wp.media.editor.send.attachment = send_attachment_bkp;
+        }
+        wp.media.editor.open();
+        return false;
+    });
+
+    jQuery('.custom_media_upload5').click(function() {
+        var send_attachment_bkp = wp.media.editor.send.attachment;
+        wp.media.editor.send.attachment = function(props, attachment) {
+            jQuery('.custom_media_image5').attr('src', attachment.url);
+            jQuery('.custom_media_url5').val(attachment.url);
+// jQuery('.custom_media_id').val(attachment.id);
+            wp.media.editor.send.attachment = send_attachment_bkp;
+        }
+        wp.media.editor.open();
+        return false;
+    });
+
+
+    $(document).on('change','#date_hall_fame',function(){
+        var date = $(this).val();
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=get_event_admin&date=' + date,
+            success:function(data){
+                if (data !=="null"){
+                    var obj = jQuery.parseJSON(data);
+                    //$('#id_event').val(obj.ID);
+                    $('.oneEvent').html('<p>В этот день мероприятие: ' + obj.post_title + '</p><a href="#" id-event="' + obj.ID + '" class="add_events_hall_fame">Добавить</a>');
+                }
+                else{
+                    $('.oneEvent').html('<p>В этот день мероприятий нет</p>');
+                }
+
+            }
+        });
+    });
+
+    $(document).on('click','.add_events_hall_fame',function(){
+        var inpVal = $('#id_event_hall_fame').val();
+        var idEvent = $(this).attr('id-event');
+        console.log(inpVal);
+        console.log(idEvent);
+        if(inpVal != ''){
+            $('#id_event_hall_fame').val(inpVal + ',' + idEvent);
+        }
+        else{
+            $('#id_event_hall_fame').val(idEvent);
+        }
+        return false;
+    });
+});

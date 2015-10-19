@@ -159,6 +159,10 @@ function my_extra_fields_update($post_id)
 
     }*/
     if (isset($_POST['extra'])) {
+        $img = json_encode($_POST['extra']['attachment_url'],JSON_UNESCAPED_UNICODE);
+        update_post_meta($post_id, 'images', $img);
+        unset($_POST['extra']['attachment_url']);
+
         /*$artist = json_encode($_POST['extra']['artist'],JSON_UNESCAPED_UNICODE);
         update_post_meta($post_id, 'all_artist', $artist);
         unset($_POST['extra']['artist']);
@@ -920,6 +924,32 @@ function get_event_calendar()
 
 add_shortcode('calendar', 'get_event_calendar');
 
+
+function get_event_calendar_main()
+{
+    $parser = new Parser();
+    if (isset($_GET['mon'])) {
+        $mon = $_GET['mon'];
+        if ($_GET['mon'] == 13) {
+            $mon = 1;
+        }
+        if ($_GET['mon'] == 0) {
+            $mon = 12;
+        }
+        $calendar = all_calendar($mon);
+    } else {
+        $calendar = all_calendar();
+        $a = getdate();
+        $mon = $a['mon'];
+    }
+    /*$nameMon = name_mon($mon);
+    $event = get_event($mon);*/
+    $parser->parse(TM_DIR . '/views/events/calendar_main.php', ['calendar' => $calendar], TRUE);
+}
+
+add_shortcode('calendar_main', 'get_event_calendar_main');
+
+
 function all_calendar($mon = 0)
 {
     $parser = new Parser();
@@ -939,16 +969,16 @@ function all_calendar($mon = 0)
 
         }
         $eventDay = get_event_day($currentMon);
+        $trans = array_flip ($eventDay);
         $days = '';
         for ($i = 1; $i <= $dayMon; $i++) {
-
             if (in_array($i, $eventDay)) {
-                $days .= "<span class='selectDay'> $i </span>";
+                $infoEvents = get_name_events($trans[$i]);
+
+                $days .= "<span class='selectDay'> $i <div class='popup_block'>".$infoEvents['title']."<br /><a href='".$infoEvents['link']."'>Перейти</a></div></span>";
             } else {
                 $days .= "<span class='day'> $i </span>";
             }
-
-
         }
         $calendar = $parser->parse(TM_DIR . '/views/calendar/calendar.php', ['days' => $days, 'mon' => $mon, 'currentmonleft' => $currentMon - 1, 'currentmonright' => $currentMon + 1], FALSE);
     } else {
@@ -987,6 +1017,15 @@ function all_calendar($mon = 0)
     return $calendar;
 }
 
+function get_name_events($id){
+    $mypost = get_post($id);
+
+    $res['title'] = $mypost->post_title;
+    $res['link'] = $mypost->guid;
+    return $res;
+}
+
+
 function get_event_day($mon)
 {
     $mypost = array('post_type' => 'event',);
@@ -997,20 +1036,22 @@ function get_event_day($mon)
         $date = explode('-', $date);
         if ($date[1][0] == 0) {
             if ($date[1][0] == $mon) {
-                $arr_date[] = $date[2];
+                $arr_date[$sob->ID] = $date[2];
             }
         } else {
             if ($date[1] == $mon) {
-                $arr_date[] = $date[2];
+                $arr_date[$sob->ID] = $date[2];
             }
         }
     }
     $arr_end_date = [];
-    foreach ($arr_date as $d) {
-        if ($d[0] == 0) {
-            $arr_end_date[] = $d[1];
+    foreach ($arr_date as $d=>$v) {
+        //prn($v);
+        //prn($arr_date);
+        if ($v[0] == 0) {
+            $arr_end_date[$d] = $v[1];
         } else {
-            $arr_end_date[] = $d;
+            $arr_end_date[$d] = $v;
         }
     }
     return $arr_end_date;
@@ -1487,7 +1528,7 @@ function hall_fame_updated_messages_event($messages)
 {
     global $post, $post_ID;
 
-    $messages['product'] = array(
+    $messages['hall_fame'] = array(
         0 => '', // Не используется. Сообщения используются с индекса 1.
         1 => sprintf('Book обновлено. <a href="%s">Посмотреть запись book</a>', esc_url(get_permalink($post_ID))),
         2 => 'Произвольное поле обновлено.',
@@ -1508,3 +1549,68 @@ function hall_fame_updated_messages_event($messages)
 }
 
 
+add_action('add_meta_boxes', 'hall_fame_extra_fields', 1);
+
+function hall_fame_extra_fields() {
+    add_meta_box( 'hall_fame_extra_fields', 'Выберите изображения', 'extra_fields_hall_fame', 'hall_fame', 'normal', 'high'  );
+}
+
+function extra_fields_hall_fame( $post ){
+?>
+    <p><b>Выберите изображение1:</b><br>
+    <p><img class="custom_media_image1" src="" alt="" style="width: 80px;"></p>
+    <p><button class="custom_media_upload1">Загрузить</button></p>
+    <p><input id="image" class="custom_media_url1" type="text" name="extra[attachment_url][]" value=""></p>
+
+    <p><b>Выберите изображение2:</b><br>
+    <p><img class="custom_media_image2" src="" alt="" style="width: 80px;"></p>
+    <p><button class="custom_media_upload2">Загрузить</button></p>
+    <p><input id="image" class="custom_media_url2" type="text" name="extra[attachment_url][]" value=""></p>
+
+    <p><b>Выберите изображение3:</b><br>
+    <p><img class="custom_media_image3" src="" alt="" style="width: 80px;"></p>
+    <p><button class="custom_media_upload3">Загрузить</button></p>
+    <p><input id="image" class="custom_media_url3" type="text" name="extra[attachment_url][]" value=""></p>
+
+    <p><b>Выберите изображение4:</b><br>
+    <p><img class="custom_media_image4" src="" alt="" style="width: 80px;"></p>
+    <p><button class="custom_media_upload4">Загрузить</button></p>
+    <p><input id="image" class="custom_media_url4" type="text" name="extra[attachment_url][]" value=""></p>
+
+    <p><b>Выберите изображение5:</b><br>
+    <p><img class="custom_media_image5" src="" alt="" style="width: 80px;"></p>
+    <p><button class="custom_media_upload5">Загрузить</button></p>
+    <p><input id="image" class="custom_media_url5" type="text" name="extra[attachment_url][]" value=""></p>
+<?php
+}
+
+
+add_action('add_meta_boxes', 'hall_fame_extra_fields_events', 1);
+
+function hall_fame_extra_fields_events() {
+    add_meta_box( 'hall_fame_extra_fields_events', 'Дополнительные поля', 'extra_fields_hall_fame_events', 'hall_fame', 'normal', 'high'  );
+}
+
+function extra_fields_hall_fame_events( $post ){
+    ?>
+    <input type="date" name="date_hall_fame" id="date_hall_fame"/>
+    <input type="hidden" name="extra[id_event_hall_fame]" id="id_event_hall_fame" value=""/>
+    <div class="oneEvent"></div>
+<?php
+}
+
+
+
+/*--------------------Конец доски почета---------------------------------*/
+
+function img_galeri($id){
+  //  prn($id);
+    global $wpdb;
+    $result = $wpdb->get_results("SELECT * FROM wp_ngg_pictures WHERE galleryid=".$id['id']);
+    echo "<div>";
+    prn($result);
+    echo "</div>";
+}
+
+
+add_shortcode('gal', 'img_galeri');

@@ -1,3 +1,10 @@
+html{
+    background-attachment: fixed!important;
+    background-position: 50% 0%;
+
+}
+
+
 #modal_form {
     width: 320px;
     height: 420px; /* Рaзмеры дoлжны быть фиксирoвaны */
@@ -188,6 +195,7 @@ span.date_events {
 
 .lost_found_wr{
     padding: 0 25px;
+    padding-top: 10px;
 }
 
 .lost_found_img {
@@ -228,6 +236,7 @@ span.date_events {
 .store__box__info {
     font-size: 14px;
     color: #fff;
+    padding-top: 136px;
 }
 
 span.found {
@@ -284,7 +293,8 @@ span.currentMon a{
     text-transform: lowercase;
     border: 1px solid #fff;
     border-radius: 17px;
-    padding: 0 7px;
+    padding: 3px 7px;
+    line-height: 20px;
 }
 
 .day{
@@ -349,6 +359,8 @@ span.currentMon a{
     margin-left: 17px;
 }
 
+
+
 .next_mon {
     background: url("../img/next_mon.png") no-repeat 100%;
     height: 24px;
@@ -360,4 +372,439 @@ span.currentMon a{
     margin-top: -26px;
     margin-bottom: 26px;
     margin-right: 17px;
+}
+
+.hall_fame_one{
+    position: relative;
+    float: left;
+    padding: 0;
+    margin-right: 40px;
+}
+
+
+.hall_fame_one img{
+    width: 425px;
+    height: 420px;
+    border:2px solid transparent;
+}
+
+img.hover_hall_fame{
+    width: 128px!important;
+    height: 72px!important;
+    position: absolute;
+    display: none;
+
+}
+
+.hall_fame_one span.title{
+    position: absolute;
+    bottom: 94px;
+    left: 60px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.hall_fame_one:hover img{
+    border: 2px solid #fff;
+}
+
+.hall_fame_one:hover img.hover_hall_fame{
+    display: block;
+    border: none;
+    top: 170px;
+    left: 134px;
+}
+
+.hall_fame_second{
+    position: relative;
+    padding: 0;
+    float: left;
+    margin-bottom: 20px;
+}
+
+.hall_fame_second img{
+    width: 425px;
+    height: 195px;
+    border:2px solid transparent;
+}
+
+.hall_fame_second span.title{
+    position: absolute;
+    bottom: 19px;
+    left: 35px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.hall_fame_second:hover img{
+    border: 2px solid #fff;
+}
+
+.hall_fame_second:hover img.hover_hall_fame{
+    display: block;
+    border: none;
+    top: 53px;
+    left: 160px;
+}
+
+.hall_fame_third,.hall_fame_fourth{
+    position: relative;
+    padding: 0;
+    float: left;
+    margin-bottom: 22px;
+}
+
+.hall_fame_third img,.hall_fame_fourth img{
+    width: 197px;
+    height: 197px;
+    border:2px solid transparent;
+}
+
+.hall_fame_third span.title, .hall_fame_fourth span.title{
+    position: absolute;
+    bottom: 29px;
+    left: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.hall_fame_third:hover img, .hall_fame_fourth:hover img{
+    border: 2px solid #fff;
+}
+
+.hall_fame_third:hover img.hover_hall_fame, .hall_fame_fourth:hover img.hover_hall_fame{
+    display: block;
+    border: none;
+    top: 55px;
+    left: 40px;
+}
+
+.hall_fame_third {
+    margin-right: 26px;
+}
+
+
+
+.hall_fame_fifth,.hall_fame_sixth{
+     position: relative;
+     padding: 0;
+     float: left;
+     margin-bottom: 22px;
+ }
+
+.hall_fame_fifth img,
+.hall_fame_sixth img{
+    width: 423px;
+    height: 197px;
+    border:2px solid transparent;
+}
+
+.hall_fame_fifth span.title,
+.hall_fame_sixth span.title{
+    position: absolute;
+    bottom: 29px;
+    left: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.hall_fame_fifth:hover img,
+.hall_fame_sixth:hover img{
+    border: 2px solid #fff;
+}
+
+.hall_fame_fifth:hover img.hover_hall_fame,
+.hall_fame_sixth:hover img.hover_hall_fame{
+    display: block;
+    border: none;
+    top: 70px;
+    left: 152px;
+}
+
+.hall_fame_fifth{
+    margin-right: 45px;
+}
+
+
+
+.hall_fame_seventh{
+    position: relative;
+    padding: 0;
+    display: inline-block;
+    float: none;
+    margin-bottom: 20px;
+    overflow: hidden;
+    height: 195px;
+}
+
+.hall_fame_seventh img{
+    width: 100%;
+    height: auto;
+    border:2px solid transparent;
+}
+
+.hall_fame_seventh span.title{
+    position: absolute;
+    bottom: 19px;
+    left: 35px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.hall_fame_seventh:hover img{
+    border: 2px solid #fff;
+}
+
+.hall_fame_seventh:hover img.hover_hall_fame{
+    display: block;
+    border: none;
+    top: 65px;
+    left: 160px;
+}
+
+
+.hall_fame_eighth{
+    position: relative;
+    padding: 0;
+    display: inline-block;
+    float: none;
+    margin-bottom: 20px;
+}
+
+.hall_fame_eighth img{
+    width: 197px;
+    height: 197px;
+    border: 2px solid transparent;
+}
+
+.hall_fame_eighth span.title{
+    position: absolute;
+    bottom: 19px;
+    left: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.hall_fame_eighth:hover img{
+    border: 2px solid #fff;
+}
+
+.hall_fame_eighth:hover img.hover_hall_fame{
+    display: block;
+    border: none;
+    top: 65px;
+    left: 37px;
+}
+
+
+.hall_fame_ninth{
+    position: relative;
+    padding: 0;
+    display: inline-block;
+    float: none;
+    margin-bottom: 20px;
+}
+
+.hall_fame_ninth img{
+    width: 197px;
+    height: 197px;
+    border: 2px solid transparent;
+}
+
+.hall_fame_ninth span.title{
+    position: absolute;
+    bottom: 19px;
+    left: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.hall_fame_ninth:hover img{
+    border: 2px solid #fff;
+}
+
+.hall_fame_ninth:hover img.hover_hall_fame{
+    display: block;
+    border: none;
+    top: 65px;
+    left: 37px;
+}
+
+.hall_fame_eighth {
+    margin-right: 26px;
+}
+
+.cleared {
+    display: block;
+    clear: both;
+    float: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+
+.hall_fame_tenth{
+    position: relative;
+    float: left;
+    padding: 0;
+}
+
+
+.hall_fame_tenth img{
+    width: 425px;
+    height: 420px;
+    border:2px solid transparent;
+}
+
+
+.hall_fame_tenth span.title{
+    position: absolute;
+    bottom: 94px;
+    left: 60px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.hall_fame_tenth:hover img{
+    border: 2px solid #fff;
+}
+
+.hall_fame_tenth:hover img.hover_hall_fame{
+    display: block;
+    border: none;
+    top: 170px;
+    left: 134px;
+}
+
+.wapper_fame_hall {
+    float: left;
+    margin-right: 40px;
+}
+
+.slider{
+    float: left;
+    margin-right: 15px;
+}
+
+.description{
+    color:#fff;
+    font-size: 16px;
+}
+
+a.name_event {
+    color: #31a8e6;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.event span{
+    float: right;
+    color: #fff;
+}
+
+.events-page__head--but {
+    margin: 19px 5px 0!important;
+}
+
+.events-page__head .activeTab {
+    line-height: 20px!important;
+}
+
+li.active .events-page__head--but {
+    margin: 17px 5px 0!important;
+}
+.footer__button a {
+    background-image: linear-gradient(to bottom, #22a7d8 0%, #135cb6 100%)!important;
+}
+
+.wordpress-post-tabs-skin-default .ui-tabs .ui-tabs-nav li.ui-state-active a, .wordpress-post-tabs-skin-default .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .wordpress-post-tabs-skin-default .ui-tabs .ui-tabs-nav li.ui-state-processing a{
+    cursor: pointer;
+    color: #fff;
+    background: none;
+    font-size: 36px;
+    text-decoration: none;
+}
+.wordpress-post-tabs-skin-default .ui-tabs .ui-tabs-nav li a {
+    float: none;
+    text-decoration: none;
+    padding: 0px !important;
+    color: #fff;
+    line-height: 24px !important;
+    background-color: none;
+}
+
+.wordpress-post-tabs-skin-default .ui-tabs .ui-tabs-nav li a{
+    background: none;
+    font-size: 36px;
+    color: #31a8e6!important;
+    text-decoration: underline;
+    padding-right: 15px!important;
+}
+
+.wordpress-post-tabs-skin-default .ui-tabs .ui-tabs-nav li.ui-corner-top.ui-state-active {
+     border-width: 0 !important;
+     background:none;
+}
+
+.wordpress-post-tabs-skin-default .ui-tabs .ui-tabs-nav li.ui-corner-top, .wordpress-post-tabs-skin-default .ui-tabs-horizontal-top .wpts_ext {
+    padding-bottom: 0px!important;
+     height: 0px;
+}
+
+.wordpress-post-tabs{
+    margin-top: -45px;
+}
+
+.about_club{
+    /*padding: 15px;*/
+    color:#adb9ca;
+}
+
+.about_club h2{
+    color: #fff;
+    font-weight: normal;
+}
+
+.about_club .breadcrumbs{
+    padding: 30px;
+    background: #3d4d65;
+}
+
+.about_club .ui-tabs-nav{
+    background: #3d4d65;
+    height: 45px;
+    padding: 8px 30px 0px 30px!important;
+}
+
+.ui-tabs-panel{
+    padding: 0px 30px 30px 30px!important;
+}
+
+span.selectDay{
+    position: relative;
+}
+
+.allDays .popup_block{
+    width: 180px;
+    height: 55px;
+    display: none;
+    position: absolute;
+    top: -85px;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border-radius: 8px;
+    text-align: center;
 }

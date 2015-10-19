@@ -126,5 +126,14 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
     });*/
 
 
+        $(".selectDay").hover(function() {
+            $(this).children(".popup_block").stop(true,true)
+                .animate({opacity: "show", top: "20",left: "-80"}, "slow");
+        }, function() {
+            $(this).children(".popup_block").stop(true,true)
+                .animate({opacity: "hide", top: "-85"}, "normal");
+        });
+
+
 
 });
