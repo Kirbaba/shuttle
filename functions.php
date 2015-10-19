@@ -558,6 +558,29 @@ register_nav_menus(array(
 add_action('customize_register', function ($customizer) {
     /*Меню настройки контактов*/
     $customizer->add_section(
+        'logo_section',
+        array(
+            'title' => 'Логотип',
+            'description' => 'Логотип',
+            'priority' => 35,
+        )
+    );
+    $customizer->add_setting(
+        'logo_textbox'
+    );
+    $customizer->add_control(
+        new WP_Customize_Image_Control(
+            $customizer,
+            'logo',
+            array(
+                'label'      => __( 'Upload a logo', 'theme_name' ),
+                'section'    => 'logo_section',
+                'settings'   => 'logo_textbox'
+            )
+        )
+    );
+    /*Меню настройки контактов*/
+    $customizer->add_section(
         'contacts_section',
         array(
             'title' => 'Настройки контактов',
@@ -1614,9 +1637,3 @@ function img_galeri($id){
 
 
 add_shortcode('gal', 'img_galeri');
-
-/*---------------------------------логотип--------------------------*/
-function my_after_setup_theme() {
-    add_theme_support( 'site-logo' );
-}
-add_action( 'after_setup_theme', 'my_after_setup_theme' );
