@@ -21,7 +21,9 @@ Template Name: Start
     <div class="contain">
         <div class="enter__container">
             <article class="logo">
-                <img src="<?php bloginfo('template_directory'); ?>/img/logo.png" alt="">
+                <a href="/main">
+                    <img src="<?php echo get_theme_mod('logo_textbox'); ?>">
+                </a>
             </article>
             <div class="enter__box">
                 <?php echo getEnterBox(); ?>
