@@ -16,9 +16,10 @@
     <header class="header">
         <?php wp_nav_menu( array( 'theme_location' => 'header_menu','container' => 'nav', 'container_class' => 'navigation') );?>
         <article class="logo">
-            <a href="/main">
-                <img src="<?php bloginfo('template_directory'); ?>/img/logo.png">
-            </a>
+            <!--  <a href="/main">-->
+                <?php if ( function_exists( 'jetpack_the_site_logo' ) ) jetpack_the_site_logo(); ?>
+<!--                <img src="--><?php //bloginfo('template_directory'); ?><!--/img/logo.png">-->
+            <!--   </a>-->
         </article>
         <div class="header__rightside">
             <div class="header__rightside--enter" onclick="VK.Auth.login(onSignon)">

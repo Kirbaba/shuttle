@@ -1614,3 +1614,9 @@ function img_galeri($id){
 
 
 add_shortcode('gal', 'img_galeri');
+
+/*---------------------------------логотип--------------------------*/
+function my_after_setup_theme() {
+    add_theme_support( 'site-logo' );
+}
+add_action( 'after_setup_theme', 'my_after_setup_theme' );
