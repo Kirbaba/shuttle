@@ -814,3 +814,7 @@ span.selectDay{
     width: inherit;
     float: inherit;
 }
+
+.breadcrumbs{
+    color: #fff;
+}
