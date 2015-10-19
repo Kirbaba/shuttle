@@ -903,6 +903,7 @@ add_shortcode('partners', 'partners_sc');
 function get_event_calendar()
 {
     $parser = new Parser();
+
     if (isset($_GET['mon'])) {
         $mon = $_GET['mon'];
         if ($_GET['mon'] == 13) {
@@ -952,6 +953,7 @@ add_shortcode('calendar_main', 'get_event_calendar_main');
 
 function all_calendar($mon = 0)
 {
+
     $parser = new Parser();
     if (($mon == 0)) {
         $a = getdate();
@@ -997,16 +999,18 @@ function all_calendar($mon = 0)
 
         }
         $eventDay = get_event_day($currentMon);
+        $trans = array_flip ($eventDay);
         $days = '';
-        if (isset($eventDay)) {
+        if (!isset($eventDay)) {
             for ($i = 1; $i <= $dayMon; $i++) {
                 $days .= "<span class='day'> $i </span>";
             }
         } else {
             for ($i = 1; $i <= $dayMon; $i++) {
-
                 if (in_array($i, $eventDay)) {
-                    $days .= "<span class='selectDay'> $i </span>";
+                    $infoEvents = get_name_events($trans[$i]);
+
+                    $days .= "<span class='selectDay'> $i <div class='popup_block'>".$infoEvents['title']."<br /><a href='".$infoEvents['link']."'>Перейти</a></div></span>";
                 } else {
                     $days .= "<span class='day'> $i </span>";
                 }
@@ -1604,12 +1608,12 @@ function extra_fields_hall_fame_events( $post ){
 /*--------------------Конец доски почета---------------------------------*/
 
 function img_galeri($id){
-  //  prn($id);
+    $parser = new Parser();
     global $wpdb;
-    $result = $wpdb->get_results("SELECT * FROM wp_ngg_pictures WHERE galleryid=".$id['id']);
-    echo "<div>";
-    prn($result);
-    echo "</div>";
+    $result['img'] = $wpdb->get_results("SELECT * FROM wp_ngg_pictures WHERE galleryid=".$id['id']);
+    $result['link'] = $wpdb->get_results(("SELECT path FROM wp_ngg_gallery WHERE gid=".$id['id']));
+   //$parser->render(TM_DIR . '/views/galery/galery.php', array('result' =>$result));
+   return '123';
 }
 
 
