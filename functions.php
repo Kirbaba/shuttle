@@ -1635,8 +1635,8 @@ function img_galeri($id){
     global $wpdb;
     $result['img'] = $wpdb->get_results("SELECT * FROM wp_ngg_pictures WHERE galleryid=".$id['id']);
     $result['link'] = $wpdb->get_results(("SELECT path FROM wp_ngg_gallery WHERE gid=".$id['id']));
-   //$parser->render(TM_DIR . '/views/galery/galery.php', array('result' =>$result));
-   return '123';
+   $p = $parser->render(TM_DIR . '/views/galery/galery.php', array('result' =>$result), false);
+   return $p;
 }
 
 
