@@ -808,3 +808,9 @@ span.selectDay{
     border-radius: 8px;
     text-align: center;
 }
+
+.breadcrumbs span a {
+    display: inline-block;
+    width: inherit;
+    float: inherit;
+}
