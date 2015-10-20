@@ -1280,7 +1280,7 @@ function show_report($id){
     $video = $photo->get_video_report($id);
     $video_arr = '';
     foreach ($video as $v) {
-        $video_arr .=  $parser->parse(TM_DIR . '/views/photo_report/site/video_report.php', array('video'=>$v->video), FALSE);
+        $video_arr .=  $parser->parse(TM_DIR . '/views/photo_report/site/video_report.php', array('video' => stripslashes($v->video)), FALSE);
     }
 
     $link = get_template_directory_uri();
