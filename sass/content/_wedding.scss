@@ -1,0 +1,127 @@
+.wedding {
+	display: block;
+	float: left;
+	width: 100%;
+	&__video {
+		width: 720px;
+		height: 390px;
+		display: block;
+		margin: 30px auto;
+		position: relative;
+	}
+	&__box {
+		padding: 30px;
+		background-color: #3D4D65;	
+		display: block;
+		float: left;
+		width: 100%;
+		position: relative;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		&:before, &:after {
+			clear: both;
+			content: '';
+			display: block;
+		}
+		h2 {
+			text-align: center;
+			color: #FFF;
+			font-size: 36px;
+			font-family: $mpreg;
+			position: relative;
+			margin: 0;
+			display: block;
+			float: left;
+			width: 100%;
+			span {
+				z-index: 9;
+				position: relative;
+				background-color: #3D4D65;
+			    padding: 0 20px;	
+			}
+			&:after {
+				content: '';
+				background-color: #677b99;
+				width: 100%;
+				height: 1px;
+				position: absolute;
+				bottom: 15px;
+				z-index: 1;
+				left: 0;
+			}
+		}
+		&--item {			
+			width: 1 / 3 * 100%;
+			display: block;
+			float: left;
+			padding: 0 25px;
+			position: relative;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			&:before, &:after {
+				clear: both;
+				content: '';
+				display: block;
+			}
+			h4 {
+				color: #FFF;
+				text-align: center;
+				font-family: $mpreg;
+				font-size: 24px;
+			}
+			p {
+				font-family: $robot;
+				font-size: 14px;
+				color: #ADB9CA;
+				text-align: center;
+			}
+			&--img {
+				height: 158px;				
+				.slick-slide {
+				    height: 158px !important;				    
+				    img {
+				      margin: 0;
+				      padding: 0;
+				      display: block;
+				      height: 100%;
+				    }
+				  }
+				.slick-prev {
+					left: -15px;
+					background-image: url('../img/Arrow-LeftIcon.png');
+					-webkit-background-size: 30%;
+					     -o-background-size: 30%;
+					        background-size: 30%;
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+					&:before {
+						content: "";					
+					}
+				}
+				.slick-next {
+					right: -15px;
+					background-image: url('../img/Arrow-RightIcon1.png');
+						-webkit-background-size: 30%;
+						     -o-background-size: 30%;
+						        background-size: 30%;
+						background-position: 50% 50%;
+						background-repeat: no-repeat;
+					&:before {
+						content: "";						
+					}
+				}
+				.slick-prev, .slick-next {
+					z-index: 99999;
+					width: 30px;
+					height: 30px;
+					@include border-radius(15px);
+					@include background-clip(padding-box);
+					background-color: #374355;
+
+				}
+			}
+		}
+	}
+}

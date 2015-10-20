@@ -637,7 +637,7 @@ ul {
       display: block;
       margin: 0 auto; }
 
-.store, .events-page {
+.store, .events-page, .photoreport {
   display: block;
   position: relative;
   float: left;
@@ -871,7 +871,7 @@ ul {
               .events__wrap--slider .clearfix li .events__poster:hover h3 {
                 color: #8393a7; }
 
-.events-page {
+.events-page, .photoreport {
   padding-bottom: 30px; }
   .events-page__head .likely {
     margin: 0;
@@ -1188,5 +1188,117 @@ ul {
         display: block;
         max-width: 90%;
         margin: 10px auto; }
+
+.wedding {
+  display: block;
+  float: left;
+  width: 100%; }
+  .wedding__video {
+    width: 720px;
+    height: 390px;
+    display: block;
+    margin: 30px auto;
+    position: relative; }
+  .wedding__box {
+    padding: 30px;
+    background-color: #3D4D65;
+    display: block;
+    float: left;
+    width: 100%;
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+    .wedding__box:before, .wedding__box:after {
+      clear: both;
+      content: '';
+      display: block; }
+    .wedding__box h2 {
+      text-align: center;
+      color: #FFF;
+      font-size: 36px;
+      font-family: "MyriadProRegular";
+      position: relative;
+      margin: 0;
+      display: block;
+      float: left;
+      width: 100%; }
+      .wedding__box h2 span {
+        z-index: 9;
+        position: relative;
+        background-color: #3D4D65;
+        padding: 0 20px; }
+      .wedding__box h2:after {
+        content: '';
+        background-color: #677b99;
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        bottom: 15px;
+        z-index: 1;
+        left: 0; }
+    .wedding__box--item {
+      width: 33.33333%;
+      display: block;
+      float: left;
+      padding: 0 25px;
+      position: relative;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box; }
+      .wedding__box--item:before, .wedding__box--item:after {
+        clear: both;
+        content: '';
+        display: block; }
+      .wedding__box--item h4 {
+        color: #FFF;
+        text-align: center;
+        font-family: "MyriadProRegular";
+        font-size: 24px; }
+      .wedding__box--item p {
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+        color: #ADB9CA;
+        text-align: center; }
+      .wedding__box--item--img {
+        height: 158px; }
+        .wedding__box--item--img .slick-slide {
+          height: 158px !important; }
+          .wedding__box--item--img .slick-slide img {
+            margin: 0;
+            padding: 0;
+            display: block;
+            height: 100%; }
+        .wedding__box--item--img .slick-prev {
+          left: -15px;
+          background-image: url("../img/Arrow-LeftIcon.png");
+          -webkit-background-size: 30%;
+          -o-background-size: 30%;
+          background-size: 30%;
+          background-position: 50% 50%;
+          background-repeat: no-repeat; }
+          .wedding__box--item--img .slick-prev:before {
+            content: ""; }
+        .wedding__box--item--img .slick-next {
+          right: -15px;
+          background-image: url("../img/Arrow-RightIcon1.png");
+          -webkit-background-size: 30%;
+          -o-background-size: 30%;
+          background-size: 30%;
+          background-position: 50% 50%;
+          background-repeat: no-repeat; }
+          .wedding__box--item--img .slick-next:before {
+            content: ""; }
+        .wedding__box--item--img .slick-prev, .wedding__box--item--img .slick-next {
+          z-index: 99999;
+          width: 30px;
+          height: 30px;
+          -webkit-border-radius: 15px;
+          -moz-border-radius: 15px;
+          -ms-border-radius: 15px;
+          border-radius: 15px;
+          -o-background-clip: padding-box;
+          background-clip: padding-box;
+          background-color: #374355; }
 
 /*# sourceMappingURL=style.css.map */
