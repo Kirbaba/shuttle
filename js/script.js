@@ -168,8 +168,8 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
             }
         });
         return false;
-    });
-
-
+    });    
 
 });
+
+$('.wedding__box--item--img').slick();

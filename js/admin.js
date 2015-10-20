@@ -347,6 +347,151 @@ $(document).ready(function ($) {
         });
 
     });
+
+
+    /*--------------------BANKET----------------------------*/
+    $(document).on('click','.save-banket-video',function(){
+        var block = $(this).parent().parent();
+        var video = block.children('[name="main-video"]').val();
+
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=banketSave&video='+video,
+            success:function(data){
+                alert("Видео успешно сохранено!");
+            }
+        });
+    });
+    $(document).on('click','.save-hall-name',function(){
+        var hallId = $(this).attr('data-num');
+        var block = $(this).parent().parent();
+        var title = block.children('[name="hall-name"]').val();
+
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=banketSave&hallTitle='+title+'&hallId='+hallId,
+            success:function(data){
+                alert("Заголовок успешно сохранен!");
+                location.reload();
+            }
+        });
+    });
+    $(document).on('click','.save-hall-description',function(){
+        var hallId = $(this).attr('data-num');
+        var block = $(this).parent().parent();
+        var description = block.children('[name="hall-description"]').val();
+
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=banketSave&hallDescription='+description+'&hallId='+hallId,
+            success:function(data){
+                alert("Описание успешно сохранено!");
+                //location.reload();
+            }
+        });
+    });
+    $(document).on('click','.save-hall-people',function(){
+        var hallId = $(this).attr('data-num');
+        var block = $(this).parent().parent();
+        var description = block.children('[name="hall-people"]').val();
+
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=banketSave&hallPeople='+description+'&hallId='+hallId,
+            success:function(data){
+                alert("Количество людей успешно сохранено!");
+             //   location.reload();
+            }
+        });
+    });
+    $(document).on('click','.save-hall-folio',function(){
+        var block = $(this).parent().parent().parent();
+        var imgId = block.attr('data-num');
+        var hallId = block.parent().attr('data-hall');
+        var imgUrl = block.children().children().children('[name="hall-folio-img"]').val();
+
+        console.log(hallId);
+        console.log(imgId);
+        console.log(imgUrl);
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=banketFolioSave&hallId='+hallId+'&imgId='+imgId+'&imgUrl='+imgUrl,
+            success:function(data){
+                alert("Изображение успешно сохранено!");
+                //location.reload();
+            }
+        });
+    });
+    $(document).on('click','.del-hall-folio',function(){
+        var delId = $(this).attr('data-num');
+        var block = $(this).parent().parent().parent();
+
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=banketFolioSave&delId='+delId,
+            success:function(data){
+                alert("Изображение успешно удалено!");
+                block.remove();
+                //location.reload();
+            }
+        });
+    });
+    $(document).on('click','.add-folio-item',function(){
+        var block = $(this).parent();
+
+        block.children('.hall-folio-list').append(' <li class="list-group-item" data-num="new"> ' +
+        '<div class="row"> ' +
+        '<div class="col-lg-6"> ' +
+        '<img src="" alt="" class="hall-folio-img media"> ' +
+        '<button class="btn btn-info media-upload"><span class="glyphicon glyphicon-picture"> Выбрать изображение</span></button>' +
+        '<input type="hidden" class="media-img" name="hall-folio-img" value=""> ' +
+        '</div> ' +
+        '<div class="col-lg-1"> ' +
+        '<button class="btn btn-success save-hall-folio"><span class="glyphicon glyphicon-floppy-disk"></span></button> ' +
+        '</div> ' +
+        '<div class="col-lg-1"> ' +
+        '</div> ' +
+        '</div> ' +
+        '</li>');
+    });
+    $(document).on('click','.save-program-name',function(){
+        var programId = $(this).attr('data-num');
+        var block = $(this).parent().parent();
+        var title = block.children('[name="program-name"]').val();
+
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=banketSave&programTitle='+title+'&programId='+programId,
+            success:function(data){
+                alert("Заголовок успешно сохранен!");
+                location.reload();
+            }
+        });
+    });
+    $(document).on('click','.save-program-description',function(){
+        var programId = $(this).attr('data-num');
+        var block = $(this).parent().parent();
+        var description = block.children('[name="program-description"]').val();
+
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=banketSave&programDescription='+description+'&programId='+programId,
+            success:function(data){
+                alert("Описание успешно сохранено!");
+                location.reload();
+            }
+        });
+    });
+
+    /*----------------END BANKET----------------------------*/
 });
 
 
@@ -362,7 +507,6 @@ jQuery(document).ready(function ($) {
         wp.media.editor.open();
         return false;
     });
-
 
     jQuery('.custom_media_upload2').click(function() {
         var send_attachment_bkp = wp.media.editor.send.attachment;
@@ -411,7 +555,6 @@ jQuery(document).ready(function ($) {
         wp.media.editor.open();
         return false;
     });
-
 
     $(document).on('change','#date_hall_fame',function(){
         var date = $(this).val();
