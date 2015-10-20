@@ -3,8 +3,8 @@
 <?php
 get_header(); // Пoдключaeм хeдeр?>
 
-<script type="text/javascript">
-    hs.graphicsDir = '<?=get_template_directory_uri()?>/highslide/graphics/';
+<!--<script type="text/javascript">
+    hs.graphicsDir = '<?/*=get_template_directory_uri()*/?>/highslide/graphics/';
     hs.align = 'center';
     hs.transitions = ['expand', 'crossfade'];
     hs.wrapperClassName = 'dark borderless floating-caption';
@@ -25,7 +25,7 @@ get_header(); // Пoдключaeм хeдeр?>
             hideOnMouseOut: true
         }
     });
-</script>
+</script>-->
 
 
 
@@ -48,14 +48,19 @@ get_header(); // Пoдключaeм хeдeр?>
     ?>
     <section class="events-page">
         <div class="events-page__head">
-
-            <div class="breadcrumbs">
-                <?php if( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); ?>
-                <div class="likely likely-light">
-                    <div class="facebook">Поделиться</div>
-                    <div class="vkontakte">Поделиться</div>
-                </div>
+            <div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+                <?php if(function_exists('bcn_display'))
+                {
+                    bcn_display();
+                }?>
             </div>
+<!--            <div class="breadcrumbs">-->
+<!--                --><?php //if( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); ?>
+<!--                <div class="likely likely-light">-->
+<!--                    <div class="facebook">Поделиться</div>-->
+<!--                    <div class="vkontakte">Поделиться</div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="events-page__head--navline">
                 <h2><?php the_title(); ?></h2>
                 <h5><?=$number?> <?=name_mon($mon)?></h5>
@@ -113,6 +118,7 @@ get_header(); // Пoдключaeм хeдeр?>
                     </div>
                 </div>
                <?php echo get_upcoming_other_event($mon,$post->ID);?>
+                <div class="postIdEvents" post-id="<?=$post->ID;?>"></div>
             </div>
         </div>
 

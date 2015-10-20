@@ -135,5 +135,38 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
         });
 
 
+    $(document).on('click','.photo_report_events_img',function(){
+        var postId = $('.postIdEvents').attr('post-id');
+        var imgId = $(this).attr('data-id');
+        $.ajax({
+            type: "POST",
+            url: ajaxurl, //url, к которому обращаемся
+            data: "action=slider_events&id=" + postId + "&img=" +imgId, //данные, которые передаем. Обязательно для action указываем имя нашего хука
+            success: function(data){
+                $('.event-page-photo').html(data);
+                $('.slider-for').delay(1000).slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    fade: true,
+                    asNavFor: '.slider-nav',
+                    initialSlide: 3
+                });
+                $('.slider-nav').slick({
+                    slidesToShow: 12,
+                    slidesToScroll: 1,
+                    asNavFor: '.slider-for',
+                    dots: true,
+                    centerMode: true,
+                    focusOnSelect: true,
+                    initialSlide: 3
+                });
+                console.log(data);
+            }
+        });
+        return false;
+    });
+
+
 
 });

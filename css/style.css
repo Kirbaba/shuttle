@@ -809,11 +809,12 @@ span.selectDay{
     text-align: center;
 }
 
-/*
-.wcomments_head{
-    background: transparent!important;
-}
 
+
+.wcomments_head{
+    background: RED!important;
+}
+/*
 div#page_wrap {
     background: #3d4d66!important;
 }
@@ -828,4 +829,15 @@ body.font_medium{
     background: #3d4d66!important;
 }
 */
+
+
+.breadcrumbs span a {
+    display: inline-block;
+    width: inherit;
+    float: inherit;
+}
+
+.breadcrumbs{
+    color: #fff;
+}
 
