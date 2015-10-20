@@ -1299,6 +1299,13 @@ ul {
           border-radius: 15px;
           -o-background-clip: padding-box;
           background-clip: padding-box;
-          background-color: #374355; }
+          background-color: #374355;
+          -webkit-transition: all 0.3s linear;
+          -moz-transition: all 0.3s linear;
+          -ms-transition: all 0.3s linear;
+          -o-transition: all 0.3s linear;
+          transition: all 0.3s linear; }
+          .wedding__box--item--img .slick-prev:hover, .wedding__box--item--img .slick-next:hover {
+            background-color: #232b36; }
 
 /*# sourceMappingURL=style.css.map */
