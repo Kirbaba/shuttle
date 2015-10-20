@@ -360,9 +360,109 @@ function admin_menu()
 {
     add_menu_page('Настройка главного блока', 'Главный блок', 'manage_options', 'mainpage', 'mainpage');
     add_menu_page('Настройка партнеров', 'Наши партнеры', 'manage_options', 'partners', 'partners');
+    add_menu_page('Настройка банкета', 'Банкеты', 'manage_options', 'banket', 'banketAdmin');
 }
 
 add_action('admin_menu', 'admin_menu');
+
+/*-----------------------------------------------------------------------------------------*/
+/*                                          BANKET                                         */
+/*-----------------------------------------------------------------------------------------*/
+//admin page for bankets
+function banketAdmin(){
+    if (function_exists('wp_enqueue_media')) {
+        wp_enqueue_media();
+    } else {
+        wp_enqueue_style('thickbox');
+        wp_enqueue_script('media-upload');
+        wp_enqueue_script('thickbox');
+    }
+
+    $video = getDataFromDb('banketvideo');
+
+    $parser = new Parser();
+    $parser->render(TM_DIR . "/views/banket/admin/banketAdmin.php", array('video' => $video[0]), true);
+}
+
+function hallAdmin(){
+    $hall = getDataFromDb('bankethall');
+    $hallfolio[1] = hallfolio(1);
+    $hallfolio[2] = hallfolio(2);
+    $hallfolio[3] = hallfolio(3);
+
+    $parserhall = new Parser();
+    $parserhall->render(TM_DIR . "/views/banket/admin/hall.php", array('hall' => $hall,'hallfolio'=>$hallfolio), true);
+}
+add_shortcode('hallAdmin','hallAdmin');
+
+function hallfolio($num){
+    global $wpdb;
+    $folio =  $wpdb->get_results("SELECT * FROM `bankethallfolio` WHERE id_hall=".$num, ARRAY_A);
+    $parserfolio = new Parser();
+    return $parserfolio ->render(TM_DIR . "/views/banket/admin/hall-folio.php", array('folio' => $folio), false);
+}
+
+function programAdmin(){
+    $program = getDataFromDb('banketprogram');
+
+    $parserprogram = new Parser();
+    $parserprogram->render(TM_DIR . "/views/banket/admin/program.php", array('program' => $program), true);
+}
+add_shortcode('programAdmin','programAdmin');
+
+add_action('wp_ajax_banketSave', 'banketSave');
+add_action('wp_ajax_nopriv_banketSave', 'banketSave');
+add_action('wp_ajax_banketFolioSave', 'banketFolioSave');
+add_action('wp_ajax_nopriv_banketFolioSave', 'banketFolioSave');
+
+function banketSave(){
+    global $wpdb;
+
+    if(isset($_POST['video'])){
+        $wpdb->update('banketvideo',array('video' => $_POST['video']),array('id'=>1));
+    }
+
+    if(isset($_POST['hallTitle'])){
+        $wpdb->update('bankethall',array('title' => $_POST['hallTitle']),array('id'=>$_POST['hallId']));
+    }
+
+    if(isset($_POST['hallDescription'])){
+        $wpdb->update('bankethall',array('description' => $_POST['hallDescription']),array('id'=>$_POST['hallId']));
+    }
+
+    if(isset($_POST['hallPeople'])){
+        $wpdb->update('bankethall',array('people' => $_POST['hallPeople']),array('id'=>$_POST['hallId']));
+    }
+
+    if(isset($_POST['programTitle'])){
+        $wpdb->update('banketprogram',array('title' => $_POST['programTitle']),array('id'=>$_POST['programId']));
+    }
+
+    if(isset($_POST['programDescription'])){
+        $wpdb->update('banketprogram',array('description' => $_POST['programDescription']),array('id'=>$_POST['programId']));
+    }
+}
+
+function banketFolioSave(){
+    global $wpdb;
+
+    if(isset($_POST['delId'])){
+        $wpdb->delete('bankethallfolio',array('id'=>$_POST['delId']));
+    }
+
+    if(isset($_POST['imgId'])){
+        if($_POST['imgId']=='new'){
+            $wpdb->insert('bankethallfolio',array('img' => $_POST['imgUrl'],'id_hall'=>$_POST['hallId']));
+        }else{
+            $wpdb->update('bankethallfolio',array('img' => $_POST['imgUrl']),array('id_hall'=>$_POST['hallId'],'id'=>$_POST['imgId']));
+        }
+    }
+
+}
+/*-----------------------------------------------------------------------------------------*/
+/*                                      END BANKET                                         */
+/*-----------------------------------------------------------------------------------------*/
+
 
 //админка страницы входа
 function mainpage()
