@@ -1293,6 +1293,7 @@ function show_report($id){
 }
 
 add_action('wp_ajax_slider_events', 'get_slider_events');
+add_action('wp_ajax_nopriv_slider_events', 'get_slider_events');
 function get_slider_events(){
     $parser = new Parser();
     $photo = new Photo_report();

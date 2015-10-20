@@ -144,24 +144,27 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
             data: "action=slider_events&id=" + postId + "&img=" +imgId, //данные, которые передаем. Обязательно для action указываем имя нашего хука
             success: function(data){
                 $('.event-page-photo').html(data);
-                $('.slider-for').delay(1000).slick({
-                    slidesToShow: 1,
+                $('.slick-codepen').delay(1000).slick({
                     slidesToScroll: 1,
-                    arrows: true,
-                    fade: true,
                     asNavFor: '.slider-nav',
-                    initialSlide: 3
+                    draggable: true,
+                    accessibility: false,
+                    centerMode: true,
+                    variableWidth: true,
+                    slidesToShow: 1,
+                    arrows: true,
+                    dots: false,
+                    swipeToSlide: true,
+                    infinite: false
                 });
                 $('.slider-nav').slick({
-                    slidesToShow: 12,
+                    slidesToShow: 9,
                     slidesToScroll: 1,
-                    asNavFor: '.slider-for',
-                    dots: true,
-                    centerMode: true,
-                    focusOnSelect: true,
-                    initialSlide: 3
+                    asNavFor: '.slick-codepen',
+                    dots: false,
+                    centerMode: false,
+                    focusOnSelect: true
                 });
-                console.log(data);
             }
         });
         return false;
