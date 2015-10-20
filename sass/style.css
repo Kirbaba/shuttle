@@ -1263,7 +1263,8 @@ ul {
       .wedding__box--item--img {
         height: 158px; }
         .wedding__box--item--img .slick-slide {
-          height: 158px !important; }
+          height: 158px !important;
+          outline: none; }
           .wedding__box--item--img .slick-slide img {
             margin: 0;
             padding: 0;
