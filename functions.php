@@ -459,6 +459,27 @@ function banketFolioSave(){
     }
 
 }
+
+function banketIndex(){
+    global $wpdb;
+
+    $hallsDB =  $wpdb->get_results("SELECT * FROM `bankethall`", ARRAY_A);
+    $programsDB =  $wpdb->get_results("SELECT * FROM `banketprogram`", ARRAY_A);
+
+    $folio = [];
+    foreach($hallsDB as $item){
+        $folio[$item['id']] = $wpdb->get_results("SELECT * FROM `bankethallfolio` WHERE id_hall=".$item['id'], ARRAY_A);
+    }
+
+    $hallsPR = new Parser();
+    $halls = $hallsPR ->render(TM_DIR . "/views/banket/hall.php", array('hall' => $hallsDB,'folio' => $folio), false);
+    $programPR = new Parser();
+    $programs = $programPR ->render(TM_DIR . "/views/banket/program.php", array('program' => $programsDB), false);
+
+    $parser = new Parser();
+    $parser->render(TM_DIR . "/views/banket/banket.php", array('halls' => $halls,'programs' => $programs), true);
+}
+add_shortcode('banketIndex','banketIndex');
 /*-----------------------------------------------------------------------------------------*/
 /*                                      END BANKET                                         */
 /*-----------------------------------------------------------------------------------------*/
