@@ -1,2 +1,2 @@
-$('#wcomments_form').css("background", "#000");
+$('#submit_post_box_wrap').css("background", "#000");
 
