@@ -82,7 +82,7 @@
 				.slick-slide {
 				    height: 158px !important;		
 				    outline: none;
-				    opacity: 1;		    
+				    opacity: 1!important;		    
 				    img {
 				      margin: 0;
 				      padding: 0;
@@ -101,6 +101,15 @@
 					&:before {
 						content: "";					
 					}
+					&:hover, &:active, &:focus {
+					background-color: darken(#374355, 10%);
+					background-image: url('../img/Arrow-LeftIcon.png');
+					-webkit-background-size: 30%;
+					     -o-background-size: 30%;
+					        background-size: 30%;
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+					}
 				}
 				.slick-next {
 					right: -15px;
@@ -112,6 +121,14 @@
 						background-repeat: no-repeat;
 					&:before {
 						content: "";						
+					}
+					&:hover, &:active, &:focus {
+						background-image: url('../img/Arrow-RightIcon1.png');
+						-webkit-background-size: 30%;
+						     -o-background-size: 30%;
+						        background-size: 30%;
+						background-position: 50% 50%;
+						background-repeat: no-repeat;
 					}
 				}
 				.slick-prev, .slick-next {
