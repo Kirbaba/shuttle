@@ -9,6 +9,29 @@
 <!--    <link rel="stylesheet" href="--><?php //echo get_template_directory_uri(); ?><!--/sass/style.css">-->
 <!--    <link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">-->
     <?php wp_head();?>
+    <script type="text/javascript">
+        hs.graphicsDir = '<?=get_template_directory_uri();?>/highslide/graphics/';
+        hs.align = 'center';
+        hs.transitions = ['expand', 'crossfade'];
+        hs.wrapperClassName = 'dark borderless floating-caption';
+        hs.fadeInOut = true;
+        hs.dimmingOpacity = .75;
+        hs.showCredits = false;
+
+        // Add the controlbar
+        if (hs.addSlideshow) hs.addSlideshow({
+            //slideshowGroup: 'group1',
+            interval: 5000,
+            repeat: false,
+            useControls: true,
+            fixedControls: 'fit',
+            overlayOptions: {
+                opacity: .6,
+                position: 'bottom center',
+                hideOnMouseOut: true
+            }
+        });
+    </script>
 </head>
 <body>
 <div class="bg_masck index_margintop">
