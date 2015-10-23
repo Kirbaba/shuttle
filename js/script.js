@@ -137,7 +137,9 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
 
     $(document).on('click','.photo_report_events_img',function(){
         var postId = $('.postIdEvents').attr('post-id');
-        var imgId = $(this).attr('data-id');
+        var imgId = $(this).attr('count');
+        imgId = parseInt(imgId, 10);
+        
         $.ajax({
             type: "POST",
             url: ajaxurl, //url, к которому обращаемся
@@ -155,7 +157,8 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
                     arrows: true,
                     dots: false,
                     swipeToSlide: true,
-                    infinite: false
+                    infinite: false,
+                    initialSlide:imgId
                 });
                 $('.slider-nav').slick({
                     slidesToShow: 9,
@@ -163,7 +166,8 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
                     asNavFor: '.slick-codepen',
                     dots: false,
                     centerMode: false,
-                    focusOnSelect: true
+                    focusOnSelect: true,
+                    initialSlide:imgId
                 });
             }
         });

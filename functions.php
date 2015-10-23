@@ -1408,8 +1408,10 @@ function show_report($id){
 
     $link = get_template_directory_uri();
     $images = '';
+    $count = 0;
     foreach($img as $i){
-        $images .= $parser->parse(TM_DIR . '/views/photo_report/site/show_img.php', array('img'=>$i->images,'link'=>$link,'id'=>$i->id), FALSE);
+        $images .= $parser->parse(TM_DIR . '/views/photo_report/site/show_img.php', array('img'=>$i->images,'link'=>$link,'id'=>$i->id,'count'=>$count), FALSE);
+        $count++;
     }
     $parser->parse(TM_DIR . '/views/photo_report/site/show_photo_report.php', array('img'=>$images,'video'=>$video_arr), true);
 
