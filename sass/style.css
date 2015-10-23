@@ -1264,7 +1264,8 @@ ul {
         height: 158px; }
         .wedding__box--item--img .slick-slide {
           height: 158px !important;
-          outline: none; }
+          outline: none;
+          opacity: 1; }
           .wedding__box--item--img .slick-slide img {
             margin: 0;
             padding: 0;
