@@ -1265,7 +1265,7 @@ ul {
         .wedding__box--item--img .slick-slide {
           height: 158px !important;
           outline: none;
-          opacity: 1; }
+          opacity: 1 !important; }
           .wedding__box--item--img .slick-slide img {
             margin: 0;
             padding: 0;
@@ -1281,6 +1281,14 @@ ul {
           background-repeat: no-repeat; }
           .wedding__box--item--img .slick-prev:before {
             content: ""; }
+          .wedding__box--item--img .slick-prev:hover, .wedding__box--item--img .slick-prev:active, .wedding__box--item--img .slick-prev:focus {
+            background-color: #232b36;
+            background-image: url("../img/Arrow-LeftIcon.png");
+            -webkit-background-size: 30%;
+            -o-background-size: 30%;
+            background-size: 30%;
+            background-position: 50% 50%;
+            background-repeat: no-repeat; }
         .wedding__box--item--img .slick-next {
           right: -15px;
           background-image: url("../img/Arrow-RightIcon1.png");
@@ -1291,6 +1299,13 @@ ul {
           background-repeat: no-repeat; }
           .wedding__box--item--img .slick-next:before {
             content: ""; }
+          .wedding__box--item--img .slick-next:hover, .wedding__box--item--img .slick-next:active, .wedding__box--item--img .slick-next:focus {
+            background-image: url("../img/Arrow-RightIcon1.png");
+            -webkit-background-size: 30%;
+            -o-background-size: 30%;
+            background-size: 30%;
+            background-position: 50% 50%;
+            background-repeat: no-repeat; }
         .wedding__box--item--img .slick-prev, .wedding__box--item--img .slick-next {
           z-index: 99999;
           width: 30px;
