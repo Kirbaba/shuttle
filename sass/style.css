@@ -1289,6 +1289,17 @@ ul {
             background-size: 30%;
             background-position: 50% 50%;
             background-repeat: no-repeat; }
+        .wedding__box--item--img .slick-prev:hover, .wedding__box--item--img .slick-prev:focus, .wedding__box--item--img .slick-next:hover, .wedding__box--item--img .slick-next:focus {
+          background-color: #232b36;
+          -webkit-background-size: 30%;
+          -o-background-size: 30%;
+          background-size: 30%;
+          background-position: 50% 50%;
+          background-repeat: no-repeat; }
+        .wedding__box--item--img .slick-prev:hover, .wedding__box--item--img .slick-prev:focus {
+          background-image: url("../img/Arrow-LeftIcon.png"); }
+        .wedding__box--item--img .slick-next:hover, .wedding__box--item--img .slick-next:focus {
+          background-image: url("../img/Arrow-RightIcon1.png"); }
         .wedding__box--item--img .slick-next {
           right: -15px;
           background-image: url("../img/Arrow-RightIcon1.png");

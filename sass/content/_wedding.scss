@@ -111,6 +111,20 @@
 					background-repeat: no-repeat;
 					}
 				}
+				.slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {
+					background-color: darken(#374355, 10%);
+					-webkit-background-size: 30%;
+					     -o-background-size: 30%;
+					        background-size: 30%;
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+				}
+				.slick-prev:hover, .slick-prev:focus {
+					background-image: url('../img/Arrow-LeftIcon.png');
+				}
+				.slick-next:hover, .slick-next:focus {
+					background-image: url('../img/Arrow-RightIcon1.png');
+				}
 				.slick-next {
 					right: -15px;
 					background-image: url('../img/Arrow-RightIcon1.png');
