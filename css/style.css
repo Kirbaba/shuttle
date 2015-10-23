@@ -1061,4 +1061,6 @@ ul.nostyle{
 
 .coments_wr{
     padding: 25px;
+    display: block;
+    position: relative;
 }
