@@ -465,9 +465,10 @@ function banketFolioSave(){
 function banketIndex(){
     global $wpdb;
 
+    $video = getDataFromDb('banketvideo');
     $hallsDB =  $wpdb->get_results("SELECT * FROM `bankethall`", ARRAY_A);
     $programsDB =  $wpdb->get_results("SELECT * FROM `banketprogram`", ARRAY_A);
-
+   // prn($video);
     $folio = [];
     foreach($hallsDB as $item){
         $folio[$item['id']] = $wpdb->get_results("SELECT * FROM `bankethallfolio` WHERE id_hall=".$item['id'], ARRAY_A);
@@ -479,7 +480,7 @@ function banketIndex(){
     $programs = $programPR ->render(TM_DIR . "/views/banket/program.php", array('program' => $programsDB), false);
 
     $parser = new Parser();
-    $parser->render(TM_DIR . "/views/banket/banket.php", array('halls' => $halls,'programs' => $programs), true);
+    $parser->render(TM_DIR . "/views/banket/banket.php", array('video'=>$video[0],'halls' => $halls,'programs' => $programs), true);
 }
 add_shortcode('banketIndex','banketIndex');
 /*-----------------------------------------------------------------------------------------*/
