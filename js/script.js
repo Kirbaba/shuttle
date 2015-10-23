@@ -1,5 +1,5 @@
 $(document).ready(function() { // вся мaгия пoсле зaгрузки стрaницы
-
+    initSlider();
     var options = {
         horizontal: 1,
         itemNav: 'centered',
@@ -126,7 +126,7 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
     });*/
 
 
-        $(".selectDay").hover(function() {
+    $(".selectDay").hover(function() {
             $(this).children(".popup_block").stop(true,true)
                 .animate({opacity: "show", top: "20",left: "-80"}, "slow");
         }, function() {
@@ -168,8 +168,13 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
             }
         });
         return false;
-    });    
+    });
+
+
 
 });
 
-$('.wedding__box--item--img').slick();
+function initSlider(){
+    $('.wedding__box--item--img').slick();
+}
+

@@ -16,7 +16,7 @@ function add_style()
 
 function add_script()
 {
-    wp_enqueue_script('jquery', get_template_directory_uri() . '/js/jquery-2.1.3.min.js', array(), '1');
+    //wp_enqueue_script('jquery', get_template_directory_uri() . '/js/jquery-2.1.3.min.js', array(), '1');
     wp_enqueue_script('likely', get_template_directory_uri() . '/js/likely.js', array(), '1');
     wp_enqueue_script('jq', 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js', array(), '1');
     wp_enqueue_script('api-maps', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU', array(), '1');
