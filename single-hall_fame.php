@@ -12,8 +12,11 @@ get_header(); ?>
                         <section class="store">
                             <div class="store__head">
 
-                                <div class="breadcrumbs">
-                                    <?php if( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); ?>
+                                <div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+                                    <?php if(function_exists('bcn_display'))
+                                    {
+                                        bcn_display();
+                                    }?>
                                 </div>
                                 <h1 class="blockTitle"><?php the_title(); ?></h1>
                             </div>

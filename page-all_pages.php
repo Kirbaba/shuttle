@@ -12,8 +12,11 @@ get_header(); ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                     <div class="entry-content">
                         <section class="store about_club">
-                            <div class="breadcrumbs">
-                                <?php if( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); ?>
+                            <div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+                                <?php if(function_exists('bcn_display'))
+                                {
+                                    bcn_display();
+                                }?>
                             </div>
                                 <?php the_content();?>
 

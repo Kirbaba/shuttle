@@ -16,8 +16,14 @@ get_header(); ?>
                         <section class="store">
                             <div class="events-page__head">
 
-                                <div class="breadcrumbs">
-                                    <?php if( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); ?>
+                                <div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+                                    <?php /*if( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); */?>
+
+                                        <?php if(function_exists('bcn_display'))
+                                        {
+                                            bcn_display();
+                                        }?>
+
                                     <div class="likely likely-light">
                                         <div class="facebook">Поделиться</div>
                                         <div class="vkontakte">Поделиться</div>

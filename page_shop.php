@@ -15,9 +15,15 @@ get_header(); ?>
                         <section class="store">
                             <div class="store__head">
 
-                                <div class="breadcrumbs">
-                                    <?php if( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); ?>
-                                </div>
+
+                                    <div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+                                        <?php if(function_exists('bcn_display'))
+                                        {
+                                            bcn_display();
+                                        }?>
+                                    </div>
+                                   <!-- --><?php /*if( function_exists('kama_breadcrumbs') ) kama_breadcrumbs(); */?>
+
                                 <h1 class="blockTitle">Магазин Shuttle Night Club</h1>
                             </div>
                             <div class="store__box">
