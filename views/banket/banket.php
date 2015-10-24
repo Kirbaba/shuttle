@@ -19,6 +19,10 @@
             <?= $programs ?>
 
         </div>
+        <div style="padding: 25px">
+
+
+        <?= do_shortcode("[gal id='4']")?></div>
         <div class="coments_wr">
             <div class="coments">
                 <!-- Put this script tag to the <head> of your page -->
@@ -38,7 +42,7 @@
 
             </div>
         </div>
-        <?= do_shortcode("[gal id='4']")?>
+
 
     </section>
 </section>
