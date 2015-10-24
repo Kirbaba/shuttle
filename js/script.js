@@ -158,7 +158,8 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
                     dots: false,
                     swipeToSlide: true,
                     infinite: false,
-                    initialSlide:imgId
+                    initialSlide:imgId,
+                    autoplay:true
                 });
                 $('.slider-nav').slick({
                     slidesToShow: 9,
