@@ -492,6 +492,32 @@ $(document).ready(function ($) {
     });
 
     /*----------------END BANKET----------------------------*/
+
+    var custom_uploader;
+    $(document).on('click','.multiSelect', function(e){
+        e.preventDefault();
+        //If the uploader object has already been created, reopen the dialog
+        if (custom_uploader) {
+            custom_uploader.open();
+            return;
+        }
+        //Extend the wp.media object
+        custom_uploader = wp.media.frames.file_frame = wp.media({
+            title: 'Choose Image',
+            button: {
+                text: 'Choose Image'
+            },
+            multiple: true
+        });
+        custom_uploader.on('select', function() {
+            var selection = custom_uploader.state().get('selection');
+            selection.map( function( attachment ) {
+                attachment = attachment.toJSON();
+                $(".multipleImg").after("<img src=" +attachment.url+">");
+            });
+        });
+        custom_uploader.open();
+    });
 });
 
 
