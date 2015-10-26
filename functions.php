@@ -1,5 +1,9 @@
 <?php
 
+if (!current_user_can('administrator')):
+    show_admin_bar(false);
+endif;
+
 function add_style()
 {
     // wp_enqueue_style( 'my-bootstrap-extension', get_template_directory_uri() . '/css/bootstrap.css', array(), '1');

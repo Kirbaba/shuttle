@@ -44,9 +44,19 @@
              </a>
         </article>
         <div class="header__rightside">
-            <div class="header__rightside--enter" onclick="VK.Auth.login(onSignon)">
-                <a>АВТОРИЗИРУЙТЕСЬ ЧЕРЕЗ <i class="fa fa-vk"></i></a>
-            </div>
+            <?php if(is_user_logged_in()){
+                $current_user = wp_get_current_user();
+                ?>
+                <div class="header__rightside--enter" >
+                    <?= get_avatar($current_user->ID) ?>
+                    <p><?= $current_user->user_firstname.'<br />'.$current_user->user_lastname ?></p>
+                </div>
+            <?php }else{?>
+                <div class="header__rightside--enter" onclick="VK.Auth.login(onSignon)">
+                    <a>АВТОРИЗИРУЙТЕСЬ ЧЕРЕЗ <i class="fa fa-vk"></i></a>
+                </div>
+            <?php } ?>
+
             <div class="header__rightside--contacts">
                 <p><?php echo get_theme_mod('phone_textbox'); ?></p>
                 <a href="mailto:<?php echo get_theme_mod('mail_textbox'); ?>"><?php echo get_theme_mod('mail_textbox'); ?></a>
