@@ -183,3 +183,4 @@ function initSlider(){
     $('.wedding__box--item--img').slick();
 }
 
+
