@@ -6,18 +6,18 @@
         <div class="col-lg-12">
             <h3>Главное видео</h3>
 
-            <div class="input-group">
-                <!--главное видео-->
-                <input type="text" class="form-control" placeholder="Embed link for youtube video" name="main-video"
-                       value="<?= $video['video'] ?>">
-                <span class="input-group-btn">
-                    <button class="btn btn-success save-banket-video" type="button">
-                        <span class="glyphicon glyphicon-floppy-disk"></span>
-                    </button>
-                </span>
+            <div>
+                <video src="<?= $video['video'] ?>" controls="controls" class="media main-video"></video>
+                <button class="btn btn-info media-upload"><span
+                        class="glyphicon glyphicon-picture"> Выбрать видео</span></button>
+                <input type="hidden" class="media-img" name="main-video" value="<?= $video['video'] ?>">
+
+                <button class="btn btn-success save-banket-video"><span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-lg-12">
             <h3>Наши залы</h3>

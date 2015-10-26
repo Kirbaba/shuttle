@@ -29,3 +29,8 @@ section {
 .media {
     width: 50px;
 }
+
+.main-video{
+    width: 400px;
+    height: 300px;
+}
