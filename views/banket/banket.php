@@ -9,7 +9,8 @@
     </div>
     <section class="wedding">
         <div class="wedding__video">
-            <iframe width="100%" height="100%" src="<?= $video['video'] ?>" frameborder="0" allowfullscreen></iframe>
+            <video src="<?= $video['video'] ?>"></video>
+<!--            <iframe width="100%" height="100%" src="--><?//= $video['video'] ?><!--" frameborder="0" allowfullscreen></iframe>-->
         </div>
         <div class="wedding__box">
             <h2><span>Наши залы</span></h2>
