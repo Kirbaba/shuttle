@@ -4,6 +4,24 @@ html{
 
 }
 
+.doneEmailForm{
+    height: 150px!important;
+    text-align: center;
+}
+
+.done-email-button{
+    text-decoration: underline;
+    text-transform: uppercase;
+    color: #1c89cb;
+    font-weight: 700;
+}
+
+.done-email{
+    width: 90%;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 7px 10px;
+}
 
 #modal_form {
     width: 320px;

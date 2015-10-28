@@ -9,7 +9,10 @@
     </div>
     <section class="wedding">
         <div class="wedding__video">
-            <video src="<?= $video['video'] ?>" width="100%" height="100%" controls="controls"></video>
+            <video width="100%" height="100%" controls>
+                <source src="<?= $video['video'] ?>">
+            </video>
+
 <!--            <iframe width="100%" height="100%" src="--><?//= $video['video'] ?><!--" frameborder="0" allowfullscreen></iframe>-->
         </div>
         <div class="wedding__box">
