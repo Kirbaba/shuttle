@@ -1074,9 +1074,51 @@ ul.nostyle{
     margin-bottom: 0!important;
 }
 
-.header__rightside--enter img{
-    width: 65px;
-    height: 65px;
+/*.header__rightside--enter img{
+    width: 50px;
+    height: 50px;
     border-radius: 43px;
+    margin-top: 6px;
     float: left;
+}*/
+
+.avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 43px;
+    margin-top: 6px;
+    float: left;
+}
+
+.navigation ul li{
+    margin-right: 8px!important;
+}
+
+.header__rightside--enter{
+    width: 49%!important;
+    margin-left: 0!important;
+}
+
+.header__rightside--enter p{
+    text-transform: none!important;
+}
+
+.header__rightside--contacts{
+    width: 51% !important;
+}
+
+.logo,.header__rightside{
+    position: relative!important;
+}
+.logo:before,.header__rightside:before,
+.logo:after,.header__rightside:after{
+     display: table;
+     content: " ";
+ }
+.logo:after,.header__rightside:after{
+     clear: both;
+ }
+
+.header__rightside{
+    float: left!important;
 }
