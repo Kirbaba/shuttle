@@ -1815,3 +1815,32 @@ function img_galeri($id){
 
 
 add_shortcode('gal', 'img_galeri');
+
+/*собираем почты пользователей*/
+add_action('wp_ajax_doneEmail', 'doneEmail');
+add_action('wp_ajax_nopriv_doneEmail', 'doneEmail');
+
+function doneEmail(){
+
+    $id = get_current_user_id();
+
+    if(isset($_POST['email']) && !empty($_POST['email'])){
+        wp_update_user( array( 'ID' => $id, 'user_email' => $_POST['email'] ) );
+    }
+
+    if(isset($_POST['check'])){
+        $user = get_userdata($id);
+        $currentEmail = $user->user_email;
+
+        $vkMail = substr($currentEmail,-6);
+
+        if($vkMail == 'vk.com'){
+            echo 1;
+        }
+        else{
+            echo 0;
+        }
+    }
+
+    die();
+}
