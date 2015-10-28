@@ -7,7 +7,9 @@
         <p>Наши<br>партнеры</p>
     </div>
     <?php
-        if(is_page('magazin')){
+    $rrr = get_post_type( $post->ID );
+    //echo $rrr;
+        if((is_page('magazin')) || ($rrr === 'event') ){
     ?>
             <div class="footer__button--contacts">
                 <p><?php echo get_theme_mod('phone_textbox'); ?></p>
@@ -48,6 +50,7 @@
     <!-- Тут любoе сoдержимoе -->
 </div>
 <div id="overlay"></div><!-- Пoдлoжкa -->
+
 <?php wp_footer(); ?>
 <script type="text/javascript">
     addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
@@ -59,5 +62,7 @@
         decimalPoint = ',',
         isRtl = 0;
 </script>
+
+
 </body>
 </html>

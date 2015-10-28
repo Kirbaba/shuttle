@@ -312,7 +312,14 @@ $(document).ready(function ($) {
                 if (data !=="null"){
                     var obj = jQuery.parseJSON(data);
                     $('#id_event').val(obj.ID);
-                    $('.oneEvent').html('<p>В этот день мероприятие: ' + obj.post_title + '</p><label> Добавьте все файлы здесь: <input type="file" name="kv_multiple_attachments[]" multiple="multiple" > </label> <br / ><input type="button" name="videoadd" id="videoadd" value="Добавить видео"/><div class="vidos"></div><br /><input type="submit" name="uploadimg" value="Загрузить" >');
+                    $('.oneEvent').html('<p>В этот день мероприятие: ' + obj.post_title + '</p> <p>' +
+                    '' +
+                    '<div class="col-lg-12">'+
+                    '<img src="" alt="" class="media">'+
+                    '<button class="btn btn-info media-upload"><span class="glyphicon glyphicon-picture"> Выбрать изображение</span></button>'+
+                    '<input type="hidden" class="media-img" name="cover_img" value="">'+
+                    '</div>' +
+                    '<p><button class="multiSelectImg">Выберите изображения</button></p> <div class="multipleImg"></div> <br / ><p><button class="multiSelectVid">Выберите видео</button></p> <div class="multipleVid"></div><button name="photo_report_save">Сохранить фотоотчет</button>');
                 }
                 else{
                     $('.oneEvent').html('<p>В этот день мероприятий нет</p>');
@@ -494,7 +501,7 @@ $(document).ready(function ($) {
     /*----------------END BANKET----------------------------*/
 
     var custom_uploader;
-    $(document).on('click','.multiSelect', function(e){
+    $(document).on('click','.multiSelectImg', function(e){
         e.preventDefault();
         //If the uploader object has already been created, reopen the dialog
         if (custom_uploader) {
@@ -513,10 +520,47 @@ $(document).ready(function ($) {
             var selection = custom_uploader.state().get('selection');
             selection.map( function( attachment ) {
                 attachment = attachment.toJSON();
-                $(".multipleImg").after("<img src=" +attachment.url+">");
+                $(".multipleImg").append("<div class='photo_report_img_wr'><img class='photo_report_img' src=" +attachment.url+"><input type='hidden' name='kv_multiple_attachments_img[]' id='' value='"+attachment.url+"'/><span class='dell'>x</span></div>");
             });
         });
         custom_uploader.open();
+    });
+    var custom_videouploader;
+    $(document).on('click','.multiSelectVid', function(e){
+        e.preventDefault();
+        //If the uploader object has already been created, reopen the dialog
+        if (custom_videouploader) {
+            custom_videouploader.open();
+            return;
+        }
+        //Extend the wp.media object
+        custom_videouploader = wp.media.frames.file_frame = wp.media({
+            title: 'Choose Image',
+            button: {
+                text: 'Choose Image'
+            },
+            multiple: true
+        });
+        custom_videouploader.on('select', function() {
+            var selection = custom_videouploader.state().get('selection');
+            selection.map( function( attachment ) {
+                attachment = attachment.toJSON();
+                $(".multipleVid").append("<div class='photo_report_vid_wr'><video src='"+attachment.url+"' width='320' height='240' preload></video><input type='hidden' name='kv_multiple_attachments_vid[]' id='' value='"+attachment.url+"'/><span class='dell'>x</span></div>");
+            });
+        });
+        custom_videouploader.open();
+    });
+
+    jQuery('.selectCover').click(function() {
+        var send_attachment_bkp = wp.media.editor.send.attachment;
+        wp.media.editor.send.attachment = function(props, attachment) {
+            jQuery('.selectCover').attr('src', attachment.url);
+            jQuery('.selectCover').val(attachment.url);
+// jQuery('.custom_media_id').val(attachment.id);
+            wp.media.editor.send.attachment = send_attachment_bkp;
+        }
+        wp.media.editor.open();
+        return false;
     });
 });
 

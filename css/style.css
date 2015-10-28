@@ -1064,3 +1064,19 @@ ul.nostyle{
     display: block;
     position: relative;
 }
+
+.enter__container{
+    margin-top: 0!important;
+
+}
+
+.footer{
+    margin-bottom: 0!important;
+}
+
+.header__rightside--enter img{
+    width: 65px;
+    height: 65px;
+    border-radius: 43px;
+    float: left;
+}

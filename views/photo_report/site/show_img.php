@@ -1,1 +1,1 @@
-<a class="photo_report_events_img" data-id="{id}" count={count} href="{link}/img_events/{img}"><img src="{link}/img_events/{img}" alt="" width="100px;"/></a>
+<a class="photo_report_events_img" data-id="{id}" count={count} href="{img}"><img src="{img}" alt="" width="100px;"/></a>

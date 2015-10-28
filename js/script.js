@@ -175,12 +175,23 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
         return false;
     });
 
-
+    $(document).on('click','.video_report',function(){
+        var id = $(this).attr('data-id');
+        $.ajax({
+            type: "POST",
+            url: ajaxurl, //url, к которому обращаемся
+            data: "action=video&id=" + id, //данные, которые передаем. Обязательно для action указываем имя нашего хука
+            success: function(data){//console.log(data);
+                $('.video_report_html').html(data);
+            }
+        });
+    });
 
 });
 
 function initSlider(){
     $('.wedding__box--item--img').slick();
+
 }
 
 

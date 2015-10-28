@@ -1,7 +1,7 @@
 <div class="other_events">
 
     <a href="{link}">
-        <img src="{linkImg}/img_events/{img}">
+        <img src="{img}">
     </a>
    <span class="name_events">{name}</span>
 

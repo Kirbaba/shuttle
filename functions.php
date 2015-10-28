@@ -811,7 +811,15 @@ add_action('wp_ajax_order', 'set_order');
 add_action('wp_ajax_feedback', 'send_feedback');
 add_action('wp_ajax_showevents', 'show_events');
 add_action('wp_ajax_show_report', 'show_report');
+add_action('wp_ajax_video', 'show_video');
+add_action('wp_ajax_nopriv_video', 'show_video');
 
+function show_video(){
+    global $wpdb;
+    $result = $wpdb->get_results("SELECT video FROM video_report WHERE id=".$_POST['id']);
+    echo "<video width='320' height='240' src='".$result[0]->video."' controls></video>";
+    die();
+}
 
 
 function set_order()
@@ -1334,13 +1342,27 @@ function photo_report_menu_page(){
 add_action('admin_menu', 'photo_report_menu_page');
 
 function photo_report_admin_page(){
+    if (function_exists('wp_enqueue_media')) {
+        wp_enqueue_media();
+    } else {
+        wp_enqueue_style('thickbox');
+        wp_enqueue_script('media-upload');
+        wp_enqueue_script('thickbox');
+    }
     $parser = new Parser();
     if(isset($_GET['action'])) {
         if ($_GET['action'] == 'add_photo_report') {
-            if(isset($_POST['uploadimg'])){
-                $_POST['uploadimg'];
+            if(isset($_POST['photo_report_save'])){
                 $photo = new Photo_report();
-                $photo->upload_img($_POST['id_event'],$_FILES,$_POST['video']);
+                if(isset($_POST['kv_multiple_attachments_img'])) {
+                    $photo->upload_img($_POST['id_event'], $_POST['kv_multiple_attachments_img']);
+                }
+                if(isset($_POST['kv_multiple_attachments_vid'])){
+                    $photo->upload_vid($_POST['id_event'], $_POST['kv_multiple_attachments_vid']);
+                }
+                if(isset($_POST['cover_img'])){
+                    $photo->upload_cover($_POST['id_event'],$_POST['cover_img']);
+                }
                 print_photo_report();
             }else{
                 $parser->parse(TM_DIR . '/views/photo_report/photo_report_add.php', array(), TRUE);
@@ -1408,7 +1430,7 @@ function show_report($id){
     $video = $photo->get_video_report($id);
     $video_arr = '';
     foreach ($video as $v) {
-        $video_arr .=  $parser->parse(TM_DIR . '/views/photo_report/site/video_report.php', array('video' => stripslashes($v->video)), FALSE);
+        $video_arr .=  $parser->parse(TM_DIR . '/views/photo_report/site/video_report.php', array('video' => stripslashes($v->video),'id'=>$v->id), FALSE);
     }
 
     $link = get_template_directory_uri();
