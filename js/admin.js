@@ -358,9 +358,9 @@ $(document).ready(function ($) {
 
     /*--------------------BANKET----------------------------*/
     $(document).on('click','.save-banket-video',function(){
-        var block = $(this).parent().parent();
+        var block = $(this).parent();
         var video = block.children('[name="main-video"]').val();
-
+        console.log(video);
         $.ajax({
             type:'POST',
             url:ajaxurl,

@@ -30,6 +30,7 @@ section {
     width: 50px;
 }
 
+
 .photo_report_img{
     width: 100px;
     height: 100px;
@@ -51,4 +52,8 @@ section {
     top: -8px;
     right: -6px;
     cursor: pointer;
+}
+.main-video{
+    width: 400px;
+    height: 300px;
 }
