@@ -979,7 +979,7 @@ function getEnterBox()
         $bot = getDataFromDb('botbanner');
 
         $html .= '<div class="enter__box--threeSlide">
-            <div class="fotorama" data-height="360" data-width="510" data-nav="dots" data-fit="cover" data-autoplay="3000">';
+            <div class="fotorama" data-height="360" data-width="510" data-nav="dots" data-fit="cover" data-autoplay="5000">';
 
         foreach ($slides as $slide) {
             $html .= '<div><a href="' . $slide['link'] . '"><img src="' . $slide['img'] . '" alt=""></a></div>';
