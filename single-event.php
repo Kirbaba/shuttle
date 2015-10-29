@@ -110,7 +110,7 @@ get_header(); // Пoдключaeм хeдeр?>
                         <!-- Put this div tag to the place, where the Comments block will be -->
                         <div id="vk_comments"></div>
                         <script type="text/javascript">
-                            VK.Widgets.Comments("vk_comments", {limit: 5, width: "665", attach: "*"});
+                            VK.Widgets.Comments("vk_comments", {limit: 5, width: "665", attach: "*",autoPublish:0});
                         </script>
                     </div>
                     <div class="group_vidget">
