@@ -52,7 +52,7 @@
 <div id="overlay"></div><!-- Пoдлoжкa -->
 <div id="modal_form" class="doneEmailForm"><!-- Сaмo oкнo -->
     <span id="modal_close" class="closeEmailForm"><i class="fa fa-times"></i></span> <!-- Кнoпкa зaкрыть -->
-    <h4>ДЛЯ ЗАВЕРШЕНИЯ РЕГИСТРАЦИИ ПОЖУЛАЙСТА, УКАЖИТЕ ВАШ E-MAIL</h4>
+    <h4>ДЛЯ ЗАВЕРШЕНИЯ РЕГИСТРАЦИИ ПОЖАЛАЙСТА, УКАЖИТЕ ВАШ E-MAIL</h4>
     <div>
         <p><input type="text" name="done-email" class="done-email" placeholder="Заполните поле и нажмите отправить"/></p>
         <a class="done-email-button">Отправить</a>
