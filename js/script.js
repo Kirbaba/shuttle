@@ -208,8 +208,7 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
                     dots: false,
                     swipeToSlide: true,
                     infinite: false,
-                    initialSlide:imgId,
-                    autoplay:false
+                    initialSlide:imgId
                 });
                 $('.slider-nav').slick({
                     slidesToShow: 9,

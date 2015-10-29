@@ -15,6 +15,11 @@
                             ?>
                             <a class="download_img" href="<?=$img->images; ?>" download >Скачать в HD</a>
                         <?php }
+                        else{
+                            ?>
+                        <span class="text_download">Скачивание в HD доступно только авторизированным пользователям</span>
+                        <?php
+                        }
                         ?>
                         <a class="fb" href="http://www.facebook.com/sharer.php?u=<?= $img->images; ?>" target="_blank">Поделиться фотографией</a>
                         <a class="vk" href="http://vk.com/share.php?url=<?= $img->images; ?>" target="_blank">Поделиться фотографией</a>

@@ -1023,7 +1023,7 @@ img.slick-slide {
     width: 300%;
     text-align: center;
     z-index: 9;
-    height: 27px;
+    height: 32px;
 }
 
 .slick-codepen.slick-initialized.slick-slider {
@@ -1139,4 +1139,9 @@ ul.nostyle{
 
 .header__rightside{
     float: left!important;
+}
+.text_download{
+    display: block;
+    margin-top: -18px;
+    padding-bottom: 5px;
 }
