@@ -209,7 +209,7 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
                     swipeToSlide: true,
                     infinite: false,
                     initialSlide:imgId,
-                    autoplay:true
+                    autoplay:false
                 });
                 $('.slider-nav').slick({
                     slidesToShow: 9,

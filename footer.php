@@ -1,7 +1,7 @@
 
 <footer class="footer">
     <div class="footer__partners">
-        <div class="fotorama" data-width="160" data-height="60" data-nav="false" data-arrows="false" data-loop="true">
+        <div class="fotorama" data-width="160" data-height="60" data-nav="false" data-arrows="false" data-loop="true" data-autoplay="3000">
             <?= do_shortcode('[partners]');?>
         </div>
         <p>Наши<br>партнеры</p>
