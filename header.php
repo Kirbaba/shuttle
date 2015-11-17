@@ -53,7 +53,7 @@
                 </div>
             <?php }else{?>
                 <div class="header__rightside--enter" onclick="VK.Auth.login(onSignon)">
-                    <a>АВТОРИЗИРУЙТЕСЬ ЧЕРЕЗ <i class="fa fa-vk"></i></a>
+                    <a>АВТОРИЗИРУЙТЕСЬ <br />ЧЕРЕЗ <i class="fa fa-vk"></i></a>
                 </div>
             <?php } ?>
 

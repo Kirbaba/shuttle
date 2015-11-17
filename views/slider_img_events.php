@@ -2,11 +2,21 @@
     <div class="slick-codepen">
         <?php
         foreach ($result['img'] as $img) {
-
+            $size = getimagesize($img->images);
+            //prn($size);
             ?>
             <div style="position:relative;">
                 <div class="slide__img_box">
-                    <img src="<?= $img->images; ?>"/>
+
+                    <?php
+                        if($size[0] > $size[1]){
+                            echo "<img src='$img->images' style='margin-top:150px;'/>";
+                        }
+                    else{
+                        echo "<img src='$img->images'/>";
+                    }
+                    ?>
+
                 </div>
                 <div class="social_img_photo_report">
                     <div class="news__item--soc">

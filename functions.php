@@ -817,7 +817,7 @@ add_action('wp_ajax_nopriv_video', 'show_video');
 function show_video(){
     global $wpdb;
     $result = $wpdb->get_results("SELECT video FROM video_report WHERE id=".$_POST['id']);
-    echo "<video width='320' height='240' src='".$result[0]->video."' controls></video>";
+    echo "<video width='720' height='420' src='".$result[0]->video."' controls></video>";
     die();
 }
 

@@ -4,7 +4,7 @@
     </video>
 </a>
 
-<div id="modal_form"><!-- Сaмo oкнo -->
+<div id="modal_form" class="modal_video"><!-- Сaмo oкнo -->
     <span id="modal_close"><i class="fa fa-times"></i></span> <!-- Кнoпкa зaкрыть -->
     <h4>Видео</h4>
     <div class="video_report_html"></div>
