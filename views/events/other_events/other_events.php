@@ -1,7 +1,7 @@
 <div class="other_events">
 
     <a href="{link}&photoreport=1">
-        <img src="{img}">
+        <img class="otherEventsCover" src="{img}">
 
    <span class="name_events">{name}</span>
 

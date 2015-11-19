@@ -154,12 +154,13 @@ html{
 
 
 .other_events{
+    overflow: hidden;
     height: 280px;
     background-color: #000000;
     position: relative;
 }
 
-.other_events a img{
+.otherEventsCover{
     opacity: 0.5;
     width: 100%;
 }

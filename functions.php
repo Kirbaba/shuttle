@@ -1497,22 +1497,16 @@ function get_upcoming_other_event($mon,$id)
 {
     global $wpdb;
     $parser = new Parser();
-    $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC');
+    $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC', 'nopaging' => true);
     $loop = new WP_Query($mypost);
     $event = '';
     $nameMon = name_mon($mon);
-
-  //  $imgGal = get_post_meta($id, "gallery", 1);
-   // $gallery = $wpdb->get_results('SELECT * FROM  `wp_ngg_pictures` WHERE  `galleryid` = '.$imgGal);
-
-   // prn($imgGal);
-   // prn($gallery);
-
+    //prn(count($loop->posts));
     foreach ($loop->posts as $sob) {
         if($sob->ID != $id){
             $photo = new Photo_report();
             //photos
-            $img = $photo->get_img_report($sob->ID);
+            //$img = $photo->get_img_report($sob->ID);
 
             $imgGal = get_post_meta($sob->ID, "gallery", 1);
             $gallery = $wpdb->get_results('SELECT * FROM  `wp_ngg_pictures` WHERE  `galleryid` = '.$imgGal);
@@ -1521,9 +1515,9 @@ function get_upcoming_other_event($mon,$id)
             $coverGal = $wpdb->get_results('SELECT * FROM  `wp_ngg_pictures` WHERE  `pid` = '.$coverGalId[0]->previewpic);
             $coverGal = $coverGalId[0]->path."/".$coverGal[0]->filename;
 
-            $countImg = count($img);
+           // $countImg = count($img);
             $countvideo = count($photo->get_video_report($sob->ID));
-            if($countImg > 0){
+            if(!empty($imgGal)){
                 $photoCover = $photo->get_cover_report($sob->ID);
                 $date = get_post_meta($sob->ID, 'date', TRUE);
                 $date = explode('-', $date);
@@ -1728,8 +1722,11 @@ function count_report($mon){
 
         if($monEvent == $mon) {
             global $wpdb;
-            $cover = $wpdb->get_results("SELECT * FROM cover_report WHERE id_event=$sob->ID");
-            if (!empty($cover)) {
+            $gallery = get_post_meta($sob->ID, 'gallery', TRUE);
+            //prn($gallery);
+            //$cover = $wpdb->get_results("SELECT * FROM cover_report WHERE id_event=$sob->ID");
+            //if (!empty($cover)) {
+            if (!empty($gallery)) {
                 $count++;
             }
 
