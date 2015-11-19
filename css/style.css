@@ -154,7 +154,14 @@ html{
 
 
 .other_events{
+    height: 280px;
+    background-color: #000000;
     position: relative;
+}
+
+.other_events a img{
+    opacity: 0.5;
+    width: 100%;
 }
 
 .other_events:hover img.see_events{

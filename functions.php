@@ -340,6 +340,35 @@ function extra_field_event_circs_entry($post){
 
 <?php
 }
+
+function extraFieldsGallery($post)
+{
+    $galleries = getDataFromDb('wp_ngg_gallery');
+    $curGallery = get_post_meta($post->ID, "gallery", 1);
+    ?>
+    <p>
+        <span>Выберите галерею: </span>
+        <select name="extra[gallery]">
+        <?php
+            foreach($galleries as $gallery){
+                if($curGallery == $gallery['gid']){
+                    echo "<option selected value='".$gallery['gid']."'>".$gallery['title']."</option>";
+                }else{
+                    echo "<option value='".$gallery['gid']."'>".$gallery['title']."</option>";
+                }
+            }
+        ?>
+        </select>
+    </p>
+    <?php
+}
+
+function myExtraFieldsGallery()
+{
+    add_meta_box('extra_gallery', 'Галерея', 'extraFieldsGallery', 'event', 'normal', 'high');
+}
+
+add_action('add_meta_boxes', 'myExtraFieldsGallery', 1);
 /*-------------------- КОНЕЦ СТРАНИЦА СОБЫТИЯ---------------------------*/
 
 define('TM_DIR', get_template_directory(__FILE__));
@@ -820,7 +849,6 @@ function show_video(){
     echo "<video width='720' height='420' src='".$result[0]->video."' controls></video>";
     die();
 }
-
 
 function set_order()
 {
@@ -1428,6 +1456,8 @@ function show_report($id){
     $photo = new Photo_report();
     $img = $photo->get_img_report($id);
     $video = $photo->get_video_report($id);
+    $idGal = get_post_meta($id, 'gallery', 1);
+
     $video_arr = '';
     foreach ($video as $v) {
         $video_arr .=  $parser->parse(TM_DIR . '/views/photo_report/site/video_report.php', array('video' => stripslashes($v->video),'id'=>$v->id), FALSE);
@@ -1440,7 +1470,7 @@ function show_report($id){
         $images .= $parser->parse(TM_DIR . '/views/photo_report/site/show_img.php', array('img'=>$i->images,'link'=>$link,'id'=>$i->id,'count'=>$count), FALSE);
         $count++;
     }
-    $parser->parse(TM_DIR . '/views/photo_report/site/show_photo_report.php', array('img'=>$images,'video'=>$video_arr), true);
+    $parser->render(TM_DIR . '/views/photo_report/site/show_photo_report.php', array('video'=>$video_arr,'id'=>$idGal), true);
 
 }
 
@@ -1465,16 +1495,32 @@ function other_events($mon,$id){
 
 function get_upcoming_other_event($mon,$id)
 {
+    global $wpdb;
     $parser = new Parser();
     $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC');
     $loop = new WP_Query($mypost);
     $event = '';
     $nameMon = name_mon($mon);
 
+  //  $imgGal = get_post_meta($id, "gallery", 1);
+   // $gallery = $wpdb->get_results('SELECT * FROM  `wp_ngg_pictures` WHERE  `galleryid` = '.$imgGal);
+
+   // prn($imgGal);
+   // prn($gallery);
+
     foreach ($loop->posts as $sob) {
         if($sob->ID != $id){
             $photo = new Photo_report();
+            //photos
             $img = $photo->get_img_report($sob->ID);
+
+            $imgGal = get_post_meta($sob->ID, "gallery", 1);
+            $gallery = $wpdb->get_results('SELECT * FROM  `wp_ngg_pictures` WHERE  `galleryid` = '.$imgGal);
+            $countGal = count($gallery);
+            $coverGalId= $wpdb->get_results('SELECT * FROM  `wp_ngg_gallery` WHERE  `gid` = '.$imgGal);
+            $coverGal = $wpdb->get_results('SELECT * FROM  `wp_ngg_pictures` WHERE  `pid` = '.$coverGalId[0]->previewpic);
+            $coverGal = $coverGalId[0]->path."/".$coverGal[0]->filename;
+
             $countImg = count($img);
             $countvideo = count($photo->get_video_report($sob->ID));
             if($countImg > 0){
@@ -1488,11 +1534,15 @@ function get_upcoming_other_event($mon,$id)
                 }
                 if ($date[1][0] == 0) {
                     if ($date[1][1] == $mon) {
-                        $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $photoCover, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countImg,'countvideo'=>$countvideo], TRUE);
+                       // $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $photoCover, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countImg,'countvideo'=>$countvideo], TRUE);
+                        $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $coverGal, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countGal,'countvideo'=>$countvideo],true);
+                       // $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $photoCover, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countImg,'countvideo'=>$countvideo], TRUE);
                     }
                 } else {
                     if ($date[1] == $mon) {
-                        $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $photoCover, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countImg,'countvideo'=>$countvideo], TRUE);
+                     //   $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $photoCover, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countImg,'countvideo'=>$countvideo], TRUE);
+                        $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $coverGal, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countGal,'countvideo'=>$countvideo],true);
+                      //  $event .= $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['name' => $sob->post_title, 'img' => $photoCover, 'number' => $dateEvent, 'link' => $sob->guid, 'namemon' => $nameMon,'linkImg'=>get_template_directory_uri(),'countPhoto'=>$countImg,'countvideo'=>$countvideo], TRUE);
                     }
                 }
             }
