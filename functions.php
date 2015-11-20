@@ -1382,15 +1382,15 @@ function photo_report_admin_page(){
         if ($_GET['action'] == 'add_photo_report') {
             if(isset($_POST['photo_report_save'])){
                 $photo = new Photo_report();
-                if(isset($_POST['kv_multiple_attachments_img'])) {
+               /* if(isset($_POST['kv_multiple_attachments_img'])) {
                     $photo->upload_img($_POST['id_event'], $_POST['kv_multiple_attachments_img']);
-                }
+                }*/
                 if(isset($_POST['kv_multiple_attachments_vid'])){
                     $photo->upload_vid($_POST['id_event'], $_POST['kv_multiple_attachments_vid']);
                 }
-                if(isset($_POST['cover_img'])){
+                /*if(isset($_POST['cover_img'])){
                     $photo->upload_cover($_POST['id_event'],$_POST['cover_img']);
-                }
+                }*/
                 print_photo_report();
             }else{
                 $parser->parse(TM_DIR . '/views/photo_report/photo_report_add.php', array(), TRUE);
@@ -1423,10 +1423,15 @@ function print_photo_report(){
     $parser = new Parser();
     $photo = new Photo_report();
     $id = $photo->get_img_event();
+
     $event = '';
     foreach($id as $p){
         $k = get_post($p);
-        $event .= $parser->parse(TM_DIR . '/views/photo_report/list_photo_report.php', ['name'=>$k->post_title,'ID'=>$k->ID], false);
+        $videos = $photo->get_video_report($p);
+       // prn($videos);
+        if(!empty($videos)){
+            $event .= $parser->render(TM_DIR . '/views/photo_report/list_photo_report.php', ['name'=>$k->post_title,'ID'=>$k->ID,'video' => $videos], false);
+        }
     }
     $parser->parse(TM_DIR . '/views/photo_report/photo_report.php', ['events'=>$event], TRUE);
 }
@@ -1445,9 +1450,6 @@ function get_event_admin(){
 
         $events = json_encode($events);
         echo  $events;
-
-
-
 die();
 }
 
@@ -1522,7 +1524,7 @@ function get_upcoming_other_event($mon,$id,$count=0)
             if(!empty($imgGal)){
                 if($c<$count){
                     $c++;
-                }else{
+                }else if($count !=0 ){
                     continue;
                 };
                // $photoCover = $photo->get_cover_report($sob->ID);

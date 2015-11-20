@@ -158,7 +158,7 @@ $(document).ready(function() { // вся мaгия пoсле зaгрузки с�
     $(document).on('click','.done-email-button', function(){
         var block = $(this).parent();
         var mail = $('input[name="done-email"]').val();
-        console.log(mail);
+        //console.log(mail);
         $.ajax({
             type: "POST",
             url: ajaxurl, //url, к которому обращаемся

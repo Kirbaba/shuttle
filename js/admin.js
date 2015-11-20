@@ -311,18 +311,13 @@ $(document).ready(function ($) {
             success:function(data){
                 if (data !=="null"){
                     var obj = jQuery.parseJSON(data);
+                    console.log(obj);
                     $('#id_event').val(obj.ID);
-                    $('.oneEvent').html('<p>В этот день мероприятие: ' + obj.post_title + '</p> <p>' +
-                    '' +
-                    '<div class="col-lg-12">'+
-                    '<img src="" alt="" class="media">'+
-                    '<button class="btn btn-info media-upload"><span class="glyphicon glyphicon-picture"> Выбрать изображение</span></button>'+
-                    '<input type="hidden" class="media-img" name="cover_img" value="">'+
-                    '</div>' +
-                    '<p><button class="multiSelectImg">Выберите изображения</button></p> <div class="multipleImg"></div> <br / ><p><button class="multiSelectVid">Выберите видео</button></p> <div class="multipleVid"></div><button name="photo_report_save">Сохранить фотоотчет</button>');
+                    $('.oneEvent').html('<h4>В этот день мероприятие: ' + obj.post_title + '</h4> <p>' +
+                    '<div class="row"><p><button class="btn btn-default multiSelectVid">Выберите видео</button></p></div> <div class="row"><div class="multipleVid"></div><button class="btn btn-success" name="photo_report_save">Сохранить фотоотчет</button></div>');
                 }
                 else{
-                    $('.oneEvent').html('<p>В этот день мероприятий нет</p>');
+                    $('.oneEvent').html('<h4>В этот день мероприятий нет</h4>');
                 }
 
             }
@@ -500,7 +495,7 @@ $(document).ready(function ($) {
 
     /*----------------END BANKET----------------------------*/
 
-    var custom_uploader;
+    /*var custom_uploader;
     $(document).on('click','.multiSelectImg', function(e){
         e.preventDefault();
         //If the uploader object has already been created, reopen the dialog
@@ -524,7 +519,7 @@ $(document).ready(function ($) {
             });
         });
         custom_uploader.open();
-    });
+    });*/
     var custom_videouploader;
     $(document).on('click','.multiSelectVid', function(e){
         e.preventDefault();
@@ -535,9 +530,9 @@ $(document).ready(function ($) {
         }
         //Extend the wp.media object
         custom_videouploader = wp.media.frames.file_frame = wp.media({
-            title: 'Choose Image',
+            title: 'Выберите видео',
             button: {
-                text: 'Choose Image'
+                text: 'Выберите видеофайлы'
             },
             multiple: true
         });
@@ -551,7 +546,7 @@ $(document).ready(function ($) {
         custom_videouploader.open();
     });
 
-    jQuery('.selectCover').click(function() {
+    /*jQuery('.selectCover').click(function() {
         var send_attachment_bkp = wp.media.editor.send.attachment;
         wp.media.editor.send.attachment = function(props, attachment) {
             jQuery('.selectCover').attr('src', attachment.url);
@@ -561,7 +556,7 @@ $(document).ready(function ($) {
         }
         wp.media.editor.open();
         return false;
-    });
+    });*/
 });
 
 
