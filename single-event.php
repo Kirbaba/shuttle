@@ -84,7 +84,7 @@ get_header(); // Пoдключaeм хeдeр?>
 
                     </div>
                 </div>
-               <?php echo get_upcoming_other_event($mon,$post->ID);?>
+               <?php echo get_upcoming_other_event($mon,$post->ID,2);?>
                 <div class="postIdEvents" post-id="<?=$post->ID;?>"></div>
             </div>
         </div>

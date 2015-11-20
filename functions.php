@@ -1493,20 +1493,22 @@ function other_events($mon,$id){
     $parser->parse(TM_DIR . '/views/events/other_events/other_events.php', ['event' => $event],true);
 }
 
-function get_upcoming_other_event($mon,$id)
+function get_upcoming_other_event($mon,$id,$count=0)
 {
+   // prn($count);
     global $wpdb;
     $parser = new Parser();
     $mypost = array('post_type' => 'event', 'orderby' => 'meta_value', 'meta_key' => 'date', 'order' => 'ASC', 'nopaging' => true);
     $loop = new WP_Query($mypost);
     $event = '';
     $nameMon = name_mon($mon);
-    //prn(count($loop->posts));
+
+    $c = 0;
+
     foreach ($loop->posts as $sob) {
         if($sob->ID != $id){
             $photo = new Photo_report();
             //photos
-            //$img = $photo->get_img_report($sob->ID);
 
             $imgGal = get_post_meta($sob->ID, "gallery", 1);
             $gallery = $wpdb->get_results('SELECT * FROM  `wp_ngg_pictures` WHERE  `galleryid` = '.$imgGal);
@@ -1518,7 +1520,12 @@ function get_upcoming_other_event($mon,$id)
            // $countImg = count($img);
             $countvideo = count($photo->get_video_report($sob->ID));
             if(!empty($imgGal)){
-                $photoCover = $photo->get_cover_report($sob->ID);
+                if($c<$count){
+                    $c++;
+                }else{
+                    continue;
+                };
+               // $photoCover = $photo->get_cover_report($sob->ID);
                 $date = get_post_meta($sob->ID, 'date', TRUE);
                 $date = explode('-', $date);
                 if ($date[2][0] == 0) {
