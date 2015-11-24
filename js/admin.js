@@ -540,7 +540,7 @@ $(document).ready(function ($) {
             var selection = custom_videouploader.state().get('selection');
             selection.map( function( attachment ) {
                 attachment = attachment.toJSON();
-                $(".multipleVid").append("<div class='photo_report_vid_wr'><video src='"+attachment.url+"' width='320' height='240' preload></video><input type='hidden' name='kv_multiple_attachments_vid[]' id='' value='"+attachment.url+"'/><span class='dell'>x</span></div>");
+                $(".multipleVid").append("<div class='photo_report_vid_wr'><video src='"+attachment.url+"' width='320' height='240' preload></video><input type='hidden' name='kv_multiple_attachments_vid[]' id='' value='"+attachment.url+"'/><span class='dell delFromBlock'>x</span></div>");
             });
         });
         custom_videouploader.open();
@@ -559,6 +559,11 @@ $(document).ready(function ($) {
     });*/
 
     //удаление видео из базы
+    $(document).on('click','.delFromBlock', function(){
+        var block = $(this).parent();
+        block.remove();
+    });
+
     $(document).on('click','.delFromDb', function(){
         var id = $(this).attr('data-id');
         var block = $(this).parent();

@@ -1364,7 +1364,7 @@ function get_upcoming_event($mon,$id)
 }
 
 function photo_report_menu_page(){
-    add_menu_page( 'Фоторепортаж', 'Фоторепортаж', 'administrator', 'photo_report', 'photo_report_admin_page' );
+    add_menu_page( 'Видеоропортаж', 'Видеорепортаж', 'administrator', 'photo_report', 'photo_report_admin_page' );
 }
 
 add_action('admin_menu', 'photo_report_menu_page');
@@ -1913,6 +1913,6 @@ function delVidFromDb(){
     if(isset($id)){
         $wpdb->delete('video_report',array( 'id' => $id ));
     }
-    
+
     die();
 }
