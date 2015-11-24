@@ -1900,3 +1900,19 @@ function doneEmail(){
 
     die();
 }
+
+/*собираем почты пользователей*/
+add_action('wp_ajax_deleteVideo', 'delVidFromDb');
+add_action('wp_ajax_nopriv_deleteVideo', 'delVidFromDb');
+
+function delVidFromDb(){
+    global $wpdb;
+
+    $id = $_POST['id'];
+
+    if(isset($id)){
+        $wpdb->delete('video_report',array( 'id' => $id ));
+    }
+    
+    die();
+}

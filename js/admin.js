@@ -557,6 +557,21 @@ $(document).ready(function ($) {
         wp.media.editor.open();
         return false;
     });*/
+
+    //удаление видео из базы
+    $(document).on('click','.delFromDb', function(){
+        var id = $(this).attr('data-id');
+        var block = $(this).parent();
+        $.ajax({
+            type:'POST',
+            url:ajaxurl,
+            data:'action=deleteVideo&id='+id,
+            success:function(data){
+                //   console.log(data);
+                block.remove();
+            }
+        });
+    })
 });
 
 
