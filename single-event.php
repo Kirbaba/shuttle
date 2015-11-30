@@ -45,7 +45,7 @@ get_header(); // Пoдключaeм хeдeр?>
                 <h2><?php the_title(); ?></h2>
                 <h5><?=$number?> <?=name_mon($mon)?></h5>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#description" class="events-page__head--but <?=$description?> "  data-toggle="tab">Описание</a></li>
+                    <li><a href="#description" class="events-page__head--but <?=$description?> "  data-toggle="tab">Описание</a></li>
 
                 <?php
                     $photo = new Photo_report();
